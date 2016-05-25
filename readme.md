@@ -1,3 +1,24 @@
+# Sponsorenlauf-App
+
+## Systemanforderungen
+### Laravel
+PHP >= 5.5.9
+OpenSSL PHP Extension
+PDO PHP Extension
+Mbstring PHP Extension
+Tokenizer PHP Extension
+
+
+## Installation
+Ordner auf den Server kopieren.
+Dem Web-Server Nutzer Schreibrechte für die Verzeichnisse "storage" und "bootstrap/cache" gewähren.
+VirtuellenHost einrichten auf das Verzeichnis "public".
+Die Datei ".env.example" kopieren und in ".env" umbenennen.
+Einstellungen für DB,URL,... vornehmen.
+php artisan key:generate
+
+
+
 # Laravel PHP Framework
 
 [![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
