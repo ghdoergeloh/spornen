@@ -10,6 +10,8 @@ Tokenizer PHP Extension
 
 
 ## Installation
+### SponRun
+$ cd $SPONRUN_HOME
 Ordner auf den Server kopieren.
 Dem Web-Server Nutzer Schreibrechte für die Verzeichnisse "storage" und "bootstrap/cache" gewähren.
 VirtuellenHost einrichten auf das Verzeichnis "public".
@@ -17,6 +19,15 @@ Die Datei ".env.example" kopieren und in ".env" umbenennen.
 Einstellungen für DB,URL,... vornehmen.
 php artisan key:generate
 
+
+### Laravel
+#### Composer installieren
+$ cd /usr/src
+$ curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
+#### Laravel installieren
+$ cd $SPONRUN_HOME
+$ composer update
+$ php artisan key:generate
 
 
 # Laravel PHP Framework

@@ -148,6 +148,7 @@ use AuthenticatesAndRegistersUsers,
 		}
 
 		$credentials = $this->getCredentials($request);
+		$credentials['confirmed'] = true;
 
 		if (Auth::guard($this->getGuard())->attempt($credentials, $request->has('remember'))) {
 			return $this->handleUserWasAuthenticated($request, $throttles);
