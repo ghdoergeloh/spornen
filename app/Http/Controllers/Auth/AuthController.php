@@ -63,7 +63,8 @@ use AuthenticatesAndRegistersUsers,
 					'postcode' => 'required|numeric|max:99999',
 					'city' => 'required|max:255',
 					'birthday' => 'required|date',
-					'phone' => 'required|numeric',
+					'gender' => 'required|in:m,f',
+					'phone' => 'required|phone:AUTO,DE',
 					'email' => 'required|email|max:255|unique:users',
 					'password' => 'required|min:6|confirmed',
 		]);
@@ -85,8 +86,11 @@ use AuthenticatesAndRegistersUsers,
 					'postcode' => $data['postcode'],
 					'city' => $data['city'],
 					'birthday' => strtotime($data['birthday']),
+					'gender' => $data['gender'],
+					'phone' => $data['phone'],
 					'email' => $data['email'],
 					'password' => bcrypt($data['password']),
+					'confirmed' => false
 		]);
 	}
 
@@ -103,7 +107,7 @@ use AuthenticatesAndRegistersUsers,
 		$validator = $this->validator($request->all());
 		Log::debug("Validating register Input");
 		if ($validator->fails()) {
-		Log::debug("Validation failed");
+			Log::debug("Validation failed");
 			$this->throwValidationException(
 					$request, $validator
 			);

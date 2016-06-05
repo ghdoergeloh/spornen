@@ -17,7 +17,10 @@ Dem Web-Server Nutzer Schreibrechte für die Verzeichnisse "storage" und "bootst
 VirtuellenHost einrichten auf das Verzeichnis "public".
 Die Datei ".env.example" kopieren und in ".env" umbenennen.
 Einstellungen für DB,URL,... vornehmen.
-php artisan key:generate
+App-Key erstellen
+$ php artisan key:generate
+Datenbank erzeugen
+$ php artisan migrate
 
 
 ### Laravel
