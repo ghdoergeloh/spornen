@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Log;
 use App\Http\Controllers\Controller;
-use App\Http\Requests;
 use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Validator;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Contracts\Auth\UserProvider;
 
 class AuthController extends Controller
 {
@@ -26,16 +29,7 @@ class AuthController extends Controller
 	 */
 
 use AuthenticatesAndRegistersUsers,
-	ThrottlesLogins {
-		
-	}
-
-	/**
-	 * Where to redirect users after login / registration.
-	 *
-	 * @var string
-	 */
-	protected $redirectTo = '/';
+	ThrottlesLogins;
 
 	/**
 	 * Create a new authentication controller instance.
@@ -51,7 +45,7 @@ use AuthenticatesAndRegistersUsers,
 	 * Get a validator for an incoming registration request.
 	 *
 	 * @param  array  $data
-	 * @return \Illuminate\Contracts\Validation\Validator
+	 * @return Validator
 	 */
 	protected function validator(array $data)
 	{
@@ -76,7 +70,7 @@ use AuthenticatesAndRegistersUsers,
 	 * @param  array  $data
 	 * @return User
 	 */
-	protected function create(array $data)
+	protected function create(array $data, $confirmed, $confirmation_code)
 	{
 		return User::create([
 					'firstname' => $data['firstname'],
@@ -90,17 +84,16 @@ use AuthenticatesAndRegistersUsers,
 					'phone' => $data['phone'],
 					'email' => $data['email'],
 					'password' => bcrypt($data['password']),
-					'confirmed' => false
+					'confirmed' => $confirmed,
+					'confirmation_code' => $confirmation_code
 		]);
 	}
-
-	//====
 
 	/**
 	 * Handle a registration request for the application.
 	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @return \Illuminate\Http\Response
+	 * @param  Request  $request
+	 * @return Response
 	 */
 	public function register(Request $request)
 	{
@@ -113,20 +106,63 @@ use AuthenticatesAndRegistersUsers,
 			);
 		}
 		Log::debug("Validation successful");
-		$user = $this->create($request->all());
+
+		$confirmation_code = str_random(30);
+
+		$user = $this->create($request->all(), false, $confirmation_code);
 		Log::debug($user);
+
+		Mail::send('auth.emails.verify', ['confirmation_code' => $confirmation_code, 'email' => $user->email], function($message) use ($user) {
+			$message->to($user->email, $user->firstname + $user->lastname)
+					->subject('Verify your email address');
+		});
+
+		return redirect($this->redirectPath());
+	}
+
+	public function confirm(Request $request, $confirmation_code)
+	{
+		if (is_null($confirmation_code)) {
+			return redirect($this->redirectPath());
+		}
+
+		$email = $request->input('email');
+
+		$credentials = [
+			'email' => $email,
+			'confirmation_code' => $confirmation_code
+		];
+
+//		Log::debug("Validating confirm Data");
+//		$validator = $this->validator($credentials);
+//
+//		if ($validator->fails()) {
+//			Log::debug("Validation failed");
+//			$this->throwValidationException(
+//					$request, $validator
+//			);
+//		}
+//		Log::debug("Validation successful");
+
+		$user = Auth::guard($this->getGuard())->getProvider()->retrieveByCredentials($credentials);
+
+		if (is_null($user)) {
+			return redirect($this->redirectPath());
+		}
+
+		$user->confirmed = 1;
+		$user->confirmation_code = null;
+		$user->save();
 		Auth::guard($this->getGuard())->login($user);
 
 		return redirect($this->redirectPath());
 	}
 
-	//===
-
 	/**
 	 * Handle a login request to the application.
 	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @return \Illuminate\Http\Response
+	 * @param  Request  $request
+	 * @return Response
 	 */
 	public function login(Request $request)
 	{

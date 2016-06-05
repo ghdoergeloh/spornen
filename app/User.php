@@ -16,8 +16,8 @@ class User extends Authenticatable
 		'firstname', 'lastname',
 		'street', 'housenumber',
 		'postcode', 'city',
-		'birthday', 'phone', 
-		'email','password',
+		'birthday', 'phone',
+		'email', 'password', 'confirmation_code'
 	];
 
 	/**
@@ -26,7 +26,7 @@ class User extends Authenticatable
 	 * @var array
 	 */
 	protected $hidden = [
-		'password', 'remember_token',
+		'password', 'remember_token', 'confirmation_code'
 	];
 	protected $dates = [
 		'created_at', 'updated_at', 'birthday'
