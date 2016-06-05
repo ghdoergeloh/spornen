@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Log;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\User;
@@ -55,7 +56,14 @@ use AuthenticatesAndRegistersUsers,
 	protected function validator(array $data)
 	{
 		return Validator::make($data, [
-					'name' => 'required|max:255',
+					'firstname' => 'required|max:255',
+					'lastname' => 'required|max:255',
+					'street' => 'required|max:255',
+					'housenumber' => 'required|integer|max:255',
+					'postcode' => 'required|numeric|max:99999',
+					'city' => 'required|max:255',
+					'birthday' => 'required|date',
+					'phone' => 'required|numeric',
 					'email' => 'required|email|max:255|unique:users',
 					'password' => 'required|min:6|confirmed',
 		]);
@@ -70,7 +78,13 @@ use AuthenticatesAndRegistersUsers,
 	protected function create(array $data)
 	{
 		return User::create([
-					'name' => $data['name'],
+					'firstname' => $data['firstname'],
+					'lastname' => $data['lastname'],
+					'street' => $data['street'],
+					'housenumber' => $data['housenumber'],
+					'postcode' => $data['postcode'],
+					'city' => $data['city'],
+					'birthday' => strtotime($data['birthday']),
 					'email' => $data['email'],
 					'password' => bcrypt($data['password']),
 		]);
@@ -87,44 +101,22 @@ use AuthenticatesAndRegistersUsers,
 	public function register(Request $request)
 	{
 		$validator = $this->validator($request->all());
-
+		Log::debug("Validating register Input");
 		if ($validator->fails()) {
+		Log::debug("Validation failed");
 			$this->throwValidationException(
 					$request, $validator
 			);
 		}
+		Log::debug("Validation successful");
 		$user = $this->create($request->all());
+		Log::debug($user);
 		Auth::guard($this->getGuard())->login($user);
 
 		return redirect($this->redirectPath());
 	}
 
 	//===
-
-	/**
-	 * Get the post register / login redirect path.
-	 *
-	 * @return string
-	 */
-	public function redirectPath()
-	{
-		if (property_exists($this, 'redirectPath')) {
-			return $this->redirectPath;
-		}
-
-		return property_exists($this, 'redirectTo') ? $this->redirectTo : '/home';
-	}
-
-	/**
-	 * Handle a login request to the application.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @return \Illuminate\Http\Response
-	 */
-	public function postLogin(Request $request)
-	{
-		return $this->login($request);
-	}
 
 	/**
 	 * Handle a login request to the application.
@@ -162,53 +154,6 @@ use AuthenticatesAndRegistersUsers,
 		}
 
 		return $this->sendFailedLoginResponse($request);
-	}
-
-	/**
-	 * Send the response after the user was authenticated.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @param  bool  $throttles
-	 * @return \Illuminate\Http\Response
-	 */
-	protected function handleUserWasAuthenticated(Request $request, $throttles)
-	{
-		if ($throttles) {
-			$this->clearLoginAttempts($request);
-		}
-
-		if (method_exists($this, 'authenticated')) {
-			return $this->authenticated($request, Auth::guard($this->getGuard())->user());
-		}
-
-		return redirect()->intended($this->redirectPath());
-	}
-
-	/**
-	 * Get the failed login response instance.
-	 *
-	 * @param \Illuminate\Http\Request  $request
-	 * @return \Illuminate\Http\Response
-	 */
-	protected function sendFailedLoginResponse(Request $request)
-	{
-		return redirect()->back()
-						->withInput($request->only($this->loginUsername(), 'remember'))
-						->withErrors([
-							$this->loginUsername() => $this->getFailedLoginMessage(),
-		]);
-	}
-
-	/**
-	 * Log the user out of the application.
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
-	public function logout()
-	{
-		Auth::guard($this->getGuard())->logout();
-
-		return redirect(property_exists($this, 'redirectAfterLogout') ? $this->redirectAfterLogout : '/');
 	}
 
 }

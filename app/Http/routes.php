@@ -10,10 +10,10 @@
  * | and give it the controller to call when that URI is requested.
  * |
  */
-Route::get ( '/', function () {
-	return view ( 'index' );
-} );
+Route::get('/', function () {
+	return view('index');
+});
 
-Route::auth ();
+Route::auth();
 
-Route::get ( '/home', 'HomeController@showHomeView' );
+Route::get('/home', 'HomeController@showHomeView');

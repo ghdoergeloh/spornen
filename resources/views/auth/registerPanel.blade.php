@@ -10,7 +10,7 @@
 				<div class="col-md-6">
 					<input id="firstname" type="text" class="form-control" name="firstname" value="{{ old('firstname') }}">
 
-					@if ($errors->has('name'))
+					@if ($errors->has('firstname'))
 					<span class="help-block">
 						<strong>{{ $errors->first('firstname') }}</strong>
 					</span>
@@ -24,7 +24,7 @@
 				<div class="col-md-6">
 					<input id="lastname" type="text" class="form-control" name="lastname" value="{{ old('lastname') }}">
 
-					@if ($errors->has('name'))
+					@if ($errors->has('lastname'))
 					<span class="help-block">
 						<strong>{{ $errors->first('lastname') }}</strong>
 					</span>
@@ -32,21 +32,21 @@
 				</div>
 			</div>
 
-			<div class="form-group{{ $errors->has('street') || $errors->has('number') ? ' has-error' : '' }}">
+			<div class="form-group{{ $errors->has('street') || $errors->has('housenumber') ? ' has-error' : '' }}">
 				<label for="street" class="col-md-4 control-label">Straße, Nr.</label>
 				<div class="col-md-6">
-					<input id="street" type="text" class="form-control" name="street" value="{{ old('street') }}" style="width: calc( 80% - 1px ); display: inline;">
-					<input id="number" type="number" class="form-control" name="number" value="{{ old('number') }}" style="width: calc( 20% - 2px ); display: inline;">
+					<input id="street" type="text" class="form-control" name="street" value="{{ old('street') }}" style="width: calc( 70% - 1px ); display: inline-block;">
+					<input id="housenumber" type="number" class="form-control" name="housenumber" value="{{ old('housenumber') }}" style="width: calc( 30% - 2px ); display: inline-block;">
 
-					@if ($errors->has('name'))
+					@if ($errors->has('street'))
 					<span class="help-block">
 						<strong>{{ $errors->first('street') }}</strong>
 					</span>
 					@endif
 
-					@if ($errors->has('name'))
+					@if ($errors->has('housenumber'))
 					<span class="help-block">
-						<strong>{{ $errors->first('number') }}</strong>
+						<strong>{{ $errors->first('housenumber') }}</strong>
 					</span>
 					@endif
 				</div>
@@ -55,16 +55,16 @@
 			<div class="form-group{{ $errors->has('postcode') || $errors->has('city') ? ' has-error' : '' }}">
 				<label for="postcode" class="col-md-4 control-label">PLZ, Ort</label>
 
-				<div class="col-md-6">
-					<input id="postcode" type="text" class="form-control" name="postcode" value="{{ old('postcode') }}" style="width: calc( 30% - 1px ); display: inline;">
-					<input id="city" type="text" class="form-control" name="city" value="{{ old('city') }}" style="width: calc( 70% - 2px ); display: inline;">
+				<div class="col-md-6 " >
+					<input id="postcode" type="text" class="form-control" name="postcode" value="{{ old('postcode') }}" style="width: calc( 30% - 2px ); display: inline-block;">
+					<input id="city" type="text" class="form-control" name="city" value="{{ old('city') }}" style="width: calc( 70% - 1px ); display: inline-block;">
 
-					@if ($errors->has('name'))
+					@if ($errors->has('postcode'))
 					<span class="help-block">
 						<strong>{{ $errors->first('postcode') }}</strong>
 					</span>
 					@endif
-					@if ($errors->has('name'))
+					@if ($errors->has('city'))
 					<span class="help-block">
 						<strong>{{ $errors->first('city') }}</strong>
 					</span>
@@ -72,15 +72,40 @@
 				</div>
 			</div>
 
-			<div class="form-group{{ $errors->has('birthdate') ? ' has-error' : '' }}">
-				<label for="birthdate" class="col-md-4 control-label">Geburtstag</label>
+			<div class="form-group{{ $errors->has('birthday') ? ' has-error' : '' }}">
+				<label for="birthday" class="col-md-4 control-label">Geburtstag</label>
 
 				<div class="col-md-6">
-					<input id="birthdate" type="date" class="form-control" name="birthdate" value="{{ old('birthdate') }}">
+					<input id="birthday" type="date" class="form-control" name="birthday" value="{{ old('birthday') }}">
 
-					@if ($errors->has('name'))
+					@if ($errors->has('birthday'))
 					<span class="help-block">
-						<strong>{{ $errors->first('birthdate') }}</strong>
+						<strong>{{ $errors->first('birthday') }}</strong>
+					</span>
+					@endif
+				</div>
+			</div>
+
+			<div class="form-group{{ $errors->has('gender') ? ' has-error' : '' }}">
+				<div class="col-md-10 col-md-offset-4">
+					<div class="radio-inline">
+						<label>
+							<input id="male" type="radio" class="" name="gender" value="m"
+								   @if ( old('gender') == "m") checked @endif>
+								   Mann
+						</label>
+					</div>
+					<div class="radio-inline">
+						<label>
+							<input id="female" type="radio" class="" name="gender" value="f"
+								   @if ( old('gender') == "f") checked @endif>
+								   Frau
+						</label>
+					</div>
+
+					@if ($errors->has('gender'))
+					<span class="help-block">
+						<strong>{{ $errors->first('gender') }}</strong>
 					</span>
 					@endif
 				</div>
@@ -95,6 +120,20 @@
 					@if ($errors->has('email'))
 					<span class="help-block">
 						<strong>{{ $errors->first('email') }}</strong>
+					</span>
+					@endif
+				</div>
+			</div>
+
+			<div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
+				<label for="phone" class="col-md-4 control-label">E-Mail Address</label>
+
+				<div class="col-md-6">
+					<input id="phone" type="phone" class="form-control" name="phone" value="{{ old('phone') }}">
+
+					@if ($errors->has('phone'))
+					<span class="help-block">
+						<strong>{{ $errors->first('phone') }}</strong>
 					</span>
 					@endif
 				</div>
