@@ -35,9 +35,11 @@
 		</div>
 
 		<!-- JavaScripts -->
-		<script src="{{url('/js/jquery-1.12.4.min.js')}}"></script>
+		<script src="{{url('/js/jquery-1.12.4.min.js')}}"
+				integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
+				crossorigin="anonymous">></script>
 		<script src="{{url('/js/bootstrap.min.js')}}"
 				integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
-		crossorigin="anonymous"></script>
+				crossorigin="anonymous"></script>
 	</body>
 </html>
