@@ -18,3 +18,7 @@ Route::auth();
 Route::get('register/verify/{confirmation_code?}', 'Auth\AuthController@confirm');
 
 Route::get('/home', 'HomeController@showHomeView');
+
+Route::get('/sponsors/list', function() {
+	return view('/sponsors/list');
+});
