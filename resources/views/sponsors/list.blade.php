@@ -25,66 +25,23 @@
 							<th></th>
 							<th></th>
 						</tr>
+						@foreach ($sponsors as $sponsor)
 						<tr>
-							<td>Penner</td>
-							<td>Willi</td>
-							<td>Musterstraße</td>
-							<td>65</td>
-							<td>61841</td>
-							<td>Musterort</td>
-							<td>01574/4685315</td>
-							<td>willi.penner@to-all-nations.de</td>
-							<td>5€</td>
-							<td></td>
+							<td>{{ $sponsor->lastname }}</td>
+							<td>{{ $sponsor->firstname }}</td>
+							<td>{{ $sponsor->street }}</td>
+							<td>{{ $sponsor->housnumber }}</td>
+							<td>{{ $sponsor->postcode }}</td>
+							<td>{{ $sponsor->city }}</td>
+							<td>{{ $sponsor->phone }}</td>
+							<td>{{ $sponsor->email }}</td>
+							<td>{{ $sponsor->donation_per_lap }}</td>
+							<td>{{ $sponsor->donation_static_max }}</td>
 							<td><a class="btn btn-success">Details</a></td>
 							<td><a class="btn btn-default">Bearbeiten</a></td>
 							<td><a class="btn btn-danger">Löschen</a></td>
 						</tr>
-						<tr>
-							<td>Penner</td>
-							<td>Willi</td>
-							<td>Musterstraße</td>
-							<td>65</td>
-							<td>61841</td>
-							<td>Musterort</td>
-							<td>01574/4685315</td>
-							<td>willi.penner@to-all-nations.de</td>
-							<td>5€</td>
-							<td></td>
-							<td><a class="btn btn-success">Details</a></td>
-							<td><a class="btn btn-default">Bearbeiten</a></td>
-							<td><a class="btn btn-danger">Löschen</a></td>
-						</tr>
-						<tr>
-							<td>Penner</td>
-							<td>Willi</td>
-							<td>Musterstraße</td>
-							<td>65</td>
-							<td>61841</td>
-							<td>Musterort</td>
-							<td>01574/4685315</td>
-							<td>willi.penner@to-all-nations.de</td>
-							<td></td>
-							<td>50€</td>
-							<td><a class="btn btn-success">Details</a></td>
-							<td><a class="btn btn-default">Bearbeiten</a></td>
-							<td><a class="btn btn-danger">Löschen</a></td>
-						</tr>
-						<tr>
-							<td>Penner</td>
-							<td>Willi</td>
-							<td>Musterstraße</td>
-							<td>65</td>
-							<td>61841</td>
-							<td>Musterort</td>
-							<td>01574/4685315</td>
-							<td>willi.penner@to-all-nations.de</td>
-							<td>5€</td>
-							<td></td>
-							<td><a class="btn btn-success">Details</a></td>
-							<td><a class="btn btn-default">Bearbeiten</a></td>
-							<td><a class="btn btn-danger">Löschen</a></td>
-						</tr>
+						@endforeach
 					</table>
                 </div>
             </div>
