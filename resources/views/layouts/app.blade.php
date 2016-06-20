@@ -37,7 +37,7 @@
 
 		<!-- JavaScripts -->
 		<script src="{{url('/js/jquery-1.12.4.min.js')}}"
-				integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
+				integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
 				crossorigin="anonymous">></script>
 		<script src="{{url('/js/bootstrap.min.js')}}"
 				integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"

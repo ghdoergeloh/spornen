@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-- Home
+- Sponsoren
 @endsection
 @section('content')
 <div class="container">
