@@ -14,8 +14,8 @@ class CreateSponsorsTable extends Migration
     {
         Schema::create('sponsors', function (Blueprint $table) {
 			$table->increments('id');
-			$table->integer('run_participations_id')->unsigned();
-			$table->foreign('run_participations_id')->references('id')->on('run_participations');
+			$table->integer('run_participation_id')->unsigned();
+			$table->foreign('run_participation_id')->references('id')->on('run_participations');
 			$table->integer('ext_personnel_no')->nullable();
 			$table->string('firstname');
 			$table->string('lastname');

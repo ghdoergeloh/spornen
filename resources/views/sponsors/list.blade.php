@@ -37,8 +37,8 @@
 							<td>{{ $sponsor->email }}</td>
 							<td>{{ $sponsor->donation_per_lap }}</td>
 							<td>{{ $sponsor->donation_static_max }}</td>
-							<td><a class="btn btn-success">Details</a></td>
-							<td><a class="btn btn-default">Bearbeiten</a></td>
+							<td><a class="btn btn-default">Details</a></td>
+							<td><a class="btn btn-success" href="{{url('sponsors/edit').'?sponsor='.urlencode($sponsor->id) }}">Bearbeiten</a></td>
 							<td><a class="btn btn-danger">Löschen</a></td>
 						</tr>
 						@endforeach
