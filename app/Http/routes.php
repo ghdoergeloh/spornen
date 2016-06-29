@@ -19,5 +19,4 @@ Route::get('register/verify/{confirmation_code?}', 'Auth\AuthController@confirm'
 
 Route::get('/home', 'HomeController@showHomeView');
 
-Route::get('/sponsors/list', 'Sponsor\SponsorController@showListView');
-Route::get('/sponsors/edit', 'Sponsor\SponsorController@showEditView');
+Route::resource('/sponsor', 'SponsorController');

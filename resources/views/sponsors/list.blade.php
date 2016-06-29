@@ -37,9 +37,13 @@
 							<td>{{ $sponsor->email }}</td>
 							<td>{{ $sponsor->donation_per_lap }}</td>
 							<td>{{ $sponsor->donation_static_max }}</td>
-							<td><a class="btn btn-default">Details</a></td>
-							<td><a class="btn btn-success" href="{{url('sponsors/edit').'?sponsor='.urlencode($sponsor->id) }}">Bearbeiten</a></td>
-							<td><a class="btn btn-danger">Löschen</a></td>
+							<td><a class="btn btn-default" href="{{route('sponsor.show', $sponsor->id) }}">Details</a></td>
+							<td><a class="btn btn-success" href="{{route('sponsor.edit', $sponsor->id) }}">Bearbeiten</a></td>
+							<td>
+								{!! Form::open(['method' => 'DELETE', 'route' => ['sponsor.destroy',$sponsor->id]]) !!}
+								{!! Form::submit('Löschen', [ 'class' => "btn btn-danger"]) !!}
+								{!! Form::close() !!}
+							</td>
 						</tr>
 						@endforeach
 					</table>
