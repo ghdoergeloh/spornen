@@ -15,6 +15,7 @@ class CreateSponsoredRunsTable extends Migration
 		Schema::create('sponsored_runs', function (Blueprint $table) {
 			$table->increments('id');
 			$table->datetime('begin');
+			$table->string('name');
 			$table->timestamps();
 		});
     }

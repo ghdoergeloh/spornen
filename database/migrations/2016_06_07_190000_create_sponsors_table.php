@@ -16,6 +16,8 @@ class CreateSponsorsTable extends Migration
 			$table->increments('id');
 			$table->integer('run_participation_id')->unsigned();
 			$table->foreign('run_participation_id')->references('id')->on('run_participations');
+			$table->integer('user_id')->unsigned();
+			$table->foreign('user_id')->references('id')->on('users');
 			$table->integer('ext_personnel_no')->nullable();
 			$table->string('firstname');
 			$table->string('lastname');

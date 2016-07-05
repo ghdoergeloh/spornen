@@ -6,5 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class SponsoredRun extends Model
 {
-    
+
+	protected $dates = [
+		'created_at', 'updated_at', 'begin'
+	];
+
 }

@@ -19,4 +19,7 @@ Route::get('register/verify/{confirmation_code?}', 'Auth\AuthController@confirm'
 
 Route::get('/home', 'HomeController@showHomeView');
 
-Route::resource('/sponsor', 'SponsorController');
+Route::resource('runpart', 'RunParticipationController', ['only' => [
+    'index', 'store', 'show'
+]]);
+Route::resource('runpart.sponsor', 'SponsorController');

@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Domain\Model\Sponsor\SponsoredRun;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+
 class HomeController extends Controller
 {
     /**
@@ -17,10 +21,12 @@ class HomeController extends Controller
     /**
      * Show the application dashboard.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function showHomeView()
     {
-        return view('home');
+		$user = Auth::guard()->getUser();
+		$runs = SponsoredRun::all();
+        return view('home')->with('user', $user)->with('runs',  $runs);
     }
 }

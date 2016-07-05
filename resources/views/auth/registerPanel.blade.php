@@ -76,7 +76,7 @@
 				<label for="birthday" class="col-md-4 control-label">Geburtstag</label>
 
 				<div class="col-md-6">
-					<input id="birthday" type="date" class="form-control" name="birthday" value="{{ old('birthday') }}">
+					<input id="birthday" type="date" class="form-control datepicker" name="birthday" value="{{ old('birthday') }}">
 
 					@if ($errors->has('birthday'))
 					<span class="help-block">

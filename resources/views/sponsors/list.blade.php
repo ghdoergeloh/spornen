@@ -37,16 +37,17 @@
 							<td>{{ $sponsor->email }}</td>
 							<td>{{ $sponsor->donation_per_lap }}</td>
 							<td>{{ $sponsor->donation_static_max }}</td>
-							<td><a class="btn btn-default" href="{{route('sponsor.show', $sponsor->id) }}">Details</a></td>
-							<td><a class="btn btn-success" href="{{route('sponsor.edit', $sponsor->id) }}">Bearbeiten</a></td>
+							<td><a class="btn btn-default" href="{{route('runpart.sponsor.show', [$run->id, $sponsor->id]) }}">Details</a></td>
+							<td><a class="btn btn-success" href="{{route('runpart.sponsor.edit', [$run->id, $sponsor->id]) }}">Bearbeiten</a></td>
 							<td>
-								{!! Form::open(['method' => 'DELETE', 'route' => ['sponsor.destroy',$sponsor->id]]) !!}
+								{!! Form::open(['method' => 'DELETE', 'route' => [ 'runpart.sponsor.destroy', $run->id , $sponsor->id ]]) !!}
 								{!! Form::submit('Löschen', [ 'class' => "btn btn-danger"]) !!}
 								{!! Form::close() !!}
 							</td>
 						</tr>
 						@endforeach
 					</table>
+					<a class="btn btn-primary" href="{{route('runpart.sponsor.create', $run->id) }}">Hinzufügen</a>
                 </div>
             </div>
         </div>

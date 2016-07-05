@@ -16,7 +16,10 @@ class Sponsor extends Model
 		'firstname', 'lastname',
 		'street', 'housenumber',
 		'postcode', 'city', 'phone',
-		'email'
+		'email', 'run_participation_id', 'user_id'
+	];
+	protected $dates = [
+		'created_at', 'updated_at', 'begin'
 	];
 
 }

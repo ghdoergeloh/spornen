@@ -17,7 +17,7 @@
 			<ul class="nav navbar-nav">
 				@if (Auth::check())
 				<li><a href="{{ url('/home') }}">Home</a></li>
-				<li><a href="{{ route('sponsor.index') }}">Sponsoren</a></li>
+				<li><a href="{{ route('runpart.index') }}">Meine Sponsorenläufe</a></li>
 				@endif
 			</ul>
 			<!-- Right Side Of Navbar -->

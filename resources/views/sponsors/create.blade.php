@@ -6,13 +6,13 @@
 <div class="container">
 	<div class="col-md-8 col-md-offset-2">
 		{!! Form::open([
-		'method' => 'PATCH',
-		'route' => ['runpart.sponsor.update', $run->id, $sponsor->id],
+		'method' => 'POST',
+		'route' => ['runpart.sponsor.store', $run->id],
 		'class' => "form-horizontal"]) !!}
 		<div class="form-group{{ $errors->has('firstname') ? ' has-error' : '' }}">
 			{!! Form::label('firstname', 'Vorname', [ 'class' => "col-sm-2 control-label"]) !!}
 			<div class="col-sm-10">
-				{!! Form::text('firstname', $sponsor->firstname, [ 'class' => "form-control"]) !!}
+				{!! Form::text('firstname', null, [ 'class' => "form-control"]) !!}
 				@if ($errors->has('firstname'))
 				<span class="help-block">
 					<strong>{{ $errors->first('firstname') }}</strong>
@@ -25,7 +25,7 @@
 			{!! Form::label('lastname', 'Nachname', [ 'class' => "col-sm-2 control-label"]) !!}
 
 			<div class="col-sm-10">
-				{!! Form::text('lastname', $sponsor->lastname, [ 'class' => "form-control"]) !!}
+				{!! Form::text('lastname', null, [ 'class' => "form-control"]) !!}
 
 				@if ($errors->has('lastname'))
 				<span class="help-block">
@@ -38,8 +38,8 @@
 		<div class="form-group{{ $errors->has('street') || $errors->has('housenumber') ? ' has-error' : '' }}">
 			{!! Form::label('street', 'Straße, Nr.', [ 'class' => "col-sm-2 control-label"]) !!}
 			<div class="col-sm-10">
-				{!! Form::text('street', $sponsor->street, [ 'class' => "form-control", 'style' => "width: calc( 70% - 1px ); display: inline-block;"]) !!}
-				{!! Form::number('housenumber', $sponsor->housenumber, [ 'class' => "form-control", 'style' => "width: calc( 30% - 2px ); display: inline-block;"]) !!}
+				{!! Form::text('street', null, [ 'class' => "form-control", 'style' => "width: calc( 70% - 1px ); display: inline-block;"]) !!}
+				{!! Form::number('housenumber', null, [ 'class' => "form-control", 'style' => "width: calc( 30% - 2px ); display: inline-block;"]) !!}
 
 				@if ($errors->has('street'))
 				<span class="help-block">
@@ -59,8 +59,8 @@
 			{!! Form::label('postcode', 'PLZ, Ort', [ 'class' => "col-sm-2 control-label"]) !!}
 
 			<div class="col-sm-10 " >
-				{!! Form::text('postcode', $sponsor->postcode, [ 'class' => "form-control", 'style' => "width: calc( 30% - 2px ); display: inline-block;"]) !!}
-				{!! Form::text('city', $sponsor->city, [ 'class' => "form-control", 'style' => "width: calc( 70% - 1px ); display: inline-block;"]) !!}
+				{!! Form::text('postcode', null, [ 'class' => "form-control", 'style' => "width: calc( 30% - 2px ); display: inline-block;"]) !!}
+				{!! Form::text('city', null, [ 'class' => "form-control", 'style' => "width: calc( 70% - 1px ); display: inline-block;"]) !!}
 
 				@if ($errors->has('postcode'))
 				<span class="help-block">
@@ -79,7 +79,7 @@
 			{!! Form::label('phone', 'Telefon', [ 'class' => "col-sm-2 control-label"]) !!}
 
 			<div class="col-sm-10">
-				{!! Form::text('phone', $sponsor->phone, [ 'class' => "form-control"]) !!}
+				{!! Form::text('phone', null, [ 'class' => "form-control"]) !!}
 
 				@if ($errors->has('phone'))
 				<span class="help-block">
@@ -93,7 +93,7 @@
 			{!! Form::label('email', 'E-Mail Addresse', [ 'class' => "col-sm-2 control-label"]) !!}
 
 			<div class="col-sm-10">
-				{!! Form::text('email', $sponsor->email, [ 'class' => "form-control"]) !!}
+				{!! Form::text('email', null, [ 'class' => "form-control"]) !!}
 
 				@if ($errors->has('email'))
 				<span class="help-block">
