@@ -114,6 +114,8 @@ class SponsorController extends Controller
 		$sponsor->city = $request->city;
 		$sponsor->phone = $request->phone;
 		$sponsor->email = $request->email;
+		$sponsor->donation_per_lap = $request->donation_per_lap;
+		$sponsor->donation_static_max = $request->donation_static_max;
 		$sponsor->save();
 		return redirect()->route('runpart.sponsor.index', $runId);
 	}

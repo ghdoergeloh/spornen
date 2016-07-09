@@ -34,10 +34,14 @@
 							<td>{{ $run->name }}</td>
 							<td>{{ $run->participants->count() }}</td>
 							<td>
+								@if ( !$run->participants->contains($user) )
 								{!! Form::open(['method' => 'POST', 'route' => 'runpart.store']) !!}
 								{!! Form::hidden('run_id', $run->id) !!}
 								{!! Form::submit('Teilnehmen', [ 'class' => "btn btn-default"]) !!}
 								{!! Form::close() !!}
+								@else
+								<a class="btn btn-default" href="{{route('runpart.show', $run->id) }}">Meine Sponsoren</a>
+								@endif
 							</td>
 						</tr>
 						@endforeach

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Domain\Model\Sponsor\SponsoredRun;
+use DateTime;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,7 +27,7 @@ class HomeController extends Controller
     public function showHomeView()
     {
 		$user = Auth::guard()->getUser();
-		$runs = SponsoredRun::all();
-        return view('home')->with('user', $user)->with('runs',  $runs);
+		$runs = SponsoredRun::where('begin', '>', new DateTime())->get();
+		return view('home')->with('user', $user)->with('runs',  $runs);
     }
 }

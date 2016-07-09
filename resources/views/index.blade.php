@@ -7,10 +7,10 @@
 		</div>
 		<div class="col-md-6 col-md-offset-1">
             <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+                <div class="panel-heading">Willkommen</div>
 
                 <div class="panel-body">
-                    Welcome.
+                    
                 </div>
             </div>
         </div>

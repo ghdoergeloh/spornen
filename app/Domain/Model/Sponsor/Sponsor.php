@@ -16,17 +16,18 @@ class Sponsor extends Model
 		'firstname', 'lastname',
 		'street', 'housenumber',
 		'postcode', 'city', 'phone',
-		'email', 'run_participation_id', 'user_id'
+		'email', 'donation_per_lap', 'donation_static_max',
+		'run_participation_id', 'user_id'
 	];
 	protected $dates = [
 		'created_at', 'updated_at', 'begin'
 	];
-	
+
 	public function user()
 	{
 		return $this->belongsTo('App\Domain\Model\Auth\User');
 	}
-	
+
 	public function runParticipation()
 	{
 		return $this->belongsTo('App\Domain\Model\Sponsor\RunParticipation');

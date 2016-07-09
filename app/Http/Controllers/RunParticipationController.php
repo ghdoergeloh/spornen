@@ -55,7 +55,10 @@ class RunParticipationController extends Controller
 		$data['sponsored_run_id'] = $run->id;
 		$user = Auth::guard()->getUser();
 		$data['user_id'] = $user->id;
-		$runpart = RunParticipation::create($data);
+		$runpart = RunParticipation::where($data)->first();
+		if ($runpart == null) {
+			$runpart = RunParticipation::create($data);
+		}
 		return redirect()->route('runpart.show', $runpart->sponsored_run_id);
 	}
 

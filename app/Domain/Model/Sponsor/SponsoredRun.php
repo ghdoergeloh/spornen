@@ -13,7 +13,8 @@ class SponsoredRun extends Model
 
 	public function participants()
 	{
-		return $this->hasManyThrough('App\Domain\Model\Auth\User', 'App\Domain\Model\Sponsor\RunParticipation', 'user_id', 'id');
+		return $this->belongsToMany('App\Domain\Model\Auth\User', 'run_participations');
+		// the same as: return $this->belongsToMany('App\Domain\Model\Auth\User', 'run_participations', 'sponsored_run_id', 'user_id');
 	}
 
 }

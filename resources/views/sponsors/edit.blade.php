@@ -103,6 +103,34 @@
 			</div>
 		</div>
 
+		<div class="form-group{{ $errors->has('donation_per_lap') ? ' has-error' : '' }}">
+			{!! Form::label('donation_per_lap', 'Spende pro Runde', [ 'class' => "col-sm-2 control-label"]) !!}
+
+			<div class="col-sm-10">
+				{!! Form::number('donation_per_lap', $sponsor->donation_per_lap, [ 'class' => "form-control", 'min' => "0", 'step' => "0.01" ]) !!}
+
+				@if ($errors->has('donation_per_lap'))
+				<span class="help-block">
+					<strong>{{ $errors->first('donation_per_lap') }}</strong>
+				</span>
+				@endif
+			</div>
+		</div>
+
+		<div class="form-group{{ $errors->has('donation_static_max') ? ' has-error' : '' }}">
+			{!! Form::label('donation_static_max', 'Maximal- oder Festbetrag 	', [ 'class' => "col-sm-2 control-label"]) !!}
+
+			<div class="col-sm-10">
+				{!! Form::number('donation_static_max', $sponsor->donation_static_max, [ 'class' => "form-control", 'min' => "0", 'step' => "0.01" ]) !!}
+
+				@if ($errors->has('donation_static_max'))
+				<span class="help-block">
+					<strong>{{ $errors->first('donation_static_max') }}</strong>
+				</span>
+				@endif
+			</div>
+		</div>
+
 		<div class="form-group">
 			<div class="col-sm-10 col-sm-offset-2">
 				<a type="submit" class="btn btn-default" href="{{route('runpart.sponsor.index', $runId)}}">Abbrechen</a>
