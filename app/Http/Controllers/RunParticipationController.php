@@ -28,7 +28,9 @@ class RunParticipationController extends Controller
 	 */
 	public function index()
 	{
-		//
+		$user = Auth::guard()->getUser();
+		$runparts = RunParticipation::where('user_id', $user->id)->take(10)->get();
+		return view('runpart.list')->with('runparts', $runparts);
 	}
 
 	/**

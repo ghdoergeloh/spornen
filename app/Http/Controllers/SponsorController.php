@@ -44,8 +44,7 @@ class SponsorController extends Controller
 	 */
 	public function create($runId)
 	{
-		$run = SponsoredRun::find($runId);
-		return view('sponsors.create')->with('run', $run);
+		return view('sponsors.create')->with('runId', $runId);
 	}
 
 	/**
@@ -86,13 +85,11 @@ class SponsorController extends Controller
 	public function edit($runId, $id)
 	{
 		$sponsor = Sponsor::find($id);
-		$run = SponsoredRun::find($runId);
-		$runRarticipation = RunParticipation::find($sponsor->run_participation_id);
 		$user = Auth::guard()->getUser();
-		if ($runRarticipation->user_id != $user->id) {
+		if ($sponsor->user_id != $user->id) {
 			return redirect()->route('runpart.sponsor.index', $runId);
 		}
-		return view('sponsors.edit')->with('sponsor', $sponsor)->with('run', $run);
+		return view('sponsors.edit')->with('sponsor', $sponsor)->with('runId', $runId);
 	}
 
 	/**
@@ -105,10 +102,9 @@ class SponsorController extends Controller
 	public function update(Request $request, $runId, $id)
 	{
 		$sponsor = Sponsor::find($id);
-		$runRarticipation = RunParticipation::find($sponsor->run_participation_id);
 		$user = Auth::guard()->getUser();
-		if ($runRarticipation->user_id != $user->id) {
-			return redirect()->route('sponsor.index');
+		if ($sponsor->user_id != $user->id) {
+			return redirect()->route('runpart.sponsor.index', $runId);
 		}
 		$sponsor->firstname = $request->firstname;
 		$sponsor->lastname = $request->lastname;

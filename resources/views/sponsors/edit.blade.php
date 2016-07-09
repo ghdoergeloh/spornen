@@ -7,7 +7,7 @@
 	<div class="col-md-8 col-md-offset-2">
 		{!! Form::open([
 		'method' => 'PATCH',
-		'route' => ['runpart.sponsor.update', $run->id, $sponsor->id],
+		'route' => ['runpart.sponsor.update', $runId, $sponsor->id],
 		'class' => "form-horizontal"]) !!}
 		<div class="form-group{{ $errors->has('firstname') ? ' has-error' : '' }}">
 			{!! Form::label('firstname', 'Vorname', [ 'class' => "col-sm-2 control-label"]) !!}
@@ -105,7 +105,7 @@
 
 		<div class="form-group">
 			<div class="col-sm-10 col-sm-offset-2">
-				<a type="submit" class="btn btn-default" href="{{route('runpart.sponsor.index', $run->id)}}">Abbrechen</a>
+				<a type="submit" class="btn btn-default" href="{{route('runpart.sponsor.index', $runId)}}">Abbrechen</a>
 				{!! Form::submit('Speichern', [ 'class' => "btn btn-primary"]) !!}
 			</div>
 		</div>

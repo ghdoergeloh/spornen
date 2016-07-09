@@ -21,5 +21,15 @@ class Sponsor extends Model
 	protected $dates = [
 		'created_at', 'updated_at', 'begin'
 	];
+	
+	public function user()
+	{
+		return $this->belongsTo('App\Domain\Model\Auth\User');
+	}
+	
+	public function runParticipation()
+	{
+		return $this->belongsTo('App\Domain\Model\Sponsor\RunParticipation');
+	}
 
 }

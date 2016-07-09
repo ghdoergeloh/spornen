@@ -25,12 +25,14 @@
 						<tr>
 							<th>Datum</th>
 							<th>Name</th>
+							<th>Teilnehmer</th>
 							<th></th>
 						</tr>
 						@foreach ($runs as $run)
 						<tr>
 							<td>{{ $run->begin->format('d.m.Y') }}</td>
 							<td>{{ $run->name }}</td>
+							<td>{{ $run->participants->count() }}</td>
 							<td>
 								{!! Form::open(['method' => 'POST', 'route' => 'runpart.store']) !!}
 								{!! Form::hidden('run_id', $run->id) !!}
