@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class SponsorController extends Controller
 {
@@ -55,6 +56,11 @@ class SponsorController extends Controller
 	 */
 	public function store(Request $request, $runId)
 	{
+		$validator = $this->validator($request->all());
+		if ($validator->fails()) {
+			$this->throwValidationException($request, $validator);
+		}
+
 		$user = Auth::guard()->getUser();
 		$run = SponsoredRun::find($runId);
 		$runParticipation = RunParticipation::where('sponsored_run_id', $run->id)->where('user_id', $user->id)->first();
@@ -73,7 +79,7 @@ class SponsorController extends Controller
 	 */
 	public function show($runId, $id)
 	{
-	return redirect()->route('runpart.sponsor.edit', [$runId, $id]);
+		return redirect()->route('runpart.sponsor.edit', [$runId, $id]);
 	}
 
 	/**
@@ -101,6 +107,11 @@ class SponsorController extends Controller
 	 */
 	public function update(Request $request, $runId, $id)
 	{
+		$validator = $this->validator($request->all());
+		if ($validator->fails()) {
+			$this->throwValidationException($request, $validator);
+		}
+
 		$sponsor = Sponsor::find($id);
 		$user = Auth::guard()->getUser();
 		if ($sponsor->user_id != $user->id) {
@@ -136,6 +147,22 @@ class SponsorController extends Controller
 		}
 		$sponsor->delete();
 		return redirect()->route('runpart.sponsor.index', $runId);
+	}
+
+	private function validator(array $data)
+	{
+		return Validator::make($data, [
+					'firstname' => 'required|max:255',
+					'lastname' => 'required|max:255',
+					'street' => 'required|max:255',
+					'housenumber' => ['required', 'regex:/^\d+ *[a-zA-Z]*$/', 'max:31'],
+					'postcode' => 'required|numeric|between:0,99999',
+					'city' => 'required|max:255',
+					'phone' => 'phone:AUTO,DE',
+					'email' => 'email|max:255',
+					'donation_per_lap' => 'integer:min:0',
+					'donation_static_max' => 'integer:min:0',
+		]);
 	}
 
 }

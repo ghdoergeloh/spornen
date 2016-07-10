@@ -36,7 +36,7 @@
 				<label for="street" class="col-md-4 control-label">Straße, Nr.</label>
 				<div class="col-md-6">
 					<input id="street" type="text" class="form-control" name="street" value="{{ old('street') }}" style="width: calc( 70% - 1px ); display: inline-block;">
-					<input id="housenumber" type="number" class="form-control" name="housenumber" value="{{ old('housenumber') }}" style="width: calc( 30% - 2px ); display: inline-block;">
+					<input id="housenumber" type="text" class="form-control" name="housenumber" value="{{ old('housenumber') }}" style="width: calc( 30% - 2px ); display: inline-block;">
 
 					@if ($errors->has('street'))
 					<span class="help-block">

@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
 			$table->string('phone')->nullable();
 			$table->date('birthday');
 			$table->string('street');
-			$table->integer('housenumber');
+			$table->string('housenumber', 31);
 			$table->string('postcode', 5);
 			$table->string('city');
 			$table->enum('gender', array('m', 'f'));

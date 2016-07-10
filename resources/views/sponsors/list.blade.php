@@ -9,39 +9,37 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Meine Sponsoren</div>
                 <div class="panel-body">
-					<table class="table table-striped">
+					<table class="table table-striped table-hover table-condensed">
 						<tr>
 							<th>Nachname</th>
 							<th>Vorname</th>
-							<th>Straße</th>
-							<th>Nr.</th>
-							<th>PLZ</th>
-							<th>Ort</th>
-							<th>Telefon</th>
-							<th>E-Mail</th>
-							<th>Spende pro Runde</th>
-							<th>Maximal- oder Festbetrag</th>
-							<th></th>
-							<th></th>
+							<th class="hidden-xs hidden-sm">Straße</th>
+							<th class="hidden-xs hidden-sm">Nr.</th>
+							<th class="hidden-xs hidden-sm">PLZ</th>
+							<th class="hidden-xs hidden-sm">Ort</th>
+							<th class="hidden-xs hidden-sm">Telefon</th>
+							<th class="hidden-xs">E-Mail</th>
+							<th class="hidden-xs">Spende pro Runde</th>
+							<th class="hidden-xs">Maximal- oder Festbetrag</th>
+							<th class="hidden-xs hidden-sm"></th>
 							<th></th>
 						</tr>
 						@foreach ($sponsors as $sponsor)
-						<tr>
+						<tr class="clickable-row" onclick="window.document.location = '{{route('runpart.sponsor.edit', [$run->id, $sponsor->id]) }}';">
 							<td>{{ $sponsor->lastname }}</td>
 							<td>{{ $sponsor->firstname }}</td>
-							<td>{{ $sponsor->street }}</td>
-							<td>{{ $sponsor->housnumber }}</td>
-							<td>{{ $sponsor->postcode }}</td>
-							<td>{{ $sponsor->city }}</td>
-							<td>{{ $sponsor->phone }}</td>
-							<td>{{ $sponsor->email }}</td>
-							<td>{{ $sponsor->donation_per_lap }}</td>
-							<td>{{ $sponsor->donation_static_max }}</td>
-							<td><a class="btn btn-default" href="{{route('runpart.sponsor.show', [$run->id, $sponsor->id]) }}">Details</a></td>
-							<td><a class="btn btn-success" href="{{route('runpart.sponsor.edit', [$run->id, $sponsor->id]) }}">Bearbeiten</a></td>
+							<td class="hidden-xs hidden-sm">{{ $sponsor->street }}</td>
+							<td class="hidden-xs hidden-sm">{{ $sponsor->housenumber }}</td>
+							<td class="hidden-xs hidden-sm">{{ $sponsor->postcode }}</td>
+							<td class="hidden-xs hidden-sm">{{ $sponsor->city }}</td>
+							<td class="hidden-xs hidden-sm">{{ $sponsor->phone }}</td>
+							<td class="hidden-xs">{{ $sponsor->email }}</td>
+							<td class="hidden-xs">{{ $sponsor->donation_per_lap }}</td>
+							<td class="hidden-xs">{{ $sponsor->donation_static_max }}</td>
+							<td class="hidden-xs hidden-sm"><a class="btn btn-success" href="{{route('runpart.sponsor.edit', [$run->id, $sponsor->id]) }}"><span class="glyphicon glyphicon-pencil"/></a></td>
 							<td>
 								{!! Form::open(['method' => 'DELETE', 'route' => [ 'runpart.sponsor.destroy', $run->id , $sponsor->id ]]) !!}
-								{!! Form::submit('Löschen', [ 'class' => "btn btn-danger"]) !!}
+								{!! Form::button('', [ 'type' => "submit", 'class' => "btn btn-danger glyphicon glyphicon-trash"]) !!}
 								{!! Form::close() !!}
 							</td>
 						</tr>

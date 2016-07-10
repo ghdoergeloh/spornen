@@ -7,8 +7,8 @@
         <h2>E-Mail bestätigen</h2>
 
         <div>
-			Sie haben Ihr Passwort vergessen?
-			Macht nichts! folgen Sie dem Folgenden Link, um ein neues Passwort zu vergeben:
+			Du hast dein Passwort vergessen?
+			Macht nichts! Folge einfach dem Folgenden Link, um ein neues Passwort zu vergeben:
 			<a href="{{ $link = url('password/reset', $token).'?email='.urlencode($user->getEmailForPasswordReset()) }}"> {{ $link }} </a>
 		</div>
 

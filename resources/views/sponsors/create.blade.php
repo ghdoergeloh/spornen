@@ -39,7 +39,7 @@
 			{!! Form::label('street', 'Straße, Nr.', [ 'class' => "col-sm-2 control-label"]) !!}
 			<div class="col-sm-10">
 				{!! Form::text('street', null, [ 'class' => "form-control", 'style' => "width: calc( 70% - 1px ); display: inline-block;"]) !!}
-				{!! Form::number('housenumber', null, [ 'class' => "form-control", 'style' => "width: calc( 30% - 2px ); display: inline-block;"]) !!}
+				{!! Form::text('housenumber', null, [ 'class' => "form-control", 'style' => "width: calc( 30% - 2px ); display: inline-block;"]) !!}
 
 				@if ($errors->has('street'))
 				<span class="help-block">

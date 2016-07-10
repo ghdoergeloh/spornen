@@ -53,10 +53,10 @@ use AuthenticatesAndRegistersUsers,
 					'firstname' => 'required|max:255',
 					'lastname' => 'required|max:255',
 					'street' => 'required|max:255',
-					'housenumber' => 'required|integer|max:255',
-					'postcode' => 'required|numeric|max:99999',
+					'housenumber' => ['required','regex:/^\d+ *[a-zA-Z]*$/','max:31'],
+					'postcode' => 'required|numeric|between:0,99999',
 					'city' => 'required|max:255',
-					'birthday' => 'required|date',
+					'birthday' => 'required|date|before:heute',
 					'gender' => 'required|in:m,f',
 					'phone' => 'required|phone:AUTO,DE',
 					'email' => 'required|email|max:255|unique:users',
@@ -114,10 +114,10 @@ use AuthenticatesAndRegistersUsers,
 
 		Mail::send('auth.emails.verify', ['confirmation_code' => $confirmation_code, 'email' => $user->email], function($message) use ($user) {
 			$message->to($user->email, $user->firstname + $user->lastname)
-					->subject('Verify your email address');
+					->subject('E-Mail Adresse bestätigen');
 		});
 
-		return redirect($this->redirectPath());
+		return view('auth.registerEmailSend');
 	}
 
 	public function confirm(Request $request, $confirmation_code)
