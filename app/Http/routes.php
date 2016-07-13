@@ -17,9 +17,12 @@ Route::get('/', function () {
 Route::auth();
 Route::get('register/verify/{confirmation_code?}', 'Auth\AuthController@confirm');
 
-Route::get('/home', 'HomeController@showHomeView');
+Route::get('home', 'HomeController@showHomeView');
+
+Route::get('account/edit', 'AccountController@edit')->name('account.edit');
+Route::post('account/update', 'AccountController@update')->name('account.update');
 
 Route::resource('runpart', 'RunParticipationController', ['only' => [
-    'index', 'store', 'show'
+		'index', 'store', 'show'
 ]]);
 Route::resource('runpart.sponsor', 'SponsorController');

@@ -38,9 +38,9 @@
 							<td class="hidden-xs">{{ $sponsor->donation_static_max }}</td>
 							<td class="hidden-xs hidden-sm"><a class="btn btn-success" href="{{route('runpart.sponsor.edit', [$run->id, $sponsor->id]) }}"><span class="glyphicon glyphicon-pencil"/></a></td>
 							<td>
-								{!! Form::open(['method' => 'DELETE', 'route' => [ 'runpart.sponsor.destroy', $run->id , $sponsor->id ]]) !!}
-								{!! Form::button('', [ 'type' => "submit", 'class' => "btn btn-danger glyphicon glyphicon-trash"]) !!}
-								{!! Form::close() !!}
+								{{ Form::open(['method' => 'DELETE', 'route' => [ 'runpart.sponsor.destroy', $run->id , $sponsor->id ]]) }}
+								{{ Form::button('', [ 'type' => "submit", 'class' => "btn btn-danger glyphicon glyphicon-trash"]) }}
+								{{ Form::close() }}
 							</td>
 						</tr>
 						@endforeach
