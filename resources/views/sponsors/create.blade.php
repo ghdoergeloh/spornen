@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-- Sponsor bearbeiten
+- Sponsor anlegen
 @endsection
 @section('content')
 <div class="container">

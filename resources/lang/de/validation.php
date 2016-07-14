@@ -29,7 +29,7 @@ return [
     ],
     'boolean'              => 'The :attribute field must be true or false.',
     'confirmed'            => 'Die Bestätigung zu :attribute passt nicht.',
-    'date'                 => 'The :attribute is not a valid date.',
+    'date'                 => ':attribute ist kein gültiges Datum.',
     'date_format'          => 'The :attribute does not match the format :format.',
     'different'            => 'The :attribute and :other must be different.',
     'digits'               => 'The :attribute must be :digits digits.',
@@ -79,7 +79,7 @@ return [
     ],
     'string'               => 'The :attribute must be a string.',
     'timezone'             => 'The :attribute must be a valid zone.',
-    'unique'               => 'The :attribute has already been taken.',
+    'unique'               => ':attribute wurde schon einmal benutzt.',
     'url'                  => 'The :attribute format is invalid.',
 
     /*

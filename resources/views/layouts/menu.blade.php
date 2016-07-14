@@ -18,6 +18,7 @@
 				@if (Auth::check())
 				<li><a href="{{ url('/home') }}">Home</a></li>
 				<li><a href="{{ route('runpart.index') }}">Meine Sponsorenläufe</a></li>
+				<li><a href="{{ route('account.edit') }}">Mein Account</a></li>
 				@endif
 			</ul>
 			<!-- Right Side Of Navbar -->

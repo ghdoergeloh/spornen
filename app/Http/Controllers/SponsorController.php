@@ -31,7 +31,7 @@ class SponsorController extends Controller
 	 */
 	public function index($runId)
 	{
-		$user = Auth::guard()->getUser();
+		$user = Auth::user();
 		$run = SponsoredRun::find($runId);
 		$runParticipation = RunParticipation::where('sponsored_run_id', $run->id)->where('user_id', $user->id)->first();
 		$sponsors = Sponsor::where('run_participation_id', $runParticipation->id)->get();
@@ -61,7 +61,7 @@ class SponsorController extends Controller
 			$this->throwValidationException($request, $validator);
 		}
 
-		$user = Auth::guard()->getUser();
+		$user = Auth::user();
 		$run = SponsoredRun::find($runId);
 		$runParticipation = RunParticipation::where('sponsored_run_id', $run->id)->where('user_id', $user->id)->first();
 		$sponsorData = $request->all();
@@ -91,7 +91,7 @@ class SponsorController extends Controller
 	public function edit($runId, $id)
 	{
 		$sponsor = Sponsor::find($id);
-		$user = Auth::guard()->getUser();
+		$user = Auth::user();
 		if ($sponsor->user_id != $user->id) {
 			return redirect()->route('runpart.sponsor.index', $runId);
 		}
@@ -113,7 +113,7 @@ class SponsorController extends Controller
 		}
 
 		$sponsor = Sponsor::find($id);
-		$user = Auth::guard()->getUser();
+		$user = Auth::user();
 		if ($sponsor->user_id != $user->id) {
 			return redirect()->route('runpart.sponsor.index', $runId);
 		}
@@ -141,7 +141,7 @@ class SponsorController extends Controller
 	{
 		$sponsor = Sponsor::find($id);
 		$runRarticipation = RunParticipation::find($sponsor->run_participation_id);
-		$user = Auth::guard()->getUser();
+		$user = Auth::user();
 		if ($runRarticipation->user_id != $user->id) {
 			return redirect()->route('runpart.sponsor.index', $runId);
 		}

@@ -38,7 +38,7 @@ class AccountController extends Controller
 	 */
 	public function edit()
 	{
-		$user = Auth::guard()->getUser();
+		$user = Auth::user();
 		return view('account.edit')->with('user', $user);
 	}
 
@@ -54,19 +54,18 @@ class AccountController extends Controller
 		if ($validator->fails()) {
 			$this->throwValidationException($request, $validator);
 		}
-
+		$user = Auth::user();
 		$user->firstname = $request->firstname;
 		$user->lastname = $request->lastname;
 		$user->street = $request->street;
 		$user->housenumber = $request->housenumber;
 		$user->postcode = $request->postcode;
 		$user->city = $request->city;
-		$user->birthday = $request->birthday;
+		$user->birthday = strtotime($request->birthday);
 		$user->gender = $request->gender;
 		$user->phone = $request->phone;
-		$user->password = $request->password;
 		$user->save();
-		$user = Auth::guard()->getUser();
+		return redirect()->route('account.edit');
 	}
 
 	/**
@@ -92,7 +91,6 @@ class AccountController extends Controller
 					'birthday' => 'required|date',
 					'gender' => 'required|in:m,f',
 					'phone' => 'required|phone:AUTO,DE',
-					'password' => 'required|min:6|confirmed',
 		]);
 	}
 

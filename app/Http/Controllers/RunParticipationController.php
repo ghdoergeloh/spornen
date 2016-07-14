@@ -28,7 +28,7 @@ class RunParticipationController extends Controller
 	 */
 	public function index()
 	{
-		$user = Auth::guard()->getUser();
+		$user = Auth::user();
 		$runparts = RunParticipation::where('user_id', $user->id)->take(10)->get();
 		return view('runpart.list')->with('runparts', $runparts);
 	}
@@ -53,7 +53,7 @@ class RunParticipationController extends Controller
 	{
 		$run = SponsoredRun::find($request->get('run_id'));
 		$data['sponsored_run_id'] = $run->id;
-		$user = Auth::guard()->getUser();
+		$user = Auth::user();
 		$data['user_id'] = $user->id;
 		$runpart = RunParticipation::where($data)->first();
 		if ($runpart == null) {

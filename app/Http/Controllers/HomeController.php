@@ -26,7 +26,7 @@ class HomeController extends Controller
      */
     public function showHomeView()
     {
-		$user = Auth::guard()->getUser();
+		$user = Auth::user();
 		$runs = SponsoredRun::where('begin', '>', new DateTime())->get();
 		return view('home')->with('user', $user)->with('runs',  $runs);
     }
