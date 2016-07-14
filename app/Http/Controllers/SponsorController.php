@@ -160,8 +160,8 @@ class SponsorController extends Controller
 					'city' => 'required|max:255',
 					'phone' => 'phone:AUTO,DE',
 					'email' => 'email|max:255',
-					'donation_per_lap' => 'integer:min:0',
-					'donation_static_max' => 'integer:min:0',
+					'donation_per_lap' => ['regex:/^\d+[,.]?\d{0,2}$/', 'max:10'],
+					'donation_static_max' => ['regex:/^\d+[,.]?\d{0,2}$/', 'max:10']
 		]);
 	}
 

@@ -6,6 +6,7 @@
 <div class="container">
 	<div class="col-md-8 col-md-offset-2">
 		{{ Form::model($sponsor, [
+		'method' => 'PATCH',
 		'route' => ['runpart.sponsor.update', $runId, $sponsor->id],
 		'class' => "form-horizontal"]) }}
 		@include('sponsors.sponsorForm')

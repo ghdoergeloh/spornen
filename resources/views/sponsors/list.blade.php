@@ -34,8 +34,8 @@
 							<td class="hidden-xs hidden-sm">{{ $sponsor->city }}</td>
 							<td class="hidden-xs hidden-sm">{{ $sponsor->phone }}</td>
 							<td class="hidden-xs">{{ $sponsor->email }}</td>
-							<td class="hidden-xs">{{ $sponsor->donation_per_lap }}</td>
-							<td class="hidden-xs">{{ $sponsor->donation_static_max }}</td>
+							<td class="hidden-xs text-right">{{ $sponsor->donation_per_lap }} €</td>
+							<td class="hidden-xs text-right">{{ $sponsor->donation_static_max }} €</td>
 							<td class="hidden-xs hidden-sm"><a class="btn btn-success" href="{{route('runpart.sponsor.edit', [$run->id, $sponsor->id]) }}"><span class="glyphicon glyphicon-pencil"/></a></td>
 							<td>
 								{{ Form::open(['method' => 'DELETE', 'route' => [ 'runpart.sponsor.destroy', $run->id , $sponsor->id ]]) }}
