@@ -13,3 +13,4 @@
 		{{ Form::submit('Speichern', [ 'class' => "btn btn-primary"]) }}
 	</div>
 </div>
+@include('sponsors.calculation_dlg')

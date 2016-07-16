@@ -46,9 +46,6 @@
 						@endforeach
 					</table>
 					<a class="btn btn-primary" href="{{route('runpart.sponsor.create', $run->id) }}">Hinzufügen</a>
-					<button type="button" class="btn btn-default" data-toggle="modal" data-target="#calculation_dlg">
-						Wie wird gerechnet?
-					</button>
                 </div>
             </div>
             <div class="panel panel-default">
@@ -81,19 +78,5 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="calculation_dlg" tabindex="-1" role="dialog" aria-labelledby="calculation_dlg_lbl">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="calculation_dlg_lbl">Rechnung</h4>
-			</div>
-			<div class="modal-body">
-				<p><b>Nur Spende pro Runde angegeben?</b><br>Spende pro Runde &times; Runden</p>
-				<p><b>Nur Festbetrag angegeben?</b><br>Festbetrag</p>
-				<p><b>Spende pro Runde und Maximalbetrag angegeben?</b><br>Maximalbetrag wenn Spende pro Runde &times; Runden Maximalbetrag übersteigt</p>
-			</div>
-		</div>
-	</div>
-</div>
+@include('sponsors.calculation_dlg')
 @endsection
