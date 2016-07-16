@@ -6,6 +6,7 @@
 <div class="container">
     <div class="row">         
 		<div class="col-md-8 col-md-offset-2">
+			@include('layouts.messages')
 			{{ Form::model($user, ['method' => 'PATCH', 'route' => 'account.update',	'class' => "form-horizontal"]) }}
 			@include('auth.userForm')
 			<div class="form-group">

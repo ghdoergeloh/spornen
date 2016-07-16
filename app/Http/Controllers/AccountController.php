@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\MessageBag;
 use Validator;
 
 class AccountController extends Controller
@@ -65,6 +67,7 @@ class AccountController extends Controller
 		$user->gender = $request->gender;
 		$user->phone = $request->phone;
 		$user->save();
+		Session::flash('messages-success', new MessageBag(["Erfolgreich gespeichert"])); 
 		return redirect()->route('account.edit');
 	}
 
