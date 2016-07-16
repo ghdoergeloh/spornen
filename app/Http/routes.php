@@ -11,7 +11,7 @@
  * |
  */
 Route::get('/', function () {
-	return view('index');
+	return view('auth.login');
 });
 
 Route::auth();
