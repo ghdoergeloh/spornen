@@ -155,7 +155,7 @@ class SponsorController extends Controller
 					'firstname' => 'required|max:255',
 					'lastname' => 'required|max:255',
 					'street' => 'required|max:255',
-					'housenumber' => ['required', 'regex:/^\d+ *[a-zA-Z]*$/', 'max:31'],
+					'housenumber' => 'required|string|max:31',
 					'postcode' => 'required|numeric|between:0,99999',
 					'city' => 'required|max:255',
 					'phone' => 'phone:AUTO,DE',
