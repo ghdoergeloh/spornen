@@ -1,6 +1,6 @@
 <div class="form-group{{ $errors->has('donation_per_lap') ? ' has-error' : '' }}">
-	<div class="col-md-4">
-		{{ Form::label('donation_per_lap', 'Spende pro Runde ', [ 'class' => "control-label"]) }}
+	<div class="col-md-4 control-label">
+		{{ Form::label('donation_per_lap', 'Spende pro Runde ') }}
 		<span role="button" class="glyphicon glyphicon-info-sign" data-toggle="modal" data-target="#calculation_dlg"></span>
 	</div>
 	<div class="col-md-6">

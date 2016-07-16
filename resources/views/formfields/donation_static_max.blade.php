@@ -1,6 +1,6 @@
 <div class="form-group{{ $errors->has('donation_static_max') ? ' has-error' : '' }}">
-	<div class="col-md-4">
-		{{ Form::label('donation_static_max', 'Maximal- oder Festbetrag 	', [ 'class' => "control-label"]) }}
+	<div class="col-md-4 control-label">
+		{{ Form::label('donation_static_max', 'Maximal- oder Festbetrag') }}
 		<span role="button" class="glyphicon glyphicon-info-sign" data-toggle="modal" data-target="#calculation_dlg"></span>
 	</div>
 	<div class="col-md-6">
