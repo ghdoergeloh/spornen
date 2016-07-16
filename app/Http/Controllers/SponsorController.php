@@ -35,7 +35,7 @@ class SponsorController extends Controller
 		$run = SponsoredRun::find($runId);
 		$runParticipation = RunParticipation::where('sponsored_run_id', $run->id)->where('user_id', $user->id)->first();
 		$sponsors = Sponsor::where('run_participation_id', $runParticipation->id)->get();
-		return view('sponsors.list')->with('sponsors', $sponsors)->with('run', $run);
+		return view('sponsors.list')->with('sponsors', $sponsors)->with('run', $run)->with('laps',$runParticipation->laps);
 	}
 
 	/**
@@ -149,6 +149,28 @@ class SponsorController extends Controller
 		return redirect()->route('runpart.sponsor.index', $runId);
 	}
 
+	public function calculate(Request $request, $runId)
+	{
+		$validator = $this->validatorLaps($request->all());
+		if ($validator->fails()) {
+			$this->throwValidationException($request, $validator);
+		}
+		$user = Auth::user();
+		$run = SponsoredRun::find($runId);
+		$runParticipation = RunParticipation::where('sponsored_run_id', $run->id)->where('user_id', $user->id)->first();
+		$sponsors = Sponsor::where('run_participation_id', $runParticipation->id)->get();
+		$laps = intval($request->laps);
+		$sum = 0;
+		foreach ($sponsors as $sponsor) {
+			$donation = $sponsor->donation_per_lap * $laps;
+			if ($sponsor->donation_static_max == 0)
+				$sum += $donation;
+			else
+				$sum += $donation < $sponsor->donation_static_max ? $donation : $sponsor->donation_static_max;
+		}
+		return view('sponsors.list')->with('sponsors', $sponsors)->with('run', $run)->with('laps', $laps)->with('sum', $sum);
+	}
+
 	private function validator(array $data)
 	{
 		return Validator::make($data, [
@@ -162,6 +184,13 @@ class SponsorController extends Controller
 					'email' => 'email|max:255',
 					'donation_per_lap' => ['regex:/^\d+[,.]?\d{0,2}$/', 'max:10'],
 					'donation_static_max' => ['regex:/^\d+[,.]?\d{0,2}$/', 'max:10']
+		]);
+	}
+
+	private function validatorLaps(array $data)
+	{
+		return Validator::make($data, [
+					'laps' => 'required|integer|min:0'
 		]);
 	}
 

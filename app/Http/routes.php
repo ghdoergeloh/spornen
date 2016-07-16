@@ -15,7 +15,7 @@ Route::get('/', function () {
 });
 
 Route::auth();
-Route::get('register/verify/{confirmation_code?}', 'Auth\AuthController@confirm');
+Route::get('register/verify/{confirmation_code}', 'Auth\AuthController@confirm');
 
 Route::get('home', 'HomeController@showHomeView');
 
@@ -25,4 +25,6 @@ Route::patch('account/update', 'AccountController@update')->name('account.update
 Route::resource('runpart', 'RunParticipationController', ['only' => [
 		'index', 'store', 'show'
 ]]);
+
+Route::get('runpart/{runpart}/sponsor/calculate', 'SponsorController@calculate')->name('runpart.sponsor.calculate');
 Route::resource('runpart.sponsor', 'SponsorController');
