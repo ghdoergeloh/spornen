@@ -22,9 +22,9 @@ Route::get('home', 'HomeController@showHomeView');
 Route::get('account/edit', 'AccountController@edit')->name('account.edit');
 Route::patch('account/update', 'AccountController@update')->name('account.update');
 
+Route::get('runpart/{runpart}/calculate', 'RunParticipationController@calculate')->name('runpart.calculate');
 Route::resource('runpart', 'RunParticipationController', ['only' => [
-		'index', 'store', 'show'
+		'index', 'store', 'show', 'edit'
 ]]);
 
-Route::get('runpart/{runpart}/sponsor/calculate', 'SponsorController@calculate')->name('runpart.sponsor.calculate');
 Route::resource('runpart.sponsor', 'SponsorController');
