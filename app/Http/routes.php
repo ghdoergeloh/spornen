@@ -11,7 +11,7 @@
  * |
  */
 Route::get('/', function () {
-	return view('auth.login');
+	return redirect('home');
 });
 
 Route::auth();
