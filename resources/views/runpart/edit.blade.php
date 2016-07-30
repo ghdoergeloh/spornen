@@ -6,7 +6,20 @@
 <div class="container">
     <div class="row">
 		<div class="col-md-12">
+			@include('layouts.messages')
 			@include('sponsors.list')
+            <div class="panel panel-default">
+                <div class="panel-heading">Dieses Projekt will ich unterstützen</div>
+                <div class="panel-body">
+					{{ Form::open([
+						'method' => 'PATCH',
+						'route' => [ 'runpart.update', $run->id ],
+						'class' => 'form-inline '.($errors->has('project') ? ' has-error' : '')]) }}
+					{{ Form::select('project', $projects, $runpart->project->id, [ 'class' => "form-control" ]) }}
+					{{ Form::submit('Speichern', [ 'class' => "btn btn-primary"]) }}
+					{{ Form::close() }}
+				</div>
+			</div>
             <div class="panel panel-default">
                 <div class="panel-heading">Wie viel würde ich sammeln, wenn...</div>
                 <div class="panel-body">
@@ -20,7 +33,7 @@
 						<span role="button" class="glyphicon glyphicon-info-sign" data-toggle="modal" data-target="#calculation_dlg"></span>
 					</p>
 					<p>
-						{{ Form::button('Ausrechnen', [ 'type' => "submit", 'class' => "btn btn-primary"]) }}
+						{{ Form::submit('Ausrechnen', [ 'class' => "btn btn-primary"]) }}
 					</p>
 					@if ($errors->has('laps'))
 					<span class="help-block">

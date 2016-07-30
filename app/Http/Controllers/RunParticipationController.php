@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Domain\Model\Sponsor\Project;
 use App\Domain\Model\Sponsor\RunParticipation;
 use App\Domain\Model\Sponsor\Sponsor;
 use App\Domain\Model\Sponsor\SponsoredRun;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\MessageBag;
 
 class RunParticipationController extends Controller
 {
@@ -59,6 +62,7 @@ class RunParticipationController extends Controller
 		$data['user_id'] = $user->id;
 		$runpart = RunParticipation::where($data)->first();
 		if ($runpart == null) {
+			$data['project_id'] = 0;
 			$runpart = RunParticipation::create($data);
 		}
 		return redirect()->route('runpart.show', $runpart->sponsored_run_id);
@@ -76,7 +80,12 @@ class RunParticipationController extends Controller
 		$run = SponsoredRun::find($runId);
 		$runParticipation = RunParticipation::where('sponsored_run_id', $run->id)->where('user_id', $user->id)->first();
 		$sponsors = Sponsor::where('run_participation_id', $runParticipation->id)->get();
-		return view('runpart.edit')->with('sponsors', $sponsors)->with('run', $run)->with('laps', $runParticipation->laps);
+		return view('runpart.edit')
+						->with('sponsors', $sponsors)
+						->with('run', $run)
+						->with('projects', $this->getProjectsSelection())
+						->with('runpart', $runParticipation)
+						->with('laps', $runParticipation->laps);
 	}
 
 	/**
@@ -97,9 +106,21 @@ class RunParticipationController extends Controller
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update(Request $request, $id)
+	public function update(Request $request, $runId)
 	{
-		//
+		$run = SponsoredRun::find($runId);
+		$data['sponsored_run_id'] = $run->id;
+		$user = Auth::user();
+		$data['user_id'] = $user->id;
+		$runpart = RunParticipation::where($data)->first();
+		if ($runpart == null) {
+			redirect('home');
+		}
+		$project = Project::find($request->get('project'));
+		$runpart->project()->associate($project);
+		$runpart->save();
+		Session::flash('messages-success', new MessageBag(["Erfolgreich gespeichert"]));
+		return redirect()->route('runpart.show', $runId);
 	}
 
 	/**
@@ -132,7 +153,13 @@ class RunParticipationController extends Controller
 			else
 				$sum += $donation < $sponsor->donation_static_max ? $donation : $sponsor->donation_static_max;
 		}
-		return view('runpart.edit')->with('sponsors', $sponsors)->with('run', $run)->with('laps', $laps)->with('sum', $sum);
+		return view('runpart.edit')
+						->with('sponsors', $sponsors)
+						->with('run', $run)
+						->with('projects', $this->getProjectsSelection())
+						->with('runpart', $runParticipation)
+						->with('laps', $runParticipation->laps)
+						->with('sum', $sum);
 	}
 
 	private function validatorLaps(array $data)
@@ -140,6 +167,27 @@ class RunParticipationController extends Controller
 		return Validator::make($data, [
 					'laps' => 'required|integer|min:0'
 		]);
+	}
+
+	private function getProjectsSelection()
+	{
+		$projects = Project::all();
+		$projectsSelection = array();
+		foreach ($projects as $project) {
+			switch ($project->scope) {
+				case 'project':
+					$scope = ' (Projekt)';
+					break;
+				case 'person':
+					$scope = ' (Person)';
+					break;
+				default:
+					$scope = '';
+					break;
+			}
+			$projectsSelection[$project->id] = $project->name . $scope;
+		}
+		return $projectsSelection;
 	}
 
 }

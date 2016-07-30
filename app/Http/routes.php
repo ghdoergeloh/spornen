@@ -23,8 +23,8 @@ Route::get('account/edit', 'AccountController@edit')->name('account.edit');
 Route::patch('account/update', 'AccountController@update')->name('account.update');
 
 Route::get('runpart/{runpart}/calculate', 'RunParticipationController@calculate')->name('runpart.calculate');
-Route::resource('runpart', 'RunParticipationController', ['only' => [
-		'index', 'store', 'show', 'edit'
+Route::resource('runpart', 'RunParticipationController', ['except' => [
+		'create', 'destroy'
 ]]);
 
 Route::resource('runpart.sponsor', 'SponsorController');

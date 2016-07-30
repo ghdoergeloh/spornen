@@ -2,6 +2,7 @@
 
 namespace App\Domain\Model\Auth;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -36,7 +37,7 @@ class User extends Authenticatable
 
 	public function getBirthdayAttribute($birthday)
 	{
-		$birthday = new \Carbon\Carbon($birthday);
+		$birthday = new Carbon($birthday);
 		return $birthday->format('d.m.Y');
 	}
 
