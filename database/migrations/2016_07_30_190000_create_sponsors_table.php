@@ -24,7 +24,7 @@ class CreateSponsorsTable extends Migration
 			$table->string('email')->nullable();
 			$table->string('phone')->nullable();
 			$table->string('street');
-			$table->integer('housenumber');
+			$table->string('housenumber', 31);
 			$table->string('postcode', 5);
 			$table->string('city');
 			$table->decimal('donation_per_lap', 10, 2);
