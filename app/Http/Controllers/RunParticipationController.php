@@ -171,7 +171,7 @@ class RunParticipationController extends Controller
 
 	private function getProjectsSelection()
 	{
-		$projects = Project::orderBy('name','asc')->get();
+		$projects = Project::orderBy('scope','asc')->orderBy('name','asc')->get();
 		$projectsSelection = array();
 		foreach ($projects as $project) {
 			switch ($project->scope) {
