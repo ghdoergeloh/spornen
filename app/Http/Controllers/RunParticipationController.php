@@ -150,10 +150,10 @@ class RunParticipationController extends Controller
 			$donation = $sponsor->donation_per_lap * $laps;
 			if ($sponsor->donation_static_max == 0)
 				$sum += $donation;
-			elseif ($donation == 0)
+			elseif ($sponsor->donation_per_lap == 0)
 				$sum += $sponsor->donation_static_max;
 			else
-				$sum += $donation < $sponsor->donation_static_max ? $donation : $sponsor->donation_static_max;
+				$sum += $donation > $sponsor->donation_static_max ? $sponsor->donation_static_max : $donation;
 		}
 		return view('runpart.edit')
 						->with('sponsors', $sponsors)
