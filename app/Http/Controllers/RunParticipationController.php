@@ -150,6 +150,8 @@ class RunParticipationController extends Controller
 			$donation = $sponsor->donation_per_lap * $laps;
 			if ($sponsor->donation_static_max == 0)
 				$sum += $donation;
+			elseif ($donation == 0)
+				$sum += $sponsor->donation_static_max;
 			else
 				$sum += $donation < $sponsor->donation_static_max ? $donation : $sponsor->donation_static_max;
 		}
@@ -171,7 +173,7 @@ class RunParticipationController extends Controller
 
 	private function getProjectsSelection()
 	{
-		$projects = Project::orderBy('scope','asc')->orderBy('name','asc')->get();
+		$projects = Project::orderBy('scope', 'asc')->orderBy('name', 'asc')->get();
 		$projectsSelection = array();
 		foreach ($projects as $project) {
 			switch ($project->scope) {
