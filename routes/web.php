@@ -15,8 +15,8 @@ Route::get('/', function () {
 	return redirect('home');
 });
 
-Route::auth();
-Route::get('register/verify/{confirmation_code}', 'Auth\AuthController@confirm');
+Auth::routes();
+Route::get('register/verify/{confirmation_code}', 'Auth\RegisterController@confirm');
 
 Route::get('home', 'HomeController@showHomeView');
 

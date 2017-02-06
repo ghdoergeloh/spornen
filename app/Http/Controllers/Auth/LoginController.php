@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Request as Request2;
 
 class LoginController extends Controller
 {
@@ -35,5 +37,28 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest', ['except' => 'logout']);
+    }
+
+    /**
+     * Get the needed authorization credentials from the request.
+     *
+     * @param  Request  $request
+     * @return array
+     */
+    protected function credentials(Request2 $request)
+    {
+        $credentials = $request->only($this->username(), 'password');
+		$credentials['confirmed'] = true;
+		return $credentials;
+    }
+
+    /**
+     * Get the login username to be used by the controller.
+     *
+     * @return string
+     */
+    public function username()
+    {
+        return 'email';
     }
 }

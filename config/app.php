@@ -172,6 +172,7 @@ return [
          * Plugin Service Providers...
          */
 		Collective\Html\HtmlServiceProvider::class,
+		Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 
         /*
          * Application Service Providers...
