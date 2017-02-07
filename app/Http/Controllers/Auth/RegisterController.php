@@ -9,11 +9,11 @@ use Illuminate\Contracts\Validation\Validator as Validator2;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\MessageBag;
 use Mail;
 use Symfony\Component\HttpFoundation\Request as Request2;
-use function bcrypt;
 
 class RegisterController extends Controller
 {
@@ -76,7 +76,7 @@ use RegistersUsers;
 	 * @param  array  $data
 	 * @return User
 	 */
-	protected function create(array $data)
+	protected function create(array $data, $confirmed, $confirmation_code)
 	{
 		return User::create([
 					'firstname' => $data['firstname'],
@@ -102,34 +102,15 @@ use RegistersUsers;
 		}
 
 		$email = $request->input('email');
+		$user = User::where('email','=', $email)->where('confirmation_code', '=', $confirmation_code)->first();
 
-		$credentials = [
-			'email' => $email,
-			'confirmation_code' => $confirmation_code
-		];
-
-//		Log::debug("Validating confirm Data");
-//		$validator = $this->validator($credentials);
-//
-//		if ($validator->fails()) {
-//			Log::debug("Validation failed");
-//			$this->throwValidationException(
-//					$request, $validator
-//			);
-//		}
-//		Log::debug("Validation successful");
-
-		$user = Auth::guard($this->getGuard())->getProvider()->retrieveByCredentials($credentials);
-
-		if (is_null($user)) {
-			return redirect($this->redirectPath());
+		if (!is_null($user)) {
+			$user->confirmed = 1;
+			$user->confirmation_code = null;
+			$user->save();
+			Session::flash('messages-success', new MessageBag(["Die E-Mail-Adresse wurde bestätigt. Du kannst dich jetzt anmelden."]));
+			return view('auth.login');
 		}
-
-		$user->confirmed = 1;
-		$user->confirmation_code = null;
-		$user->save();
-		Auth::guard($this->getGuard())->login($user);
-
 		return redirect($this->redirectPath());
 	}
 

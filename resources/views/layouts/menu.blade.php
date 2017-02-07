@@ -35,7 +35,16 @@
 					</a>
 					<ul class="dropdown-menu" role="menu">
 						<li>
-							<a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a>
+							<a href="{{ route('logout') }}"
+							   onclick="event.preventDefault();
+                                       document.getElementById('logout-form').submit();">
+								<i class="fa fa-btn fa-sign-out"></i>Logout</a>
+							{{ Form::open([
+								'method' => 'POST',
+								'route' => 'logout',
+								'class' => "hidden",
+								'id' => 'logout-form']) }}
+							{{ Form::close() }}
 						</li>
 					</ul>
 				</li>
