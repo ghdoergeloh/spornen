@@ -10,6 +10,11 @@ class SponsoredRun extends Model
 	protected $dates = [
 		'created_at', 'updated_at', 'begin'
 	];
+	
+	public function isElapsed()
+	{
+		return $this->beginn < new \DateTime();
+	}
 
 	public function participants()
 	{

@@ -7,13 +7,12 @@
     <div class="row">
 		<div class="col-md-12">
 			@include('layouts.messages')
-			@include('sponsors.list')
             <div class="panel panel-default">
                 <div class="panel-heading">Dieses Projekt will ich unterstützen</div>
                 <div class="panel-body">
 					{{ Form::open([
 						'method' => 'PATCH',
-						'route' => [ 'runpart.update', $run->id ],
+						'route' => [ 'runpart.update', $runpart->sponsoredRun->id ],
 						'class' => 'form-inline '.($errors->has('project') ? ' has-error' : '')]) }}
 					{{ Form::select('project', $projects, $runpart->project->id, [ 'class' => "form-control" ]) }}
 					{{ Form::submit('Speichern', [ 'class' => "btn btn-primary"]) }}
@@ -25,7 +24,7 @@
                 <div class="panel-body">
 					{{ Form::open([
 						'method' => 'GET',
-						'route' => [ 'runpart.calculate', $run->id ],
+						'route' => [ 'runpart.calculate', $runpart->sponsoredRun->id ],
 						'class' => 'form-inline '.($errors->has('laps') ? ' has-error' : '')]) }}
 					<p>ich 
 						{{ Form::number('laps', $laps, [ 'class' => "form-control", 'min' => "0", 'step' => "1", 'style' => "width: 60px"]) }}
@@ -47,6 +46,7 @@
 					@endif
                 </div>
             </div>
+			@include('sponsors.list', ['edit' => true])
         </div>
     </div>
 </div>

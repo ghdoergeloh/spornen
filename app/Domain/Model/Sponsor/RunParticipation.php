@@ -7,6 +7,26 @@ use Illuminate\Database\Eloquent\Model;
 class RunParticipation extends Model
 {
 
+	public function calculateSum($laps = null)
+	{
+		$sponsors = $this->sponsors;
+		if ($laps == null) {
+			$laps = $this->laps;
+		}
+		$sum = 0;
+		foreach ($sponsors as $sponsor) {
+			$donation = $sponsor->donation_per_lap * $laps;
+			if ($sponsor->donation_static_max == 0) {
+				$sum += $donation;
+			} elseif ($sponsor->donation_per_lap == 0) {
+				$sum += $sponsor->donation_static_max;
+			} else {
+				$sum += $donation > $sponsor->donation_static_max ? $sponsor->donation_static_max : $donation;
+			}
+		}
+		return $sum;
+	}
+
 	protected $fillable = [
 		'sponsored_run_id', 'user_id'
 	];

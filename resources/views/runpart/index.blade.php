@@ -21,7 +21,16 @@
 							<td>{{ $runpart->sponsoredRun->begin->format('d.m.Y') }}</td>
 							<td>{{ $runpart->sponsoredRun->name }}</td>
 							<td>{{ $runpart->laps }}</td>
-							<td><a class="btn btn-default" href="{{route('runpart.show', $runpart->sponsoredRun->id) }}">Anzeigen</a></td>
+							<td><a class="btn btn-info"
+								   href="{{route('runpart.show', $runpart->sponsoredRun->id) }}"
+								   data-toggle="tooltip" title="Anzeigen">
+									<span class="glyphicon glyphicon-list-alt"/></a>
+								@if ( !$runpart->sponsoredRun->isElapsed() )
+								<a class="btn btn-success"
+								   href="{{route('runpart.edit', $runpart->sponsoredRun->id) }}"
+								   data-toggle="tooltip" title="Bearbeiten">
+									<span class="glyphicon glyphicon-pencil"/></a>
+								@endif
 						</tr>
 						@endforeach
 					</table>

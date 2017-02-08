@@ -75,7 +75,12 @@ class SponsorController extends Controller
 	 */
 	public function show($runId, $id)
 	{
-		return redirect()->route('runpart.sponsor.edit', [$runId, $id]);
+		$sponsor = Sponsor::find($id);
+		$user = Auth::user();
+		if ($sponsor->user_id != $user->id) {
+			return redirect()->route('runpart.sponsor.index', $runId);
+		}
+		return view('sponsors.show')->with('sponsor', $sponsor)->with('runId', $runId);
 	}
 
 	/**
@@ -88,8 +93,14 @@ class SponsorController extends Controller
 	{
 		$sponsor = Sponsor::find($id);
 		$user = Auth::user();
+		// check users right for viewing sponsor
 		if ($sponsor->user_id != $user->id) {
 			return redirect()->route('runpart.sponsor.index', $runId);
+		}
+		// check if the Run hs already been
+		$run = SponsoredRun::find($runId);
+		if ($run->isElapsed()) {
+			return redirect()->route('runpart.sponsor.show', [$runId, $id]);
 		}
 		return view('sponsors.edit')->with('sponsor', $sponsor)->with('runId', $runId);
 	}
@@ -105,25 +116,30 @@ class SponsorController extends Controller
 	{
 		$validator = $this->validator($request->all());
 		if ($validator->fails()) {
+			\Illuminate\Support\Facades\Log::info('"' . $request . '"');
 			$this->throwValidationException($request, $validator);
 		}
 
 		$sponsor = Sponsor::find($id);
-		$user = Auth::user();
-		if ($sponsor->user_id != $user->id) {
+		if ($sponsor->user_id != Auth::user()->id) {
 			return redirect()->route('runpart.sponsor.index', $runId);
 		}
-		$sponsor->firstname = $request->firstname;
-		$sponsor->lastname = $request->lastname;
-		$sponsor->street = $request->street;
-		$sponsor->housenumber = $request->housenumber;
-		$sponsor->postcode = $request->postcode;
-		$sponsor->city = $request->city;
-		$sponsor->phone = $request->phone;
-		$sponsor->email = $request->email;
-		$sponsor->donation_per_lap = $request->donation_per_lap;
-		$sponsor->donation_static_max = $request->donation_static_max;
-		$sponsor->save();
+		// check if the Run hs already been
+		$run = SponsoredRun::find($runId);
+		if (!$run->isElapsed()) {
+			$sponsor->firstname = $request->firstname;
+			$sponsor->lastname = $request->lastname;
+			$sponsor->street = $request->street;
+			$sponsor->housenumber = $request->housenumber;
+			$sponsor->postcode = $request->postcode;
+			$sponsor->city = $request->city;
+			$sponsor->phone = $request->phone;
+			$sponsor->email = $request->email;
+			$sponsor->donation_per_lap = $request->donation_per_lap;
+			$sponsor->donation_static_max = $request->donation_static_max;
+			$sponsor->save();
+		}
+
 		return redirect()->route('runpart.sponsor.index', $runId);
 	}
 
@@ -154,8 +170,8 @@ class SponsorController extends Controller
 					'housenumber' => 'required|string|max:31',
 					'postcode' => 'required|numeric|between:0,99999',
 					'city' => 'required|max:255',
-					'phone' => 'phone:AUTO,DE',
-					'email' => 'email|max:255',
+					'phone' => 'nullable|phone:AUTO,DE',
+					'email' => 'nullable|email|max:255',
 					'donation_per_lap' => ['regex:/^\d+[,.]?\d{0,2}$/', 'max:10'],
 					'donation_static_max' => ['regex:/^\d+[,.]?\d{0,2}$/', 'max:10']
 		]);

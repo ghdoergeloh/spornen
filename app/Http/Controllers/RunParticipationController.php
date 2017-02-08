@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Domain\Model\Sponsor\Project;
 use App\Domain\Model\Sponsor\RunParticipation;
-use App\Domain\Model\Sponsor\Sponsor;
 use App\Domain\Model\Sponsor\SponsoredRun;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -35,7 +34,7 @@ class RunParticipationController extends Controller
 	{
 		$user = Auth::user();
 		$runparts = RunParticipation::where('user_id', $user->id)->take(10)->get();
-		return view('runpart.list')->with('runparts', $runparts);
+		return view('runpart.index')->with('runparts', $runparts);
 	}
 
 	/**
@@ -71,39 +70,41 @@ class RunParticipationController extends Controller
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param  int  $id
+	 * @param  int  $runId
 	 * @return Response
 	 */
 	public function show($runId)
 	{
 		$user = Auth::user();
-		$run = SponsoredRun::find($runId);
-		$runParticipation = RunParticipation::where('sponsored_run_id', $run->id)->where('user_id', $user->id)->first();
-		$sponsors = Sponsor::where('run_participation_id', $runParticipation->id)->get();
-		return view('runpart.edit')
-						->with('sponsors', $sponsors)
-						->with('run', $run)
-						->with('projects', $this->getProjectsSelection())
-						->with('runpart', $runParticipation)
-						->with('laps', $runParticipation->laps);
+		$runpart = RunParticipation::where('sponsored_run_id', $runId)->where('user_id', $user->id)->first();
+		return view('runpart.show')->with('runpart', $runpart);
 	}
 
 	/**
 	 * Show the form for editing the specified resource.
 	 *
-	 * @param  int  $id
+	 * @param  int  $runId
 	 * @return Response
 	 */
 	public function edit($runId)
 	{
-		return redirect()->route('runpart.show', $runId);
+		$user = Auth::user();
+		$runpart = RunParticipation::where('sponsored_run_id', $runId)->where('user_id', $user->id)->first();
+		// check if the Run hs already been
+		if ($runpart->sponsoredRun->isElapsed()) {
+			return redirect()->route('runpart.show', [$runId]);
+		}
+		return view('runpart.edit')
+						->with('projects', $this->getProjectsSelection())
+						->with('runpart', $runpart)
+						->with('laps', $runpart->laps);
 	}
 
 	/**
 	 * Update the specified resource in storage.
 	 *
 	 * @param  Request  $request
-	 * @param  int  $id
+	 * @param  int  $runId
 	 * @return Response
 	 */
 	public function update(Request $request, $runId)
@@ -116,20 +117,23 @@ class RunParticipationController extends Controller
 		if ($runpart == null) {
 			redirect('home');
 		}
+		if ($runpart->sponsoredRun->isElapsed()) {
+			return redirect()->route('runpart.show', [$runId]);
+		}
 		$project = Project::find($request->get('project'));
 		$runpart->project()->associate($project);
 		$runpart->save();
 		Session::flash('messages-success', new MessageBag(["Erfolgreich gespeichert"]));
-		return redirect()->route('runpart.show', $runId);
+		return redirect()->route('runpart.edit', $runId);
 	}
 
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param  int  $id
+	 * @param  int  $runId
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy($runId)
 	{
 		//
 	}
@@ -141,26 +145,17 @@ class RunParticipationController extends Controller
 			$this->throwValidationException($request, $validator);
 		}
 		$user = Auth::user();
-		$run = SponsoredRun::find($runId);
-		$runParticipation = RunParticipation::where('sponsored_run_id', $run->id)->where('user_id', $user->id)->first();
-		$sponsors = Sponsor::where('run_participation_id', $runParticipation->id)->get();
-		$laps = intval($request->laps);
-		$sum = 0;
-		foreach ($sponsors as $sponsor) {
-			$donation = $sponsor->donation_per_lap * $laps;
-			if ($sponsor->donation_static_max == 0)
-				$sum += $donation;
-			elseif ($sponsor->donation_per_lap == 0)
-				$sum += $sponsor->donation_static_max;
-			else
-				$sum += $donation > $sponsor->donation_static_max ? $sponsor->donation_static_max : $donation;
+		$runpart = RunParticipation::where('sponsored_run_id', $runId)->where('user_id', $user->id)->first();
+		// check if the Run hs already been
+		if ($runpart->sponsoredRun->isElapsed()) {
+			return redirect()->route('runpart.show', [$runId]);
 		}
+		$laps = intval($request->laps);
+		$sum = $runpart->calculateSum($laps);
 		return view('runpart.edit')
-						->with('sponsors', $sponsors)
-						->with('run', $run)
 						->with('projects', $this->getProjectsSelection())
-						->with('runpart', $runParticipation)
-						->with('laps', $runParticipation->laps)
+						->with('runpart', $runpart)
+						->with('laps', $laps)
 						->with('sum', $sum);
 	}
 
