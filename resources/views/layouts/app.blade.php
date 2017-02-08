@@ -36,11 +36,11 @@
 		</div>
 
 		<!-- JavaScripts -->
-		<script src="{{url('/js/jquery-1.12.4.min.js')}}"
-				integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+		<script src="{{url('/js/jquery-3.1.1.min.js')}}"
+				integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
 				crossorigin="anonymous"></script>
 		<script src="{{url('/js/bootstrap.min.js')}}"
-				integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+				integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 				crossorigin="anonymous"></script>
 	</body>
 </html>
