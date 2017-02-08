@@ -63,7 +63,7 @@ class SponsorController extends Controller
 		$sponsorData = $request->all();
 		$sponsorData['user_id'] = $user->id;
 		$sponsorData['run_participation_id'] = $runParticipation->id;
-		$sponsor = Sponsor::create($sponsorData);
+		Sponsor::create($sponsorData);
 		return redirect()->route('runpart.sponsor.index', $runId);
 	}
 
