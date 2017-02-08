@@ -19,6 +19,20 @@
 				<li><a href="{{ url('/home') }}">Home</a></li>
 				<li><a href="{{ route('runpart.index') }}">Meine Sponsorenläufe</a></li>
 				<li><a href="{{ route('account.edit') }}">Mein Account</a></li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle"
+					   data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+						Administration
+						<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu" role="menu">
+						<li><a href="{{ route('sponrun.index') }}">Sponsorenläufe verwalten</a></li>
+						<li><a href="{{ route('sponrun.create') }}">Sponsorenlauf anlegen</a></li>
+						<li role="separator" class="divider"></li>
+						<li><a href="{{ route('user.index') }}">User verwalten</a></li>
+						<li><a href="{{ route('user.create') }}">User anlegen</a></li>
+					</ul>
+				</li>
 				@endif
 			</ul>
 			<!-- Right Side Of Navbar -->
@@ -30,7 +44,8 @@
 				@else
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle"
-					   data-toggle="dropdown" role="button" aria-expanded="false">{{Auth::user()->lastname}}, {{Auth::user()->firstname}}
+					   data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+						{{Auth::user()->lastname}}, {{Auth::user()->firstname}}
 						<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu" role="menu">

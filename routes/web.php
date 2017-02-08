@@ -29,3 +29,5 @@ Route::resource('runpart', 'RunParticipationController', ['except' => [
 ]]);
 
 Route::resource('runpart.sponsor', 'SponsorController');
+Route::resource('sponrun', 'SponsoredRunController');
+Route::resource('user', 'UserController');

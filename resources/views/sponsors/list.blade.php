@@ -3,8 +3,8 @@
 	<div class="panel-body">
 		@if ($edit)
 		<a class="btn btn-primary" href="{{route('runpart.sponsor.create', $runpart->sponsoredRun->id) }}">Neuen Sponsor Hinzufügen</a>
-		@endif
 		<hr>
+		@endif
 		<table class="table table-striped table-hover table-condensed">
 			<tr>
 				<th>Nachname</th>

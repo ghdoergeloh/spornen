@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-- Teilnahme
+- Teilnahme anzeigen
 @endsection
 @section('content')
 <div class="container">
