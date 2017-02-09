@@ -3,7 +3,7 @@
 
 	<div class="col-md-6 " >
 		{{ Form::text('postcode', null, [ 'class' => "form-control", 'style' => "width: calc( 30% - 2px ); display: inline-block;"]) }}
-		{{ Form::text('city', null, [ 'class' => "form-control", 'style' => "width: calc( 70% - 1px ); display: inline-block;"]) }}
+		{{ Form::text('city', null, [ 'class' => "form-control", 'style' => "width: calc( 70% - 2px ); display: inline-block;"]) }}
 
 		@if ($errors->has('postcode'))
 		<span class="help-block">

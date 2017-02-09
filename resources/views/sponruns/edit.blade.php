@@ -4,14 +4,13 @@
 @endsection
 @section('content')
 <div class="container">
-    <div class="row">
-		<div class="col-md-12">
-			@include('layouts.messages')
-            <div class="panel panel-default">
-                <div class="panel-heading">Sponsorenlauf bearbeiten</div>
-                <div class="panel-body"></div>
-			</div>
-        </div>
-    </div>
+	<div class="col-md-8 col-md-offset-2">
+		{{ Form::model($sponsor, [
+		'method' => 'PATCH',
+		'route' => ['sponrun.update', $sponrun->id],
+		'class' => "form-horizontal"]) }}
+		@include('sponruns.sponrunForm')
+		{{ Form::close() }}
+	</div>
 </div>
 @endsection

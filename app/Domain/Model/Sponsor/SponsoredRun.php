@@ -6,9 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class SponsoredRun extends Model
 {
+	protected $fillable = [
+		'name', 'begin', 'end',
+		'street', 'housenumber',
+		'postcode', 'city', 'description'
+	];
 
 	protected $dates = [
-		'created_at', 'updated_at', 'begin'
+		'created_at', 'updated_at', 'begin', 'end'
 	];
 	
 	public function isElapsed()
