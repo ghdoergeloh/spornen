@@ -9,10 +9,8 @@
 			<tr>
 				<th>Nachname</th>
 				<th>Vorname</th>
-				<th class="hidden-xs hidden-sm">Straße</th>
-				<th class="hidden-xs hidden-sm">Nr.</th>
-				<th class="hidden-xs hidden-sm">PLZ</th>
-				<th class="hidden-xs hidden-sm">Ort</th>
+				<th class="hidden-xs hidden-sm">Straße, Nr.</th>
+				<th class="hidden-xs hidden-sm">PLZ, Ort</th>
 				<th class="hidden-xs hidden-sm">Telefon</th>
 				<th class="hidden-xs">E-Mail</th>
 				<th class="hidden-xs">Spende pro Runde</th>
@@ -30,10 +28,8 @@
 				@endif
 				<td>{{ $sponsor->lastname }}</td>
 				<td>{{ $sponsor->firstname }}</td>
-				<td class="hidden-xs hidden-sm">{{ $sponsor->street }}</td>
-				<td class="hidden-xs hidden-sm">{{ $sponsor->housenumber }}</td>
-				<td class="hidden-xs hidden-sm">{{ $sponsor->postcode }}</td>
-				<td class="hidden-xs hidden-sm">{{ $sponsor->city }}</td>
+				<td class="hidden-xs hidden-sm">{{ $sponsor->street }} {{ $sponsor->housenumber }}</td>
+				<td class="hidden-xs hidden-sm">{{ $sponsor->postcode }} {{ $sponsor->city }}</td>
 				<td class="hidden-xs hidden-sm">{{ $sponsor->phone }}</td>
 				<td class="hidden-xs">{{ $sponsor->email }}</td>
 				<td class="hidden-xs text-right">{{ $sponsor->donation_per_lap }} €</td>
