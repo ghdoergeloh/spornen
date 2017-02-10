@@ -19,6 +19,7 @@
 				<li><a href="{{ url('/home') }}">Home</a></li>
 				<li><a href="{{ route('runpart.index') }}">Meine Sponsorenläufe</a></li>
 				<li><a href="{{ route('account.edit') }}">Mein Account</a></li>
+				@if ( Entrust::hasRole('admin') )
 				<li class="dropdown">
 					<a href="#" class="dropdown-toggle"
 					   data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
@@ -33,6 +34,7 @@
 						<li><a href="{{ route('user.create') }}">User anlegen</a></li>
 					</ul>
 				</li>
+				@endif
 				@endif
 			</ul>
 			<!-- Right Side Of Navbar -->
