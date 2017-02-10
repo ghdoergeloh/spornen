@@ -15,7 +15,7 @@ class AddColumnsToSponsoredRunsTable extends Migration
 	public function up()
 	{
 		Schema::table('sponsored_runs', function (Blueprint $table) {
-			$table->datetime('end')->default('2000-01-01 00:00:00');
+			$table->datetime('end')->nullable();
 			$table->string('street')->nullable();
 			$table->string('housenumber', 31)->nullable();
 			$table->string('postcode', 5)->nullable();
@@ -28,7 +28,7 @@ class AddColumnsToSponsoredRunsTable extends Migration
 			$run->save();
 		}
 		Schema::table('sponsored_runs', function (Blueprint $table) {
-			$table->datetime('end')->change();
+			$table->datetime('end')->default(NULL)->nullable(false)->change();
 		});
 	}
 
