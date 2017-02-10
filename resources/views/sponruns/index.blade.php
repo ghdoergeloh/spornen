@@ -11,11 +11,44 @@
                 <div class="panel-body">
 					<table class="table table-striped">
 						<tr>
-							<th>Datum</th>
 							<th>Name</th>
-							<th>Gelaufene Runden</th>
-							<th>Sponsoren</th>
+							<th>Beginn</th>
+							<th>Ende</th>
+							<th class="hidden-xs hidden-sm">Straße, Nr.</th>
+							<th class="hidden-xs hidden-sm">PLZ, Ort</th>
+							<th class="hidden-xs hidden-sm"></th>
+							<th></th>
+							<th></th>
 						</tr>
+						@foreach ($sponruns as $sponrun)
+						<tr class="clickable-row" onclick="window.document.location = '{{route('sponrun.show', [$sponrun->id]) }}';">
+							<td>{{ $sponrun->name }}</td>
+							<td>{{ $sponrun->getBeginF() }}</td>
+							<td>{{ $sponrun->getEndF() }}</td>
+							<td class="hidden-xs hidden-sm">{{ $sponrun->street }} {{ $sponrun->housenumber }}</td>
+							<td class="hidden-xs hidden-sm">{{ $sponrun->postcode }} {{ $sponrun->city }}</td>
+							<td class="hidden-xs hidden-sm">
+								<a class="btn btn-info"
+								   href="{{route('sponrun.show', [$sponrun->id]) }}"
+								   data-toggle="tooltip" title="Anzeigen">
+									<span class="glyphicon glyphicon-list-alt"/></a></td>
+							<td>
+								<a class="btn btn-success"
+								   href="{{route('sponrun.edit', [$sponrun->id]) }}"
+								   data-toggle="tooltip" title="Bearbeiten">
+									<span class="glyphicon glyphicon-pencil"/></a></td>
+							<td>
+								{{ Form::open(['method' => 'DELETE', 'route' => [ 'sponrun.destroy', $sponrun->id ]]) }}
+								{{ Form::button('', [
+									'type' => "submit",
+									'class' => "btn btn-danger glyphicon glyphicon-trash",
+									'data-toggle' => "tooltip",
+									'title' => "Löschen"
+								]) }}
+								{{ Form::close() }}
+							</td>
+						</tr>
+						@endforeach
 					</table>
                 </div>
             </div>
