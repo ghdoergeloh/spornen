@@ -41,7 +41,7 @@
 								{{ Form::submit('Teilnehmen', [ 'class' => "btn btn-default"]) }}
 								{{ Form::close() }}
 								@else
-								<a class="btn btn-default" href="{{route('runpart.show', $run->id) }}">Meine Sponsoren</a>
+								<a class="btn btn-default" href="{{route('runpart.edit', $run->id) }}">Meine Sponsoren</a>
 								@endif
 							</td>
 						</tr>
