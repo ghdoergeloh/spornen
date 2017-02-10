@@ -33,7 +33,7 @@ class RunParticipationController extends Controller
 	public function index()
 	{
 		$user = Auth::user();
-		$runparts = RunParticipation::where('user_id', $user->id)->take(10)->get();
+		$runparts = RunParticipation::where('user_id', $user->id)->orderBy('id','desc')->take(10)->get();
 		return view('runpart.index')->with('runparts', $runparts);
 	}
 
@@ -56,105 +56,94 @@ class RunParticipationController extends Controller
 	public function store(Request $request)
 	{
 		$run = SponsoredRun::find($request->get('run_id'));
-		$data['sponsored_run_id'] = $run->id;
 		$user = Auth::user();
-		$data['user_id'] = $user->id;
-		$runpart = RunParticipation::where($data)->first();
-		if ($runpart == null) {
-			$data['project_id'] = 0;
-			$runpart = RunParticipation::create($data);
+		$runParticipation = RunParticipation
+				::where('sponsored_run_id',$run->id)
+				->where('user_id',$user->id)->first();
+		if ($runParticipation == null) {
+			$runParticipation = new RunParticipation();
+			$runParticipation->sponsoredRun()->associate($run);
+			$runParticipation->user()->associate($user);
+			$runParticipation->project_id = 0;
+			$runParticipation->save();
 		}
-		return redirect()->route('runpart.show', $runpart->sponsored_run_id);
+		return redirect()->route('runpart.edit', $runParticipation->sponsored_run_id);
 	}
 
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param  int  $runId
+	 * @param  RunParticipation  $runParticipation
 	 * @return Response
 	 */
-	public function show($runId)
+	public function show(RunParticipation $runParticipation)
 	{
-		$user = Auth::user();
-		$runpart = RunParticipation::where('sponsored_run_id', $runId)->where('user_id', $user->id)->first();
-		return view('runpart.show')->with('runpart', $runpart);
+		return view('runpart.show')->with('runpart', $runParticipation);
 	}
 
 	/**
 	 * Show the form for editing the specified resource.
 	 *
-	 * @param  int  $runId
+	 * @param  RunParticipation  $runParticipation
 	 * @return Response
 	 */
-	public function edit($runId)
+	public function edit(RunParticipation $runParticipation)
 	{
-		$user = Auth::user();
-		$runpart = RunParticipation::where('sponsored_run_id', $runId)->where('user_id', $user->id)->first();
 		// check if the Run hs already been
-		if ($runpart->sponsoredRun->isElapsed()) {
-			return redirect()->route('runpart.show', [$runId]);
+		if ($runParticipation->sponsoredRun->isElapsed()) {
+			return redirect()->route('runpart.show', [$runParticipation->sponsored_run_id]);
 		}
 		return view('runpart.edit')
 						->with('projects', $this->getProjectsSelection())
-						->with('runpart', $runpart)
-						->with('laps', $runpart->laps);
+						->with('runpart', $runParticipation)
+						->with('laps', $runParticipation->laps);
 	}
 
 	/**
 	 * Update the specified resource in storage.
 	 *
 	 * @param  Request  $request
-	 * @param  int  $runId
+	 * @param  RunParticipation  $runParticipation
 	 * @return Response
 	 */
-	public function update(Request $request, $runId)
+	public function update(Request $request, RunParticipation $runParticipation)
 	{
-		$run = SponsoredRun::find($runId);
-		$data['sponsored_run_id'] = $run->id;
-		$user = Auth::user();
-		$data['user_id'] = $user->id;
-		$runpart = RunParticipation::where($data)->first();
-		if ($runpart == null) {
-			redirect('home');
-		}
-		if ($runpart->sponsoredRun->isElapsed()) {
-			return redirect()->route('runpart.show', [$runId]);
+		if ($runParticipation->sponsoredRun->isElapsed()) {
+			return redirect()->route('runpart.show', [$runParticipation->sponsored_run_id]);
 		}
 		$project = Project::find($request->get('project'));
-		$runpart->project()->associate($project);
-		$runpart->save();
+		$runParticipation->project()->associate($project);
+		$runParticipation->save();
 		Session::flash('messages-success', new MessageBag(["Erfolgreich gespeichert"]));
-		return redirect()->route('runpart.edit', $runId);
+		return redirect()->route('runpart.edit', $runParticipation->sponsored_run_id);
 	}
 
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param  int  $runId
+	 * @param  RunParticipation  $runParticipation
 	 * @return Response
 	 */
-	public function destroy($runId)
+	public function destroy(RunParticipation $runParticipation)
 	{
 		//
 	}
 
-	public function calculate(Request $request, $runId)
+	public function calculate(Request $request, RunParticipation $runParticipation)
 	{
 		$validator = $this->validatorLaps($request->all());
 		if ($validator->fails()) {
 			$this->throwValidationException($request, $validator);
 		}
-		$user = Auth::user();
-		$runpart = RunParticipation::where('sponsored_run_id', $runId)->where('user_id', $user->id)->first();
 		// check if the Run hs already been
-		if ($runpart->sponsoredRun->isElapsed()) {
-			return redirect()->route('runpart.show', [$runId]);
+		if ($runParticipation->sponsoredRun->isElapsed()) {
+			return redirect()->route('runpart.show', [$runParticipation->sponsored_run_id]);
 		}
 		$laps = intval($request->laps);
-		$sum = $runpart->calculateSum($laps);
+		$sum = $runParticipation->calculateSum($laps);
 		return view('runpart.edit')
 						->with('projects', $this->getProjectsSelection())
-						->with('runpart', $runpart)
+						->with('runpart', $runParticipation)
 						->with('laps', $laps)
 						->with('sum', $sum);
 	}

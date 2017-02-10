@@ -12,7 +12,7 @@
                 <div class="panel-body">
 					<dl class="dl-horizontal">
 						<dt>Anzahl der Sponsoren:</dt>
-						<dd>{{ count($runpart->sponsors) }}</dd>
+						<dd>{{ $runpart->sponsors->count() }}</dd>
 					</dl>
 					<dl class="dl-horizontal">
 						<dt>Gewähltes Projekt:</dt>

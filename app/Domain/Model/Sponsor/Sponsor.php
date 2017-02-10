@@ -16,8 +16,7 @@ class Sponsor extends Model
 		'firstname', 'lastname',
 		'street', 'housenumber',
 		'postcode', 'city', 'phone',
-		'email', 'donation_per_lap', 'donation_static_max',
-		'run_participation_id', 'user_id'
+		'email', 'donation_per_lap', 'donation_static_max'
 	];
 	protected $dates = [
 		'created_at', 'updated_at', 'begin'

@@ -9,6 +9,8 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Sponsorenläufe</div>
                 <div class="panel-body">
+					<a class="btn btn-primary" href="{{route('sponrun.create') }}">Neuen Sponsorenlauf anlegen</a>
+					<hr>
 					<table class="table table-striped">
 						<tr>
 							<th>Name</th>
@@ -34,7 +36,7 @@
 									<span class="glyphicon glyphicon-list-alt"/></a></td>
 							<td>
 								<a class="btn btn-success"
-								   href="{{route('sponrun.edit', [$sponrun->id]) }}"
+								   href="{{route('sponrun.edit', [$sponrun]) }}"
 								   data-toggle="tooltip" title="Bearbeiten">
 									<span class="glyphicon glyphicon-pencil"/></a></td>
 							<td>

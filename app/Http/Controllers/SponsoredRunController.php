@@ -50,16 +50,16 @@ class SponsoredRunController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		$data = $request->all();
+		$attributes = $request->all();
 		//Validate
-		$validator = $this->validator($data);
+		$validator = $this->validator($attributes);
 		if ($validator->fails()) {
 			$this->throwValidationException($request, $validator);
 		}
 		//Save
-		$data['begin'] = strtotime($data['begin']);
-		$data['end'] = strtotime($data['end']);
-		SponsoredRun::create($data);
+		$attributes['begin'] = strtotime($attributes['begin']);
+		$attributes['end'] = strtotime($attributes['end']);
+		SponsoredRun::create($attributes);
 		//redirect
 		return redirect()->route('sponrun.index');
 	}
@@ -95,7 +95,19 @@ class SponsoredRunController extends Controller
 	 */
 	public function update(Request $request, SponsoredRun $sponsoredRun)
 	{
-		//
+		$attributes = $request->all();
+		//Validate
+		$validator = $this->validator($attributes);
+		if ($validator->fails()) {
+			$this->throwValidationException($request, $validator);
+		}
+		//Save
+		$attributes['begin'] = strtotime($attributes['begin']);
+		$attributes['end'] = strtotime($attributes['end']);
+		$sponsoredRun->fill($attributes);
+		$sponsoredRun->save();
+		//redirect
+		return redirect()->route('sponrun.index');
 	}
 
 	/**
@@ -106,7 +118,8 @@ class SponsoredRunController extends Controller
 	 */
 	public function destroy(SponsoredRun $sponsoredRun)
 	{
-		//
+		$sponsoredRun->delete();
+		return redirect()->route('sponrun.index');
 	}
 
 	private function validator(array $data)

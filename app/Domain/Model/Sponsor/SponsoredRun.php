@@ -2,7 +2,7 @@
 
 namespace App\Domain\Model\Sponsor;
 
-use DateTime;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class SponsoredRun extends Model
@@ -19,13 +19,18 @@ class SponsoredRun extends Model
 
 	public function isElapsed()
 	{
-		return $this->beginn < new DateTime();
+		return $this->attributes['begin'] < Carbon::now();
 	}
 
 	public function participants()
 	{
 		return $this->belongsToMany('App\Domain\Model\Auth\User', 'run_participations');
 		// the same as: return $this->belongsToMany('App\Domain\Model\Auth\User', 'run_participations', 'sponsored_run_id', 'user_id');
+	}
+
+	public function runParticipations()
+	{
+		return $this->hasMany('App\Domain\Model\Sponsor\RunParticipation');
 	}
 
 	public function getBeginF()

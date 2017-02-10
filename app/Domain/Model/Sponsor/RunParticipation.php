@@ -27,9 +27,7 @@ class RunParticipation extends Model
 		return $sum;
 	}
 
-	protected $fillable = [
-		'sponsored_run_id', 'user_id'
-	];
+	protected $fillable = [];
 	protected $dates = [
 		'created_at', 'updated_at'
 	];

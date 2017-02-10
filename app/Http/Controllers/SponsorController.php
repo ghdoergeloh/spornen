@@ -4,12 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Domain\Model\Sponsor\RunParticipation;
 use App\Domain\Model\Sponsor\Sponsor;
-use App\Domain\Model\Sponsor\SponsoredRun;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
+use Validator;
 
 class SponsorController extends Controller
 {
@@ -29,9 +28,9 @@ class SponsorController extends Controller
 	 *
 	 * @return Response
 	 */
-	public function index($runId)
+	public function index(RunParticipation $runpart)
 	{
-		return redirect()->route('runpart.edit', $runId);
+		return redirect()->route('runpart.edit', $runpart->sponsored_run_id);
 	}
 
 	/**
@@ -39,9 +38,9 @@ class SponsorController extends Controller
 	 *
 	 * @return Response
 	 */
-	public function create($runId)
+	public function create(RunParticipation $runpart)
 	{
-		return view('sponsors.create')->with('runId', $runId);
+		return view('sponsors.create')->with('runId', $runpart->sponsored_run_id);
 	}
 
 	/**
@@ -50,115 +49,84 @@ class SponsorController extends Controller
 	 * @param  Request  $request
 	 * @return Response
 	 */
-	public function store(Request $request, $runId)
+	public function store(Request $request, RunParticipation $runpart)
 	{
-		$validator = $this->validator($request->all());
+		$attributes = $request->all();
+		$validator = $this->validator($attributes);
 		if ($validator->fails()) {
 			$this->throwValidationException($request, $validator);
 		}
 
 		$user = Auth::user();
-		$run = SponsoredRun::find($runId);
-		$runParticipation = RunParticipation::where('sponsored_run_id', $run->id)->where('user_id', $user->id)->first();
-		$sponsorData = $request->all();
-		$sponsorData['user_id'] = $user->id;
-		$sponsorData['run_participation_id'] = $runParticipation->id;
-		Sponsor::create($sponsorData);
-		return redirect()->route('runpart.sponsor.index', $runId);
+		$sponsor = new Sponsor();
+		$sponsor->user()->associate($user);
+		$sponsor->runParticipation()->associate($runpart);
+		$sponsor->fill($attributes);
+		$sponsor->save();
+		return redirect()->route('runpart.sponsor.index', $runpart->sponsored_run_id);
 	}
 
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param  int  $id
+	 * @param  Sponsor  $sponsor
 	 * @return Response
 	 */
-	public function show($runId, $id)
+	public function show(RunParticipation $runpart, Sponsor $sponsor)
 	{
-		$sponsor = Sponsor::find($id);
-		$user = Auth::user();
-		if ($sponsor->user_id != $user->id) {
-			return redirect()->route('runpart.sponsor.index', $runId);
-		}
-		return view('sponsors.show')->with('sponsor', $sponsor)->with('runId', $runId);
+		return view('sponsors.show')->with('sponsor', $sponsor)->with('runId', $runpart->sponsored_run_id);
 	}
 
 	/**
 	 * Show the form for editing the specified resource.
 	 *
-	 * @param  int  $id
+	 * @param  Sponsor  $sponsor
 	 * @return Response
 	 */
-	public function edit($runId, $id)
+	public function edit(RunParticipation $runpart, Sponsor $sponsor)
 	{
-		$sponsor = Sponsor::find($id);
-		$user = Auth::user();
-		// check users right for viewing sponsor
-		if ($sponsor->user_id != $user->id) {
-			return redirect()->route('runpart.sponsor.index', $runId);
-		}
 		// check if the Run hs already been
-		$run = SponsoredRun::find($runId);
-		if ($run->isElapsed()) {
-			return redirect()->route('runpart.sponsor.show', [$runId, $id]);
+		if ($runpart->sponsoredRun->isElapsed()) {
+			return redirect()->route('runpart.sponsor.show', [$runpart->sponsored_run_id, $sponsor->id]);
 		}
-		return view('sponsors.edit')->with('sponsor', $sponsor)->with('runId', $runId);
+		return view('sponsors.edit')->with('sponsor', $sponsor)->with('runId', $runpart->sponsored_run_id);
 	}
 
 	/**
 	 * Update the specified resource in storage.
 	 *
 	 * @param  Request  $request
-	 * @param  int  $id
+	 * @param  Sponsor  $sponsor
 	 * @return Response
 	 */
-	public function update(Request $request, $runId, $id)
+	public function update(Request $request, RunParticipation $runpart, Sponsor $sponsor)
 	{
-		$validator = $this->validator($request->all());
+		$attributes = $request->all();
+		$validator = $this->validator($attributes);
 		if ($validator->fails()) {
-			\Illuminate\Support\Facades\Log::info('"' . $request . '"');
 			$this->throwValidationException($request, $validator);
 		}
 
-		$sponsor = Sponsor::find($id);
-		if ($sponsor->user_id != Auth::user()->id) {
-			return redirect()->route('runpart.sponsor.index', $runId);
-		}
 		// check if the Run hs already been
-		$run = SponsoredRun::find($runId);
-		if (!$run->isElapsed()) {
-			$sponsor->firstname = $request->firstname;
-			$sponsor->lastname = $request->lastname;
-			$sponsor->street = $request->street;
-			$sponsor->housenumber = $request->housenumber;
-			$sponsor->postcode = $request->postcode;
-			$sponsor->city = $request->city;
-			$sponsor->phone = $request->phone;
-			$sponsor->email = $request->email;
-			$sponsor->donation_per_lap = $request->donation_per_lap;
-			$sponsor->donation_static_max = $request->donation_static_max;
+		// check if the Run hs already been
+		if (!$runpart->sponsoredRun->isElapsed()) {
+			$sponsor->fill($attributes);
 			$sponsor->save();
 		}
 
-		return redirect()->route('runpart.sponsor.index', $runId);
+		return redirect()->route('runpart.sponsor.index', $runpart->sponsored_run_id);
 	}
 
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param  int  $id
+	 * @param  Sponsor  $sponsor
 	 * @return Response
 	 */
-	public function destroy($runId, $id)
+	public function destroy(RunParticipation $runpart, Sponsor $sponsor)
 	{
-		$sponsor = Sponsor::find($id);
-		$runRarticipation = RunParticipation::find($sponsor->run_participation_id);
-		$user = Auth::user();
-		if ($runRarticipation->user_id != $user->id) {
-			return redirect()->route('runpart.sponsor.index', $runId);
-		}
 		$sponsor->delete();
-		return redirect()->route('runpart.sponsor.index', $runId);
+		return redirect()->route('runpart.sponsor.index', $runpart->sponsored_run_id);
 	}
 
 	private function validator(array $data)
