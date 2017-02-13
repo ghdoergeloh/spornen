@@ -33,7 +33,7 @@
 						<tr>
 							<td>{{ $run->begin->format('d.m.Y') }}</td>
 							<td>{{ $run->name }}</td>
-							<td>{{ $run->participants->count() }}</td>
+							<td>{{ $run->participants_count }}</td>
 							<td>
 								@if ( !$run->participants->contains($user) )
 								{{ Form::open(['route' => 'runpart.store']) }}

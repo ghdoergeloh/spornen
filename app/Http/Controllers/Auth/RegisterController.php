@@ -64,7 +64,7 @@ use RegistersUsers;
 					'city' => 'required|max:255',
 					'birthday' => 'required|date',
 					'gender' => 'required|in:m,f',
-					'phone' => 'required|phone:AUTO,DE',
+					'phone' => 'nullable|phone:AUTO,DE',
 					'email' => 'required|email|max:255|unique:users',
 					'password' => 'required|min:6|confirmed',
 		]);
@@ -78,6 +78,7 @@ use RegistersUsers;
 	 */
 	protected function create(array $data, $confirmed, $confirmation_code)
 	{
+		\Illuminate\Support\Facades\Log::info($data);
 		return User::create([
 					'firstname' => $data['firstname'],
 					'lastname' => $data['lastname'],

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class RunParticipation extends Model
 {
 
-	public function calculateSum($laps = null)
+	public function calculateDonationSum($laps = null)
 	{
 		$sponsors = $this->sponsors;
 		if ($laps == null) {

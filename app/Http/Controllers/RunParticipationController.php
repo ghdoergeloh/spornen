@@ -140,7 +140,7 @@ class RunParticipationController extends Controller
 			return redirect()->route('runpart.show', [$runParticipation->sponsored_run_id]);
 		}
 		$laps = intval($request->laps);
-		$sum = $runParticipation->calculateSum($laps);
+		$sum = $runParticipation->calculateDonationSum($laps);
 		return view('runpart.edit')
 						->with('projects', $this->getProjectsSelection())
 						->with('runpart', $runParticipation)

@@ -1,8 +1,14 @@
 <div class="form-group{{ $errors->has('gender') ? ' has-error' : '' }}">
-	<div class="col-md-10 col-md-offset-4">
+	{{ Form::label('gender', 'Geschlecht'.(isset($required) && $required ?' *':''), [ 'class' => "col-md-4 control-label"]) }}
+
+	<div class="col-md-6">
 		<div class="radio-inline">
 			<label>
+				@if(isset($required) && $required)
+				{{ Form::radio('gender', 'm', [ 'required' => "required" ]) }}
+				@else
 				{{ Form::radio('gender', 'm') }}
+				@endif
 				Mann
 			</label>
 		</div>

@@ -20,7 +20,8 @@ class User extends Authenticatable
 		'street', 'housenumber',
 		'postcode', 'city',
 		'birthday', 'phone',
-		'email', 'password', 'confirmation_code'
+		'email', 'gender',
+		'password', 'confirmation_code'
 	];
 
 	/**
@@ -39,8 +40,8 @@ class User extends Authenticatable
 
 	public function getBirthdayAttribute($birthday)
 	{
-		$birthday = new Carbon($birthday);
-		return $birthday->format('d.m.Y');
+		$birthdayC = new Carbon($birthday);
+		return $birthdayC->format('d.m.Y');
 	}
 
 }

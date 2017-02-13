@@ -1,11 +1,11 @@
-@include('formfields.firstname')
-@include('formfields.lastname')
-@include('formfields.street_housenumber')
-@include('formfields.postcode_city')
+@include('formfields.firstname', ['required' => true])
+@include('formfields.lastname', ['required' => true])
+@include('formfields.street_housenumber', ['required' => true])
+@include('formfields.postcode_city', ['required' => true])
 @include('formfields.phone')
 @include('formfields.email')
-@include('formfields.donation_per_lap')
-@include('formfields.donation_static_max')
+@include('formfields.donation_per_lap', ['required' => true])
+@include('formfields.donation_static_max', ['required' => true])
 
 <div class="form-group">
 	<div class="col-md-6 col-md-offset-4">

@@ -6,9 +6,9 @@
 		'url' => 'register',
 		'class' => "form-horizontal"]) }}
 		@include('auth.userForm')
-		@include('formfields.email')
-		@include('formfields.password')
-		@include('formfields.password_confirmation')
+		@include('formfields.email', ['required' => true])
+		@include('formfields.password', ['required' => true])
+		@include('formfields.password_confirmation', ['required' => true])
 		<div class="form-group">
 			<div class="col-md-6 col-md-offset-4">
 				<button type="submit" class="btn btn-primary">

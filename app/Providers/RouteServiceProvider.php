@@ -42,7 +42,10 @@ class RouteServiceProvider extends ServiceProvider
 			return Sponsor::where('id', $sponsorId)->where('user_id', $user->id)->first();
 		});
 		Route::model('user', User::class);
-		Route::model('sponrun', SponsoredRun::class);
+		//Route::model('sponrun', SponsoredRun::class);
+		Route::bind('sponrun', function ($sponrunId) {
+			return SponsoredRun::withCount('participants')->find($sponrunId);
+		});
 	}
 
 	/**

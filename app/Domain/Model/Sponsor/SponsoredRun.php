@@ -43,4 +43,69 @@ class SponsoredRun extends Model
 		return $this->end->format('d.m.Y - H:i');
 	}
 
+	public function totalLaps()
+	{
+		$totalLaps = 0;
+		foreach ($this->runParticipations as $participant) {
+			$totalLaps += $participant->laps;
+		}
+		return $totalLaps;
+	}
+
+	public function totalDonationSum()
+	{
+		$totalDonationSum = 0;
+		foreach ($this->runParticipations as $participant) {
+			$totalDonationSum += $participant->calculateDonationSum();
+		}
+		return $totalDonationSum;
+	}
+
+	public function participantionsMostLaps()
+	{
+		$mostLaps = 0;
+		$runparts = [];
+		foreach ($this->runParticipations as $runpart) {
+			$laps = $runpart->laps;
+			if ($laps > $mostLaps) {
+				$mostLaps = $laps;
+				$runparts = [$runpart];
+			} elseif ($laps == $mostLaps) {
+				$runparts[] = $runpart;
+			}
+		}
+		return $runparts;
+	}
+
+	public function participantionsMostSponsors()
+	{
+		$mostSponsors = 0;
+		$runparts = [];
+		foreach ($this->runParticipations as $runpart) {
+			$sponsors = $runpart->sponsors->count();
+			if ($sponsors > $mostSponsors) {
+				$mostSponsors = $sponsors;
+				$runparts = [$runpart];
+			} elseif ($sponsors == $mostSponsors) {
+				$runparts[] = $runpart;
+			}
+		}
+		return $runparts;
+	}
+
+	public function participantionsHighestDonation()
+	{
+		$highesDonation = 0.00;
+		$runparts = [];
+		foreach ($this->runParticipations as $runpart) {
+			$donation = $runpart->calculateDonationSum();
+			if ($donation > $highesDonation) {
+				$highesDonation = $donation;
+				$runparts = [$runpart];
+			} elseif ($donation == $highesDonation) {
+				$runparts[] = $runpart;
+			}
+		}
+		return $runparts;
+	}
 }

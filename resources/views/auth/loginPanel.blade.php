@@ -6,8 +6,8 @@
 		'method' => 'POST',
 		'url' => 'login',
 		'class' => "form-horizontal"]) }}
-		@include('formfields.email')
-		@include('formfields.password')
+		@include('formfields.email', ['required' => true])
+		@include('formfields.password', ['required' => true])
 		@include('formfields.remember')
 		<div class="form-group">
 			<div class="col-md-6 col-md-offset-4">

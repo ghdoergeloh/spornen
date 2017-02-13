@@ -72,7 +72,7 @@ class SponsoredRunController extends Controller
 	 */
 	public function show(SponsoredRun $sponsoredRun)
 	{
-		return view('sponruns.show')->with('sponrun', $sponsoredRun);
+		return view('sponruns.show')->with('sponrun', $sponsoredRun)->with('participantsCount', $sponsoredRun->participants_count);
 	}
 
 	/**

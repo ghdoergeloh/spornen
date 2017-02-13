@@ -12,28 +12,36 @@
                 <div class="panel-body">
 					<dl>
 						<dt>Anzahl der Läufer:</dt>
-						<dd>{{ $sponrun->runParticipations->count() }}</dd>
+						<dd>{{ $sponrun->participants_count }}</dd>
 					</dl>
+					@if ($sponrun->participants_count > 0 && $sponrun->totalLaps() > 0)
 					<dl>
 						<dt>Runden insgesamt:</dt>
-						<dd>8640</dd>
+						<dd>{{ $sponrun->totalLaps() }}</dd>
 					</dl>
 					<dl>
 						<dt>Betrag insgesamt:</dt>
-						<dd>0.00 €</dd>
+						<dd>{{ $sponrun->totalDonationSum() }} €</dd>
 					</dl>
 					<dl>
-						<dt>Läufer mit meisten Runden (35):</dt>
-						<dd>Fritz Peter Vonundzu, Karl Otto</dd>
+						<dt>Läufer mit meisten Runden ({{ $sponrun->participantionsMostLaps()[0]->laps }}):</dt>
+						@foreach ($sponrun->participantionsMostLaps() as $runpart)
+						<dd>{{ $runpart->user->firstname }} {{ $runpart->user->lastname }}</dd>
+						@endforeach
 					</dl>
 					<dl>
-						<dt>Läufer mit meisten Sponsoren (69):</dt>
-						<dd>Hanelore Eckard</dd>
+						<dt>Läufer mit meisten Sponsoren ({{ $sponrun->participantionsMostSponsors()[0]->sponsors->count() }}):</dt>
+						@foreach ($sponrun->participantionsMostLaps() as $runpart)
+						<dd>{{ $runpart->user->firstname }} {{ $runpart->user->lastname }}</dd>
+						@endforeach
 					</dl>
 					<dl>
-						<dt>Läufer mit größtem Betrag (3.536,50 €):</dt>
-						<dd>Artur Peters</dd>
+						<dt>Läufer mit größtem Betrag ({{ $sponrun->participantionsHighestDonation()[0]->calculateDonationSum() }} €):</dt>
+						@foreach ($sponrun->participantionsHighestDonation() as $runpart)
+						<dd>{{ $runpart->user->firstname }} {{ $runpart->user->lastname }}</dd>
+						@endforeach
 					</dl>
+					@endif
 				</div>
 			</div>
 			<div class="panel panel-default">
@@ -52,18 +60,18 @@
 							<th class="hidden-xs">Betrag</th>
 							<th class="hidden-xs hidden-sm">Sponsoren</th>
 						</tr>
-						@foreach ($sponrun->runParticipations as $runParticipation)
+						@foreach ($sponrun->runParticipations as $runpart)
 						<tr>
-							<td>{{ $runParticipation->user->id }}</td>
-							<td>{{ $runParticipation->user->lastname }}</td>
-							<td>{{ $runParticipation->user->firstname }}</td>
-							<td class="hidden-xs hidden-sm">{{ $runParticipation->user->street }} {{ $runParticipation->user->housenumber }}</td>
-							<td class="hidden-xs hidden-sm">{{ $runParticipation->user->postcode }} {{ $runParticipation->user->city }}</td>
-							<td class="hidden-xs hidden-sm">{{ $runParticipation->user->phone }}</td>
-							<td class="hidden-xs">{{ $runParticipation->user->email }}</td>
-							<td>{{ $runParticipation->laps }}</td>
-							<td>{{ $runParticipation->calculateSum() }} €</td>
-							<td>{{ $runParticipation->sponsors()->count() }}</td>
+							<td>{{ $runpart->user->id }}</td>
+							<td>{{ $runpart->user->lastname }}</td>
+							<td>{{ $runpart->user->firstname }}</td>
+							<td class="hidden-xs hidden-sm">{{ $runpart->user->street }} {{ $runpart->user->housenumber }}</td>
+							<td class="hidden-xs hidden-sm">{{ $runpart->user->postcode }} {{ $runpart->user->city }}</td>
+							<td class="hidden-xs hidden-sm">{{ $runpart->user->phone }}</td>
+							<td class="hidden-xs">{{ $runpart->user->email }}</td>
+							<td>{{ $runpart->laps }}</td>
+							<td>{{ $runpart->calculateDonationSum() }} €</td>
+							<td>{{ $runpart->sponsors()->count() }}</td>
 						</tr>
 						@endforeach
 					</table>

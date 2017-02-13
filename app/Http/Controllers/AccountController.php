@@ -67,7 +67,7 @@ class AccountController extends Controller
 		$user->gender = $request->gender;
 		$user->phone = $request->phone;
 		$user->save();
-		Session::flash('messages-success', new MessageBag(["Erfolgreich gespeichert"])); 
+		Session::flash('messages-success', new MessageBag(["Erfolgreich gespeichert"]));
 		return redirect()->route('account.edit');
 	}
 
@@ -93,7 +93,7 @@ class AccountController extends Controller
 					'city' => 'required|max:255',
 					'birthday' => 'required|date',
 					'gender' => 'required|in:m,f',
-					'phone' => 'required|phone:AUTO,DE',
+					'phone' => 'nullable|phone:AUTO,DE',
 		]);
 	}
 

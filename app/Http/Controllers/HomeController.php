@@ -27,7 +27,7 @@ class HomeController extends Controller
     public function showHomeView()
     {
 		$user = Auth::user();
-		$runs = SponsoredRun::where('begin', '>', new DateTime())->get();
+		$runs = SponsoredRun::where('begin', '>', new DateTime())->withCount('participants')->get();
 		return view('home')->with('user', $user)->with('runs',  $runs);
     }
 }
