@@ -7,7 +7,7 @@
 	<div class="col-md-8 col-md-offset-2">
 		{{ Form::model($sponsor, [
 		'method' => 'PATCH',
-		'route' => [$root_route.'sponsor.update', implode(',', $root_route_params), $sponsor->id],
+		'url' => route($root_route.'sponsor.update', array_merge($root_route_params, [$sponsor->id])),
 		'class' => "form-horizontal"]) }}
 		@include('sponsors.sponsorForm')
 		{{ Form::close() }}

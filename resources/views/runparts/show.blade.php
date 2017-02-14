@@ -28,7 +28,7 @@
 					</dl>
                 </div>
             </div>
-			@include('sponsors.list', ['edit' => false])
+			@include('sponsors.list', ['edit' => false, 'root_route' => $root_route.'runpart.'])
         </div>
     </div>
 </div>
