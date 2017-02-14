@@ -29,8 +29,6 @@ Route::resource('runpart', 'UsersRunParticipationController',
 Route::resource('runpart.sponsor', 'UsersSponsorController');
 
 Route::resource('sponrun', 'SponsoredRunController');
-Route::get('sponrun/{sponrun}runpart/{runpart}/calculate', 'RunParticipationController@calculate')->name('sponrun.runpart.calculate');
-Route::resource('sponrun.runpart', 'RunParticipationController');
+Route::resource('sponrun.runpart', 'RunParticipationController',
+		['except' => ['create', 'store', 'destroy']]);
 Route::resource('sponrun.runpart.sponsor', 'SponsorController');
-
-Route::resource('user', 'UserController');

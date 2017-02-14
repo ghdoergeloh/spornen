@@ -27,7 +27,7 @@ class RunParticipation extends Model
 		return $sum;
 	}
 
-	protected $fillable = [];
+	protected $fillable = ['laps'];
 	protected $dates = [
 		'created_at', 'updated_at'
 	];

@@ -120,7 +120,7 @@ class SponsorController extends Controller
 		$sponsor->fill($attributes);
 		$sponsor->save();
 
-		return redirect()->route('runpart.sponsor.index', $runpart->id);
+		return redirect()->route('sponrun.runpart.sponsor.index', [$sponrun->id, $runpart->id]);
 	}
 
 	/**

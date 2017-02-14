@@ -101,7 +101,7 @@ class UsersRunParticipationController extends Controller
 			return redirect()->route('runpart.show', [$runpart->id]);
 		}
 		return view('runparts.edit')
-						->with('projects', $this->getProjectsSelection())
+						->with('projects', Project::getProjectsSelection())
 						->with('runpart', $runpart)
 						->with('laps', $runpart->laps)
 						->with('root_route', $this->root_route)
@@ -164,27 +164,6 @@ class UsersRunParticipationController extends Controller
 		return Validator::make($data, [
 					'laps' => 'required|integer|min:0'
 		]);
-	}
-
-	private function getProjectsSelection()
-	{
-		$projects = Project::orderBy('scope', 'asc')->orderBy('name', 'asc')->get();
-		$projectsSelection = array();
-		foreach ($projects as $project) {
-			switch ($project->scope) {
-				case 'project':
-					$scope = ' (Projekt)';
-					break;
-				case 'person':
-					$scope = ' (Person)';
-					break;
-				default:
-					$scope = '';
-					break;
-			}
-			$projectsSelection[$project->id] = $project->name . $scope;
-		}
-		return $projectsSelection;
 	}
 
 }

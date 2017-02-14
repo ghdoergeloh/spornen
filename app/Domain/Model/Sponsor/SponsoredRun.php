@@ -108,4 +108,36 @@ class SponsoredRun extends Model
 		}
 		return $runparts;
 	}
+
+	public function oldestParticipants()
+	{
+		$earliestBirthday = Carbon::maxValue();
+		$participants = [];
+		foreach ($this->participants as $participant) {
+			$birthday = $participant->birthday;
+			if ($birthday < $earliestBirthday) {
+				$earliestBirthday = $birthday;
+				$participants = [$participant];
+			} elseif ($birthday == $earliestBirthday) {
+				$participants[] = $participant;
+			}
+		}
+		return $participants;
+	}
+
+	public function youngestParticipants()
+	{
+		$latestBirthday = Carbon::minValue();
+		$participants = [];
+		foreach ($this->participants as $participant) {
+			$birthday = $participant->birthday;
+			if ($birthday > $latestBirthday) {
+				$latestBirthday = $birthday;
+				$participants = [$participant];
+			} elseif ($birthday == $latestBirthday) {
+				$participants[] = $participant;
+			}
+		}
+		return $participants;
+	}
 }

@@ -35,7 +35,7 @@ class RunParticipationController extends Controller
 	 */
 	public function index(SponsoredRun $sponrun)
 	{
-		//
+		return redirect()->route('sponrun.show', [$sponrun->id]);
 	}
 
 	/**
@@ -54,21 +54,9 @@ class RunParticipationController extends Controller
 	 * @param  Request  $request
 	 * @return Response
 	 */
-	public function store(Request $request)
+	public function store(Request $request, SponsoredRun $sponrun)
 	{
-		$run = SponsoredRun::find($request->get('run_id'));
-		$user = Auth::user();
-		$runpart = RunParticipation
-						::where('sponsored_run_id', $run->id)
-						->where('user_id', $user->id)->first();
-		if ($runpart == null) {
-			$runpart = new RunParticipation();
-			$runpart->sponsoredRun()->associate($run);
-			$runpart->user()->associate($user);
-			$runpart->project_id = 0;
-			$runpart->save();
-		}
-		return redirect()->route('runpart.edit', $runpart->id);
+		//
 	}
 
 	/**
@@ -77,11 +65,11 @@ class RunParticipationController extends Controller
 	 * @param  RunParticipation  $runpart
 	 * @return Response
 	 */
-	public function show(RunParticipation $runpart)
+	public function show(SponsoredRun $sponrun, RunParticipation $runpart)
 	{
 		return view('runparts.show')->with('runpart', $runpart)
 						->with('root_route', $this->root_route)
-						->with('root_route_params', [$runpart->id]);
+						->with('root_route_params', [$sponrun->id, $runpart->id]);
 	}
 
 	/**
@@ -93,8 +81,9 @@ class RunParticipationController extends Controller
 	public function edit(SponsoredRun $sponrun, RunParticipation $runpart)
 	{
 		return view('runparts.edit')
-						->with('projects', $this->getProjectsSelection())
+						->with('projects', Project::getProjectsSelection())
 						->with('runpart', $runpart)
+						->with('adminview', true)
 						->with('laps', $runpart->laps)
 						->with('root_route', $this->root_route)
 						->with('root_route_params', [$sponrun->id, $runpart->id]);
@@ -107,16 +96,19 @@ class RunParticipationController extends Controller
 	 * @param  RunParticipation  $runpart
 	 * @return Response
 	 */
-	public function update(Request $request, RunParticipation $runpart)
+	public function update(Request $request, SponsoredRun $sponrun, RunParticipation $runpart)
 	{
-		if ($runpart->sponsoredRun->isElapsed()) {
-			return redirect()->route('runpart.show', [$runpart->sponsored_run_id]);
+		$data = $request->all();
+		$validator = $this->validator($data);
+		if ($validator->fails()) {
+			$this->throwValidationException($request, $validator);
 		}
 		$project = Project::find($request->get('project'));
 		$runpart->project()->associate($project);
+		$runpart->fill($data);
 		$runpart->save();
 		Session::flash('messages-success', new MessageBag(["Erfolgreich gespeichert"]));
-		return redirect()->route('runpart.edit', $runpart->id);
+		return redirect()->route('sponrun.runpart.edit', [$sponrun->id, $runpart->id]);
 	}
 
 	/**
@@ -130,53 +122,10 @@ class RunParticipationController extends Controller
 		//
 	}
 
-	public function calculate(Request $request, RunParticipation $runpart)
-	{
-		$validator = $this->validatorLaps($request->all());
-		if ($validator->fails()) {
-			$this->throwValidationException($request, $validator);
-		}
-		// check if the Run hs already been
-		if ($runpart->sponsoredRun->isElapsed()) {
-			return redirect()->route('runpart.show', [$runpart->id]);
-		}
-		$laps = intval($request->laps);
-		$sum = $runpart->calculateDonationSum($laps);
-		return view('runparts.edit')
-						->with('projects', $this->getProjectsSelection())
-						->with('runpart', $runpart)
-						->with('laps', $laps)
-						->with('sum', $sum)
-						->with('root_route', $this->root_route)
-						->with('root_route_params', [$runpart->id]);
-	}
-
-	private function validatorLaps(array $data)
+	private function validator(array $data)
 	{
 		return Validator::make($data, [
 					'laps' => 'required|integer|min:0'
 		]);
 	}
-
-	private function getProjectsSelection()
-	{
-		$projects = Project::orderBy('scope', 'asc')->orderBy('name', 'asc')->get();
-		$projectsSelection = array();
-		foreach ($projects as $project) {
-			switch ($project->scope) {
-				case 'project':
-					$scope = ' (Projekt)';
-					break;
-				case 'person':
-					$scope = ' (Person)';
-					break;
-				default:
-					$scope = '';
-					break;
-			}
-			$projectsSelection[$project->id] = $project->name . $scope;
-		}
-		return $projectsSelection;
-	}
-
 }
