@@ -6,7 +6,7 @@
 <div class="container">
 	<div class="col-md-8 col-md-offset-2">
 		{{ Form::open([
-		'route' => ['sponrun.store'],
+		'url' => route($root_route.'sponrun.store', $root_route_params),
 		'class' => "form-horizontal"]) }}
 		@include('sponruns.sponrunForm')
 		{{ Form::close() }}

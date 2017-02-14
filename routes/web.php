@@ -23,11 +23,14 @@ Route::get('home', 'HomeController@showHomeView');
 Route::get('account/edit', 'AccountController@edit')->name('account.edit');
 Route::patch('account/update', 'AccountController@update')->name('account.update');
 
-Route::get('runpart/{runpart}/calculate', 'RunParticipationController@calculate')->name('runpart.calculate');
-Route::resource('runpart', 'RunParticipationController', ['except' => [
-		'create', 'destroy'
-]]);
+Route::get('runpart/{runpart}/calculate', 'UsersRunParticipationController@calculate')->name('runpart.calculate');
+Route::resource('runpart', 'UsersRunParticipationController',
+		['except' => ['create', 'destroy']]);
+Route::resource('runpart.sponsor', 'UsersSponsorController');
 
-Route::resource('runpart.sponsor', 'SponsorController');
 Route::resource('sponrun', 'SponsoredRunController');
+Route::get('sponrun/{sponrun}runpart/{runpart}/calculate', 'RunParticipationController@calculate')->name('sponrun.runpart.calculate');
+Route::resource('sponrun.runpart', 'RunParticipationController');
+Route::resource('sponrun.runpart.sponsor', 'SponsorController');
+
 Route::resource('user', 'UserController');

@@ -12,7 +12,7 @@
                 <div class="panel-body">
 					{{ Form::open([
 						'method' => 'PATCH',
-						'route' => [ 'runpart.update', $runpart->sponsoredRun->id ],
+						'url' => route($root_route.'runpart.update', array_merge($root_route_params, [$runpart->id])),
 						'class' => 'form-inline '.($errors->has('project') ? ' has-error' : '')]) }}
 					{{ Form::select('project', $projects, $runpart->project->id, [ 'class' => "form-control" ]) }}
 					{{ Form::submit('Speichern', [ 'class' => "btn btn-primary"]) }}
@@ -24,7 +24,7 @@
                 <div class="panel-body">
 					{{ Form::open([
 						'method' => 'GET',
-						'route' => [ 'runpart.calculate', $runpart->sponsoredRun->id ],
+						'url' => route($root_route.'runpart.calculate', array_merge($root_route_params, [$runpart->id])),
 						'class' => 'form-inline '.($errors->has('laps') ? ' has-error' : '')]) }}
 					<p>ich 
 						{{ Form::number('laps', $laps, [ 'class' => "form-control", 'min' => "0", 'step' => "1", 'style' => "width: 60px"]) }}
@@ -46,7 +46,7 @@
 					@endif
                 </div>
             </div>
-			@include('sponsors.list', ['edit' => true])
+			@include('sponsors.list', ['edit' => true, 'root_route' => $root_route.'runpart.'])
         </div>
     </div>
 </div>

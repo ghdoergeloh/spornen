@@ -6,8 +6,8 @@
 <div class="container">
 	<div class="col-md-8 col-md-offset-2">
 		{{ Form::open([
-		'route' => ['runpart.sponsor.store', $runId],
-		'class' => "form-horizontal"]) }}
+			'url' => route($root_route.'sponsor.store', $root_route_params),
+			'class' => "form-horizontal"]) }}
 		@include('sponsors.sponsorForm')
 		{{ Form::close() }}
 	</div>

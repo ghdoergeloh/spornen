@@ -6,6 +6,7 @@
 <div class="container">
     <div class="row">
 		<div class="col-md-12">
+			@include('layouts.messages')
             <div class="panel panel-default">
                 <div class="panel-heading">Meine Teilnahmen</div>
                 <div class="panel-body">
@@ -22,12 +23,12 @@
 							<td>{{ $runpart->sponsoredRun->name }}</td>
 							<td>{{ $runpart->laps }}</td>
 							<td><a class="btn btn-info"
-								   href="{{route('runpart.show', $runpart->sponsoredRun->id) }}"
+								   href="{{route($root_route.'runpart.show', array_merge($root_route_params,[$runpart->id])) }}"
 								   data-toggle="tooltip" title="Anzeigen">
 									<span class="glyphicon glyphicon-list-alt"/></a>
 								@if ( !$runpart->sponsoredRun->isElapsed() )
 								<a class="btn btn-success"
-								   href="{{route('runpart.edit', $runpart->sponsoredRun->id) }}"
+								   href="{{route($root_route.'runpart.edit', array_merge($root_route_params,[$runpart->id])) }}"
 								   data-toggle="tooltip" title="Bearbeiten">
 									<span class="glyphicon glyphicon-pencil"/></a>
 								@endif

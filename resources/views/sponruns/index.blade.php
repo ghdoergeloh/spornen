@@ -9,7 +9,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Sponsorenläufe</div>
                 <div class="panel-body">
-					<a class="btn btn-primary" href="{{route('sponrun.create') }}">Neuen Sponsorenlauf anlegen</a>
+					<a class="btn btn-primary" href="{{route($root_route.'sponrun.create') }}">Neuen Sponsorenlauf anlegen</a>
 					<hr>
 					<table class="table table-striped">
 						<tr>
@@ -24,23 +24,26 @@
 						</tr>
 						@foreach ($sponruns as $sponrun)
 						<tr class="clickable-row">
-							<td onclick="window.document.location = '{{route('sponrun.show', [$sponrun->id]) }}';">{{ $sponrun->name }}</td>
+							<td onclick="window.document.location = '{{route($root_route.'sponrun.show', [$sponrun->id]) }}';">{{ $sponrun->name }}</td>
 							<td class="hidden-xs">{{ $sponrun->getBeginF() }}</td>
 							<td class="hidden-xs">{{ $sponrun->getEndF() }}</td>
 							<td class="hidden-xs hidden-sm">{{ $sponrun->street }} {{ $sponrun->housenumber }}</td>
 							<td class="hidden-xs hidden-sm">{{ $sponrun->postcode }} {{ $sponrun->city }}</td>
 							<td class="hidden-xs hidden-sm">
 								<a class="btn btn-info"
-								   href="{{route('sponrun.show', [$sponrun->id]) }}"
+								   href="{{route($root_route.'sponrun.show', [$sponrun->id]) }}"
 								   data-toggle="tooltip" title="Anzeigen">
 									<span class="glyphicon glyphicon-list-alt"/></a></td>
 							<td>
 								<a class="btn btn-success"
-								   href="{{route('sponrun.edit', [$sponrun]) }}"
+								   href="{{route($root_route.'sponrun.edit', [$sponrun]) }}"
 								   data-toggle="tooltip" title="Bearbeiten">
 									<span class="glyphicon glyphicon-pencil"/></a></td>
 							<td>
-								{{ Form::open(['method' => 'DELETE', 'route' => [ 'sponrun.destroy', $sponrun->id ]]) }}
+								{{ Form::open([
+									'method' => 'DELETE',
+									'url' => route($root_route.'sponrun.destroy', array_merge($root_route_params, [$sponrun->id]))
+								]) }}
 								{{ Form::button('', [
 									'type' => "submit",
 									'class' => "btn btn-danger glyphicon glyphicon-trash",

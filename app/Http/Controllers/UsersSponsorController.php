@@ -10,10 +10,10 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 
-class SponsorController extends Controller
+class UsersSponsorController extends Controller
 {
 
-	private $root_route = 'sponrun.runpart.';
+	private $root_route = 'runpart.';
 
 	/**
 	 * Create a new controller instance.

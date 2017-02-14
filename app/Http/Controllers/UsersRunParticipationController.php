@@ -12,10 +12,10 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\MessageBag;
 
-class RunParticipationController extends Controller
+class UsersRunParticipationController extends Controller
 {
 
-	private $root_route = 'sponrun.';
+	private $root_route = '';
 
 	/**
 	 * Create a new controller instance.
@@ -25,7 +25,6 @@ class RunParticipationController extends Controller
 	public function __construct()
 	{
 		$this->middleware('auth');
-		$this->middleware('role:admin');
 	}
 
 	/**
@@ -33,9 +32,14 @@ class RunParticipationController extends Controller
 	 *
 	 * @return Response
 	 */
-	public function index(SponsoredRun $sponrun)
+	public function index()
 	{
-		//
+		$user = Auth::user();
+		$runparts = RunParticipation::where('user_id', $user->id)->orderBy('id', 'desc')->take(10)->get();
+		return view('runparts.index')
+						->with('runparts', $runparts)
+						->with('root_route', $this->root_route)
+						->with('root_route_params', []);
 	}
 
 	/**
@@ -90,14 +94,18 @@ class RunParticipationController extends Controller
 	 * @param  RunParticipation  $runpart
 	 * @return Response
 	 */
-	public function edit(SponsoredRun $sponrun, RunParticipation $runpart)
+	public function edit(RunParticipation $runpart)
 	{
+		// check if the Run hs already been
+		if ($runpart->sponsoredRun->isElapsed()) {
+			return redirect()->route('runpart.show', [$runpart->id]);
+		}
 		return view('runparts.edit')
 						->with('projects', $this->getProjectsSelection())
 						->with('runpart', $runpart)
 						->with('laps', $runpart->laps)
 						->with('root_route', $this->root_route)
-						->with('root_route_params', [$sponrun->id, $runpart->id]);
+						->with('root_route_params', [$runpart->id]);
 	}
 
 	/**

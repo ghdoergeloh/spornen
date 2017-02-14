@@ -10,6 +10,8 @@ use Validator;
 class SponsoredRunController extends Controller
 {
 
+	private $root_route = '';
+
 	/**
 	 * Create a new controller instance.
 	 *
@@ -29,7 +31,10 @@ class SponsoredRunController extends Controller
 	public function index()
 	{
 		$sponruns = SponsoredRun::orderBy('begin', 'desc')->get();
-		return view('sponruns.index')->with('sponruns', $sponruns);
+		return view('sponruns.index')
+						->with('sponruns', $sponruns)
+						->with('root_route', $this->root_route)
+						->with('root_route_params', []);
 	}
 
 	/**
@@ -39,7 +44,9 @@ class SponsoredRunController extends Controller
 	 */
 	public function create()
 	{
-		return view('sponruns.create');
+		return view('sponruns.create')
+						->with('root_route', $this->root_route)
+						->with('root_route_params', []);
 	}
 
 	/**
@@ -51,16 +58,16 @@ class SponsoredRunController extends Controller
 	public function store(Request $request)
 	{
 		$attributes = $request->all();
-		//Validate
+//Validate
 		$validator = $this->validator($attributes);
 		if ($validator->fails()) {
 			$this->throwValidationException($request, $validator);
 		}
-		//Save
+//Save
 		$attributes['begin'] = strtotime($attributes['begin']);
 		$attributes['end'] = strtotime($attributes['end']);
 		SponsoredRun::create($attributes);
-		//redirect
+//redirect
 		return redirect()->route('sponrun.index');
 	}
 
@@ -72,7 +79,11 @@ class SponsoredRunController extends Controller
 	 */
 	public function show(SponsoredRun $sponsoredRun)
 	{
-		return view('sponruns.show')->with('sponrun', $sponsoredRun)->with('participantsCount', $sponsoredRun->participants_count);
+		return view('sponruns.show')
+						->with('sponrun', $sponsoredRun)
+						->with('participantsCount', $sponsoredRun->participants_count)
+						->with('root_route', $this->root_route)
+						->with('root_route_params', [$sponsoredRun->id]);
 	}
 
 	/**
@@ -83,7 +94,10 @@ class SponsoredRunController extends Controller
 	 */
 	public function edit(SponsoredRun $sponsoredRun)
 	{
-		return view('sponruns.edit')->with('sponrun', $sponsoredRun);
+		return view('sponruns.edit')
+						->with('sponrun', $sponsoredRun)
+						->with('root_route', $this->root_route)
+						->with('root_route_params', [$sponsoredRun->id]);
 	}
 
 	/**
@@ -96,17 +110,17 @@ class SponsoredRunController extends Controller
 	public function update(Request $request, SponsoredRun $sponsoredRun)
 	{
 		$attributes = $request->all();
-		//Validate
+//Validate
 		$validator = $this->validator($attributes);
 		if ($validator->fails()) {
 			$this->throwValidationException($request, $validator);
 		}
-		//Save
+//Save
 		$attributes['begin'] = strtotime($attributes['begin']);
 		$attributes['end'] = strtotime($attributes['end']);
 		$sponsoredRun->fill($attributes);
 		$sponsoredRun->save();
-		//redirect
+//redirect
 		return redirect()->route('sponrun.index');
 	}
 

@@ -11,7 +11,7 @@
 		</div>
 		<div class="col-md-6 col-md-offset-1">
             <div class="panel panel-default">
-                <div class="panel-heading">Hallo {{ $user->firstname }} </div>
+                <div class="panel-heading">Hallo {{ Auth::user()->firstname }} </div>
 
                 <div class="panel-body">
                     <b>Herzlich Willkommen!</b> Schön, dass du am Sponsorenlauf teilnimmst.
@@ -29,25 +29,29 @@
 							<th>Teilnehmer</th>
 							<th></th>
 						</tr>
-						@foreach ($runs as $run)
+						@foreach ($sponruns as $sponrun)
 						<tr>
-							<td>{{ $run->begin->format('d.m.Y') }}</td>
-							<td>{{ $run->name }}</td>
-							<td>{{ $run->participants_count }}</td>
+							<td>{{ $sponrun->begin->format('d.m.Y') }}</td>
+							<td>{{ $sponrun->name }}</td>
+							<td>{{ $sponrun->participants_count }}</td>
 							<td>
-								@if ( !$run->participants->contains($user) )
+								@if ( !$sponrun->participants->contains(Auth::user()) )
 								{{ Form::open(['route' => 'runpart.store']) }}
-								{{ Form::hidden('run_id', $run->id) }}
+								{{ Form::hidden('run_id', $sponrun->id) }}
 								{{ Form::submit('Teilnehmen', [ 'class' => "btn btn-default"]) }}
 								{{ Form::close() }}
 								@else
-								<a class="btn btn-default" href="{{route('runpart.edit', $run->id) }}">Meine Sponsoren</a>
+								<a class="btn btn-default" href="{{ route('runpart.edit',
+											$sponrun->runParticipations
+											->filter(function($runpart) {
+												return $runpart->user == Auth::user();
+											})->first()->id) }}">Meine Sponsoren</a>
 								@endif
 							</td>
 						</tr>
 						@endforeach
 					</table>
-					@if ( $runs->isEmpty() )
+					@if ( $sponruns->isEmpty() )
 					<p>Es gibt noch keine neuen Sponsorenläufe</p>
 					@endif
                 </div>

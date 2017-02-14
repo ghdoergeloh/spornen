@@ -9,6 +9,8 @@ use App\Domain\Model\Sponsor\SponsoredRun;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Zizaco\Entrust\Entrust;
+use function base_path;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -33,16 +35,39 @@ class RouteServiceProvider extends ServiceProvider
 
 		parent::boot();
 
-		Route::bind('runpart', function ($runId) {
-			$user = Auth::user();
-			return RunParticipation::where('sponsored_run_id', $runId)->where('user_id', $user->id)->first();
+		Route::bind('runpart', function ($runpartId) {
+			if (!Auth::check())
+				return;
+			$runpart = RunParticipation::find($runpartId);
+			if (is_null($runpart))
+				return;
+			if (Auth::user()->hasRole('admin'))
+				return $runpart;
+			if ($runpart->user == Auth::user())
+				return $runpart;
 		});
 		Route::bind('sponsor', function ($sponsorId) {
-			$user = Auth::user();
-			return Sponsor::where('id', $sponsorId)->where('user_id', $user->id)->first();
+			if (!Auth::check())
+				return;
+			$sponsor = Sponsor::find($sponsorId);
+			if (is_null($sponsor))
+				return;
+			if (Auth::user()->hasRole('admin'))
+				return $sponsor;
+			if ($sponsor->user == Auth::user())
+				return $sponsor;
 		});
-		Route::model('user', User::class);
-		//Route::model('sponrun', SponsoredRun::class);
+		Route::bind('user', function ($userId) {
+			if (!Auth::check())
+				return;
+			$user = Sponsor::find($userId);
+			if (is_null($user))
+				return;
+			if (Auth::user()->hasRole('admin'))
+				return $user;
+			if ($user == Auth::user())
+				return $user;
+		});
 		Route::bind('sponrun', function ($sponrunId) {
 			return SponsoredRun::withCount('participants')->find($sponrunId);
 		});

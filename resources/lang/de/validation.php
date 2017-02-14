@@ -126,6 +126,7 @@ return [
 		'donation_per_lap' => 'Spende pro Runde',
 		'donation_static_max' => 'Maximal- oder Festbetrag',
 		'laps' => 'Runden',
+		'description' => 'Beschreibung',
 	],
 
 ];

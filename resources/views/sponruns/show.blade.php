@@ -21,22 +21,22 @@
 					</dl>
 					<dl>
 						<dt>Betrag insgesamt:</dt>
-						<dd>{{ $sponrun->totalDonationSum() }} €</dd>
+						<dd>{{ number_format($sponrun->totalDonationSum(),2,',','.') }} €</dd>
 					</dl>
 					<dl>
-						<dt>Läufer mit meisten Runden ({{ $sponrun->participantionsMostLaps()[0]->laps }}):</dt>
+						<dt>Läufer mit meisten Runden ({{ $sponrun->participantionsMostLaps()[0]->laps }} Runden):</dt>
 						@foreach ($sponrun->participantionsMostLaps() as $runpart)
 						<dd>{{ $runpart->user->firstname }} {{ $runpart->user->lastname }}</dd>
 						@endforeach
 					</dl>
 					<dl>
-						<dt>Läufer mit meisten Sponsoren ({{ $sponrun->participantionsMostSponsors()[0]->sponsors->count() }}):</dt>
+						<dt>Läufer mit meisten Sponsoren ({{ $sponrun->participantionsMostSponsors()[0]->sponsors->count() }} Sponsoren):</dt>
 						@foreach ($sponrun->participantionsMostLaps() as $runpart)
 						<dd>{{ $runpart->user->firstname }} {{ $runpart->user->lastname }}</dd>
 						@endforeach
 					</dl>
 					<dl>
-						<dt>Läufer mit größtem Betrag ({{ $sponrun->participantionsHighestDonation()[0]->calculateDonationSum() }} €):</dt>
+						<dt>Läufer mit größtem Betrag ({{ number_format($sponrun->participantionsHighestDonation()[0]->calculateDonationSum(),2,',','.') }} €):</dt>
 						@foreach ($sponrun->participantionsHighestDonation() as $runpart)
 						<dd>{{ $runpart->user->firstname }} {{ $runpart->user->lastname }}</dd>
 						@endforeach
@@ -59,6 +59,7 @@
 							<th class="hidden-xs">Runden</th>
 							<th class="hidden-xs">Betrag</th>
 							<th class="hidden-xs hidden-sm">Sponsoren</th>
+							<th></th>
 						</tr>
 						@foreach ($sponrun->runParticipations as $runpart)
 						<tr>
@@ -69,9 +70,14 @@
 							<td class="hidden-xs hidden-sm">{{ $runpart->user->postcode }} {{ $runpart->user->city }}</td>
 							<td class="hidden-xs hidden-sm">{{ $runpart->user->phone }}</td>
 							<td class="hidden-xs">{{ $runpart->user->email }}</td>
-							<td>{{ $runpart->laps }}</td>
-							<td>{{ $runpart->calculateDonationSum() }} €</td>
-							<td>{{ $runpart->sponsors()->count() }}</td>
+							<td class="text-right">{{ $runpart->laps }}</td>
+							<td class="text-right">{{ number_format($runpart->calculateDonationSum(),2,',','.') }} €</td>
+							<td class="text-right">{{ $runpart->sponsors()->count() }}</td>
+							<td>
+								<a class="btn btn-success"
+								   href="{{route($root_route.'sponrun.runpart.edit', array_merge($root_route_params,[$runpart->id])) }}"
+								   data-toggle="tooltip" title="Bearbeiten">
+									<span class="glyphicon glyphicon-pencil"/></a></td>
 						</tr>
 						@endforeach
 					</table>

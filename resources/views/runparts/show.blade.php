@@ -24,7 +24,7 @@
 					</dl>
 					<dl class="dl-horizontal">
 						<dt>Erlaufener Betrag:</dt>
-						<dd>{{ number_format($runpart->calculateDonationSum(),2) }} €</dd>
+						<dd>{{ number_format($runpart->calculateDonationSum(),2,',','.') }} €</dd>
 					</dl>
                 </div>
             </div>
