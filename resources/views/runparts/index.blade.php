@@ -12,16 +12,16 @@
                 <div class="panel-body">
 					<table class="table table-striped">
 						<tr>
-							<th>Datum</th>
+							<th class="hidden-xs">Datum</th>
 							<th>Name</th>
-							<th>Gelaufene Runden</th>
+							<th class="hidden-xs hidden-sm">Gelaufene Runden</th>
 							<th>Sponsoren</th>
 						</tr>
 						@foreach ($runparts as $runpart)
 						<tr>
-							<td>{{ $runpart->sponsoredRun->begin->format('d.m.Y') }}</td>
+							<td class="hidden-xs">{{ $runpart->sponsoredRun->begin->format('d.m.Y') }}</td>
 							<td>{{ $runpart->sponsoredRun->name }}</td>
-							<td>{{ $runpart->laps }}</td>
+							<td class="hidden-xs hidden-sm">{{ $runpart->laps }}</td>
 							<td><a class="btn btn-info"
 								   href="{{route($root_route.'runpart.show', array_merge($root_route_params,[$runpart->id])) }}"
 								   data-toggle="tooltip" title="Anzeigen">

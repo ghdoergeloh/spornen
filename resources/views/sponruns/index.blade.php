@@ -14,36 +14,31 @@
 					<table class="table table-striped">
 						<tr>
 							<th>Name</th>
-							<th class="hidden-xs">Beginn</th>
-							<th class="hidden-xs">Ende</th>
+							<th class="hidden-xs">Beginn<br>Ende</th>
 							<th class="hidden-xs hidden-sm">Straße, Nr.</th>
 							<th class="hidden-xs hidden-sm">PLZ, Ort</th>
-							<th class="hidden-xs hidden-sm"></th>
-							<th></th>
 							<th></th>
 						</tr>
 						@foreach ($sponruns as $sponrun)
 						<tr class="clickable-row">
 							<td onclick="window.document.location = '{{route($root_route.'sponrun.show', [$sponrun->id]) }}';">{{ $sponrun->name }}</td>
-							<td class="hidden-xs">{{ $sponrun->getBeginF() }}</td>
-							<td class="hidden-xs">{{ $sponrun->getEndF() }}</td>
+							<td class="hidden-xs">{{ $sponrun->getBeginF() }}<br>{{ $sponrun->getEndF() }}</td>
 							<td class="hidden-xs hidden-sm">{{ $sponrun->street }} {{ $sponrun->housenumber }}</td>
 							<td class="hidden-xs hidden-sm">{{ $sponrun->postcode }} {{ $sponrun->city }}</td>
-							<td class="hidden-xs hidden-sm">
-								<a class="btn btn-info"
-								   href="{{route($root_route.'sponrun.show', [$sponrun->id]) }}"
-								   data-toggle="tooltip" title="Anzeigen">
-									<span class="glyphicon glyphicon-list-alt"/></a></td>
-							<td>
-								<a class="btn btn-success"
-								   href="{{route($root_route.'sponrun.edit', [$sponrun]) }}"
-								   data-toggle="tooltip" title="Bearbeiten">
-									<span class="glyphicon glyphicon-pencil"/></a></td>
 							<td>
 								{{ Form::open([
 									'method' => 'DELETE',
-									'url' => route($root_route.'sponrun.destroy', array_merge($root_route_params, [$sponrun->id]))
+									'url' => route($root_route.'sponrun.destroy', array_merge($root_route_params, [$sponrun->id])),
+									'class' => 'form-inline'
 								]) }}
+								<a class="btn btn-info hidden-xs hidden-sm"
+								   href="{{route($root_route.'sponrun.show', [$sponrun->id]) }}"
+								   data-toggle="tooltip" title="Anzeigen">
+									<span class="glyphicon glyphicon-list-alt"/></a>
+								<a class="btn btn-success"
+								   href="{{route($root_route.'sponrun.edit', [$sponrun]) }}"
+								   data-toggle="tooltip" title="Bearbeiten">
+									<span class="glyphicon glyphicon-pencil"/></a>
 								{{ Form::button('', [
 									'type' => "submit",
 									'class' => "btn btn-danger glyphicon glyphicon-trash",

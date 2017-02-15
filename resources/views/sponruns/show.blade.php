@@ -64,10 +64,10 @@
 							<th>Nr.</th>
 							<th>Nachname</th>
 							<th>Vorname</th>
-							<th class="hidden-xs hidden-sm">Straße, Nr.</th>
-							<th class="hidden-xs hidden-sm">PLZ, Ort</th>
-							<th class="hidden-xs hidden-sm">Telefon</th>
-							<th class="hidden-xs">E-Mail</th>
+							<th class="hidden-xs">Straße, Nr.</th>
+							<th class="hidden-xs">PLZ, Ort</th>
+							<th class="visible-lg">Telefon</th>
+							<th class="hidden-xs hidden-sm">E-Mail</th>
 							<th class="hidden-xs">Runden</th>
 							<th class="hidden-xs">Betrag</th>
 							<th class="hidden-xs hidden-sm">Sponsoren</th>
@@ -78,13 +78,13 @@
 							<td>{{ $runpart->user->id }}</td>
 							<td>{{ $runpart->user->lastname }}</td>
 							<td>{{ $runpart->user->firstname }}</td>
-							<td class="hidden-xs hidden-sm">{{ $runpart->user->street }} {{ $runpart->user->housenumber }}</td>
-							<td class="hidden-xs hidden-sm">{{ $runpart->user->postcode }} {{ $runpart->user->city }}</td>
-							<td class="hidden-xs hidden-sm">{{ $runpart->user->phone }}</td>
-							<td class="hidden-xs">{{ $runpart->user->email }}</td>
-							<td class="text-right">{{ $runpart->laps }}</td>
-							<td class="text-right">{{ number_format($runpart->calculateDonationSum(),2,',','.') }} €</td>
-							<td class="text-right">{{ $runpart->sponsors()->count() }}</td>
+							<td class="hidden-xs">{{ $runpart->user->street }} {{ $runpart->user->housenumber }}</td>
+							<td class="hidden-xs">{{ $runpart->user->postcode }} {{ $runpart->user->city }}</td>
+							<td class="visible-lg">{{ $runpart->user->phone }}</td>
+							<td class="hidden-xs hidden-sm">{{ $runpart->user->email }}</td>
+							<td class="text-right hidden-xs">{{ $runpart->laps }}</td>
+							<td class="text-right hidden-xs">{{ number_format($runpart->calculateDonationSum(),2,',','.') }} €</td>
+							<td class="text-right hidden-xs hidden-sm">{{ $runpart->sponsors()->count() }}</td>
 							<td>
 								<a class="btn btn-success"
 								   href="{{route($root_route.'sponrun.runpart.edit', array_merge($root_route_params,[$runpart->id])) }}"
