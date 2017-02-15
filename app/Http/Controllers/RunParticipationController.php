@@ -69,7 +69,8 @@ class RunParticipationController extends Controller
 	{
 		return view('runparts.show')->with('runpart', $runpart)
 						->with('root_route', $this->root_route)
-						->with('root_route_params', [$sponrun->id, $runpart->id]);
+						->with('root_route_params', [$sponrun->id, $runpart->id])
+						->with('breadcrumbs',['sponrun' => $sponrun, 'runpart' => $runpart ]);
 	}
 
 	/**
@@ -86,7 +87,8 @@ class RunParticipationController extends Controller
 						->with('adminview', true)
 						->with('laps', $runpart->laps)
 						->with('root_route', $this->root_route)
-						->with('root_route_params', [$sponrun->id, $runpart->id]);
+						->with('root_route_params', [$sponrun->id, $runpart->id])
+						->with('breadcrumbs',['sponrun' => $sponrun, 'runpart' => $runpart ]);
 	}
 
 	/**

@@ -31,6 +31,7 @@
 	</head>
 	<body id="app-layout">
 		@include('layouts.menu')
+		@include('layouts.breadcrumbs')
 		<div class="container">
 			<div class="content">@yield('content')</div>
 		</div>

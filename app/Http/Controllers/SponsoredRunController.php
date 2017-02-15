@@ -88,7 +88,8 @@ class SponsoredRunController extends Controller
 						->with('sponrun', $sponrun)
 						->with('participantsCount', $sponrun->participants_count)
 						->with('root_route', $this->root_route)
-						->with('root_route_params', [$sponrun->id]);
+						->with('root_route_params', [$sponrun->id])
+						->with('breadcrumbs',['sponrun' => $sponrun]);
 	}
 
 	/**
@@ -102,7 +103,8 @@ class SponsoredRunController extends Controller
 		return view('sponruns.edit')
 						->with('sponrun', $sponrun)
 						->with('root_route', $this->root_route)
-						->with('root_route_params', [$sponrun->id]);
+						->with('root_route_params', [$sponrun->id])
+						->with('breadcrumbs',['sponrun' => $sponrun]);
 	}
 
 	/**

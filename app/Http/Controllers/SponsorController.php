@@ -47,7 +47,8 @@ class SponsorController extends Controller
 	{
 		return view('sponsors.create')
 						->with('root_route', $this->root_route)
-						->with('root_route_params', [$sponrun->id, $runpart->id]);
+						->with('root_route_params', [$sponrun->id, $runpart->id])
+						->with('breadcrumbs',['sponrun' => $sponrun, 'runpart' => $runpart ]);
 	}
 
 	/**
@@ -84,7 +85,8 @@ class SponsorController extends Controller
 		return view('sponsors.show')
 						->with('sponsor', $sponsor)
 						->with('root_route', $this->root_route)
-						->with('root_route_params', [$sponrun->id, $runpart->id]);
+						->with('root_route_params', [$sponrun->id, $runpart->id])
+						->with('breadcrumbs',['sponrun' => $sponrun, 'runpart' => $runpart, 'sponsor' => $sponsor ]);
 	}
 
 	/**
@@ -98,7 +100,8 @@ class SponsorController extends Controller
 		return view('sponsors.edit')
 						->with('sponsor', $sponsor)
 						->with('root_route', $this->root_route)
-						->with('root_route_params', [$sponrun->id, $runpart->id]);
+						->with('root_route_params', [$sponrun->id, $runpart->id])
+						->with('breadcrumbs',['sponrun' => $sponrun, 'runpart' => $runpart, 'sponsor' => $sponsor ]);
 	}
 
 	/**
