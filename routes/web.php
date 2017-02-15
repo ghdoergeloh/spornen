@@ -29,6 +29,7 @@ Route::resource('runpart', 'UsersRunParticipationController',
 Route::resource('runpart.sponsor', 'UsersSponsorController');
 
 Route::resource('sponrun', 'SponsoredRunController');
+Route::get('sponrun/{sponrun}/evaluation', 'SponsoredRunController@evaluation')->name('sponrun.evaluation');
 Route::resource('sponrun.runpart', 'RunParticipationController',
 		['except' => ['create', 'store', 'destroy']]);
 Route::resource('sponrun.runpart.sponsor', 'SponsorController');

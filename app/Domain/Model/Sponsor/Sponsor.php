@@ -31,5 +31,17 @@ class Sponsor extends Model
 	{
 		return $this->belongsTo('App\Domain\Model\Sponsor\RunParticipation');
 	}
+	
+	public function calculateDonationSum($laps)
+	{
+			$donation = $this->donation_per_lap * $laps;
+			if ($this->donation_static_max == 0) {
+				return $donation;
+			} elseif ($this->donation_per_lap == 0) {
+				return $this->donation_static_max;
+			} else {
+				return $donation > $this->donation_static_max ? $this->donation_static_max : $donation;
+			}
+	}
 
 }

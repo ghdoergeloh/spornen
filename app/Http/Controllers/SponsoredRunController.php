@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Domain\Model\Sponsor\Evaluation;
 use App\Domain\Model\Sponsor\SponsoredRun;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 use Validator;
+use function redirect;
+use function view;
 
 class SponsoredRunController extends Controller
 {
@@ -74,40 +79,40 @@ class SponsoredRunController extends Controller
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param  SponsoredRun  $sponsoredRun
+	 * @param  SponsoredRun  $sponrun
 	 * @return Response
 	 */
-	public function show(SponsoredRun $sponsoredRun)
+	public function show(SponsoredRun $sponrun)
 	{
 		return view('sponruns.show')
-						->with('sponrun', $sponsoredRun)
-						->with('participantsCount', $sponsoredRun->participants_count)
+						->with('sponrun', $sponrun)
+						->with('participantsCount', $sponrun->participants_count)
 						->with('root_route', $this->root_route)
-						->with('root_route_params', [$sponsoredRun->id]);
+						->with('root_route_params', [$sponrun->id]);
 	}
 
 	/**
 	 * Show the form for editing the specified resource.
 	 *
-	 * @param  SponsoredRun  $sponsoredRun
+	 * @param  SponsoredRun  $sponrun
 	 * @return Response
 	 */
-	public function edit(SponsoredRun $sponsoredRun)
+	public function edit(SponsoredRun $sponrun)
 	{
 		return view('sponruns.edit')
-						->with('sponrun', $sponsoredRun)
+						->with('sponrun', $sponrun)
 						->with('root_route', $this->root_route)
-						->with('root_route_params', [$sponsoredRun->id]);
+						->with('root_route_params', [$sponrun->id]);
 	}
 
 	/**
 	 * Update the specified resource in storage.
 	 *
 	 * @param  Request  $request
-	 * @param  SponsoredRun  $sponsoredRun
+	 * @param  SponsoredRun  $sponrun
 	 * @return Response
 	 */
-	public function update(Request $request, SponsoredRun $sponsoredRun)
+	public function update(Request $request, SponsoredRun $sponrun)
 	{
 		$attributes = $request->all();
 //Validate
@@ -118,8 +123,8 @@ class SponsoredRunController extends Controller
 //Save
 		$attributes['begin'] = strtotime($attributes['begin']);
 		$attributes['end'] = strtotime($attributes['end']);
-		$sponsoredRun->fill($attributes);
-		$sponsoredRun->save();
+		$sponrun->fill($attributes);
+		$sponrun->save();
 //redirect
 		return redirect()->route('sponrun.index');
 	}
@@ -127,13 +132,23 @@ class SponsoredRunController extends Controller
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param  SponsoredRun  $sponsoredRun
+	 * @param  SponsoredRun  $sponrun
 	 * @return Response
 	 */
-	public function destroy(SponsoredRun $sponsoredRun)
+	public function destroy(SponsoredRun $sponrun)
 	{
-		$sponsoredRun->delete();
+		$sponrun->delete();
 		return redirect()->route('sponrun.index');
+	}
+
+	public function evaluation(SponsoredRun $sponrun)
+	{
+		Excel::create('Auswertung ' . $sponrun->name, function($excel) use($sponrun) {
+			$excel->sheet('Tabelle 1', function($sheet) use($sponrun) {
+				//$sheet->loadView('sponruns.evaluation')
+				$sheet->fromArray($sponrun->getEvaluation());
+			});
+		})->download('csv');
 	}
 
 	private function validator(array $data)

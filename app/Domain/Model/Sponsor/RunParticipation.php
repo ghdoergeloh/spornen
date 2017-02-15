@@ -15,14 +15,7 @@ class RunParticipation extends Model
 		}
 		$sum = 0;
 		foreach ($sponsors as $sponsor) {
-			$donation = $sponsor->donation_per_lap * $laps;
-			if ($sponsor->donation_static_max == 0) {
-				$sum += $donation;
-			} elseif ($sponsor->donation_per_lap == 0) {
-				$sum += $sponsor->donation_static_max;
-			} else {
-				$sum += $donation > $sponsor->donation_static_max ? $sponsor->donation_static_max : $donation;
-			}
+			$sum += $sponsor->calculateDonationSum($laps);
 		}
 		return $sum;
 	}

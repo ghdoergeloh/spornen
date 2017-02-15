@@ -39,6 +39,10 @@
 								   href="{{route($root_route.'sponrun.edit', [$sponrun]) }}"
 								   data-toggle="tooltip" title="Bearbeiten">
 									<span class="glyphicon glyphicon-pencil"/></a>
+								<a class="btn btn-warning"
+								   href="{{route($root_route.'sponrun.evaluation', [$sponrun]) }}"
+								   data-toggle="tooltip" title="Auswertung ">
+									<span class="glyphicon glyphicon-download-alt"/></a>
 								{{ Form::button('', [
 									'type' => "submit",
 									'class' => "btn btn-danger glyphicon glyphicon-trash",
