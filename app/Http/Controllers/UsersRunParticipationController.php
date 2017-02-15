@@ -151,7 +151,7 @@ class UsersRunParticipationController extends Controller
 		$laps = intval($request->laps);
 		$sum = $runpart->calculateDonationSum($laps);
 		return view('runparts.edit')
-						->with('projects', $this->getProjectsSelection())
+						->with('projects', Project::getProjectsSelection())
 						->with('runpart', $runpart)
 						->with('laps', $laps)
 						->with('sum', $sum)
