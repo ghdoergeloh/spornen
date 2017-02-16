@@ -143,8 +143,8 @@ class SponsoredRun extends Model
 
 	public function getEvaluation()
 	{
+		$evaluation = array();
 		foreach ($this->runParticipations as $runpart) {
-			$evaluation = array();
 			$user = $runpart->user;
 			foreach ($runpart->sponsors as $sponsor) {
 				$row['Läufernr'] = $user->id;
@@ -171,8 +171,8 @@ class SponsoredRun extends Model
 				$row['Betrag'] = '';
 				$evaluation[] = $row;
 			}
-			return $evaluation;
 		}
+		return $evaluation;
 	}
 
 	public function getBeginAttribute($begin)
