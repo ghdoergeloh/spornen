@@ -149,8 +149,8 @@ class SponsorController extends Controller
 					'city' => 'required|max:255',
 					'phone' => 'nullable|phone:AUTO,DE',
 					'email' => 'nullable|email|max:255',
-					'donation_per_lap' => ['regex:/^\d+[,.]?\d{0,2}$/', 'max:10'],
-					'donation_static_max' => ['regex:/^\d+[,.]?\d{0,2}$/', 'max:10']
+					'donation_per_lap' => ['nullable', 'required_without:donation_static_max', 'regex:/^\d+[,.]?\d{0,2}$/', 'max:10'],
+					'donation_static_max' => ['nullable', 'required_without:donation_per_lap', 'regex:/^\d+[,.]?\d{0,2}$/', 'max:10']
 		]);
 	}
 

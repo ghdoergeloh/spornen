@@ -31,17 +31,27 @@ class Sponsor extends Model
 	{
 		return $this->belongsTo('App\Domain\Model\Sponsor\RunParticipation');
 	}
-	
+
 	public function calculateDonationSum($laps)
 	{
-			$donation = $this->donation_per_lap * $laps;
-			if ($this->donation_static_max == 0) {
-				return $donation;
-			} elseif ($this->donation_per_lap == 0) {
-				return $this->donation_static_max;
-			} else {
-				return $donation > $this->donation_static_max ? $this->donation_static_max : $donation;
-			}
+		$donation = $this->donation_per_lap * $laps;
+		if ($this->donation_static_max == 0) {
+			return $donation;
+		} elseif ($this->donation_per_lap == 0) {
+			return $this->donation_static_max;
+		} else {
+			return $donation > $this->donation_static_max ? $this->donation_static_max : $donation;
+		}
+	}
+
+	public function setDonationPerLapAttribute($donation_per_lap)
+	{
+		$this->attributes['donation_per_lap'] = $donation_per_lap == NULL ? 0 : $donation_per_lap;
+	}
+
+	public function setDonationStaticMaxAttribute($donation_static_max)
+	{
+		$this->attributes['donation_static_max'] = $donation_static_max == NULL ? 0 : $donation_static_max;
 	}
 
 }

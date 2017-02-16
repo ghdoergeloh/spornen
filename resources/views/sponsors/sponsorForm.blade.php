@@ -4,8 +4,8 @@
 @include('formfields.postcode_city', ['required' => true])
 @include('formfields.phone')
 @include('formfields.email')
-@include('formfields.donation_per_lap', ['required' => true])
-@include('formfields.donation_static_max', ['required' => true])
+@include('formfields.donation_per_lap')
+@include('formfields.donation_static_max')
 
 <div class="form-group">
 	<div class="col-md-6 col-md-offset-4">
