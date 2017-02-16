@@ -86,7 +86,6 @@ class SponsoredRunController extends Controller
 	{
 		return view('sponruns.show')
 						->with('sponrun', $sponrun)
-						->with('participantsCount', $sponrun->participants_count)
 						->with('root_route', $this->root_route)
 						->with('root_route_params', [$sponrun->id])
 						->with('breadcrumbs',['sponrun' => $sponrun]);
