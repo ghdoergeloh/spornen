@@ -114,7 +114,7 @@ class SponsoredRun extends Model
 		$earliestBirthday = Carbon::maxValue();
 		$participants = [];
 		foreach ($this->participants as $participant) {
-			$birthday = $participant->birthday;
+			$birthday = $participant->getBirthdayAsDate();
 			if ($birthday < $earliestBirthday) {
 				$earliestBirthday = $birthday;
 				$participants = [$participant];
@@ -130,7 +130,7 @@ class SponsoredRun extends Model
 		$latestBirthday = Carbon::minValue();
 		$participants = [];
 		foreach ($this->participants as $participant) {
-			$birthday = $participant->birthday;
+			$birthday = $participant->getBirthdayAsDate();
 			if ($birthday > $latestBirthday) {
 				$latestBirthday = $birthday;
 				$participants = [$participant];
