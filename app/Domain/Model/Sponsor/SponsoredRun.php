@@ -114,7 +114,7 @@ class SponsoredRun extends Model
 		$earliestBirthday = Carbon::maxValue();
 		$participants = [];
 		foreach ($this->participants as $participant) {
-			$birthday = $participant->getBirthdayAsDate();
+			$birthday = $participant->birthday;
 			if ($birthday < $earliestBirthday) {
 				$earliestBirthday = $birthday;
 				$participants = [$participant];
@@ -130,7 +130,7 @@ class SponsoredRun extends Model
 		$latestBirthday = Carbon::minValue();
 		$participants = [];
 		foreach ($this->participants as $participant) {
-			$birthday = $participant->getBirthdayAsDate();
+			$birthday = $participant->birthday;
 			if ($birthday > $latestBirthday) {
 				$latestBirthday = $birthday;
 				$participants = [$participant];
@@ -140,34 +140,33 @@ class SponsoredRun extends Model
 		}
 		return $participants;
 	}
-	
+
 	public function getEvaluation()
 	{
-		foreach ($this->runParticipations as $runpart)
-		{
+		foreach ($this->runParticipations as $runpart) {
 			$evaluation = array();
 			$user = $runpart->user;
 			foreach ($runpart->sponsors as $sponsor) {
 				$row['Läufernr'] = $user->id;
 				$row['L.Optigem PersNr.'] = 0;
-				$row['L.Name'] = $user->lastname.', '.$user->firstname;
-				$row['L.Straße Nr.'] = $user->street.' '.$user->housenumber;
+				$row['L.Name'] = $user->lastname . ', ' . $user->firstname;
+				$row['L.Straße Nr.'] = $user->street . ' ' . $user->housenumber;
 				$row['L.PLZ'] = $user->postcode;
 				$row['L.Stadt'] = $user->city;
 				$row['L.E-Mail'] = $user->email;
 				$row['L.Telefon'] = $user->phone;
 				$row['Sponsorennr.'] = $sponsor->id;
-				$row['S.Name'] = $sponsor->lastname.', '.$sponsor->firstname;
-				$row['S.Straße Nr.'] = $sponsor->street.' '.$sponsor->housenumber;
+				$row['S.Name'] = $sponsor->lastname . ', ' . $sponsor->firstname;
+				$row['S.Straße Nr.'] = $sponsor->street . ' ' . $sponsor->housenumber;
 				$row['S.PLZ'] = $sponsor->postcode;
 				$row['S.Stadt'] = $sponsor->city;
 				$row['S.E-Mail'] = $sponsor->email;
 				$row['S.Telefon'] = $sponsor->phone;
 				$row['S.Optigem PersNr.'] = 0;
 				$row['Name des Läufers'] = $row['L.Name'];
-				$row['Spende pro Runde (530m)'] = number_format($sponsor->donation_per_lap,2,',','');
+				$row['Spende pro Runde (530m)'] = number_format($sponsor->donation_per_lap, 2, ',', '');
 				$row['gelaufene Runden'] = $runpart->laps;
-				$row['End/ Festbetrag'] = number_format($sponsor->calculateDonationSum($runpart->laps),2,',','');
+				$row['End/ Festbetrag'] = number_format($sponsor->calculateDonationSum($runpart->laps), 2, ',', '');
 				$row['Erhalten am'] = '';
 				$row['Betrag'] = '';
 				$evaluation[] = $row;
@@ -175,4 +174,17 @@ class SponsoredRun extends Model
 			return $evaluation;
 		}
 	}
+
+	public function getBeginAttribute($begin)
+	{
+		Carbon::setToStringFormat('Y-m-d\TH:i');
+		return new Carbon($begin);
+	}
+
+	public function getEndAttribute($end)
+	{
+		Carbon::setToStringFormat('Y-m-d\TH:i');
+		return new Carbon($end);
+	}
+
 }

@@ -42,13 +42,13 @@
 						@endforeach
 					</dl>
 					<dl>
-						<dt>Jüngster Läufer ({{ $sponrun->youngestParticipants()[0]->birthday }}):</dt>
+						<dt>Jüngster Läufer ({{ $sponrun->youngestParticipants()[0]->birthday->format('d.m.Y') }}):</dt>
 						@foreach ($sponrun->youngestParticipants() as $participant)
 						<dd>{{ $participant->firstname }} {{ $participant->lastname }}</dd>
 						@endforeach
 					</dl>
 					<dl>
-						<dt>Ältester Läufer ({{ $sponrun->oldestParticipants()[0]->birthday }}):</dt>
+						<dt>Ältester Läufer ({{ $sponrun->oldestParticipants()[0]->birthday->format('d.m.Y') }}):</dt>
 						@foreach ($sponrun->oldestParticipants() as $participant)
 						<dd>{{ $participant->firstname }} {{ $participant->lastname }}</dd>
 						@endforeach

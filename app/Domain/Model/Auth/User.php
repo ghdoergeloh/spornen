@@ -40,13 +40,8 @@ class User extends Authenticatable
 
 	public function getBirthdayAttribute($birthday)
 	{
-		$birthdayC = new Carbon($birthday);
-		return $birthdayC->format('d.m.Y');
-	}
-	
-	public function getBirthdayAsDate()
-	{
-		return new Carbon($this->attributes['birthday']);
+		Carbon::setToStringFormat('Y-m-d');
+		return new Carbon($birthday);
 	}
 
 }
