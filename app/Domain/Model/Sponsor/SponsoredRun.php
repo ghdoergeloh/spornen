@@ -148,6 +148,7 @@ class SponsoredRun extends Model
 			$user = $runpart->user;
 			foreach ($runpart->sponsors as $sponsor) {
 				$row['Läufernr'] = $user->id;
+				$row['Projekt'] = $runpart->project_id;
 				$row['L.Optigem PersNr.'] = 0;
 				$row['L.Name'] = $user->lastname . ', ' . $user->firstname;
 				$row['L.Straße Nr.'] = $user->street . ' ' . $user->housenumber;
@@ -165,8 +166,9 @@ class SponsoredRun extends Model
 				$row['S.Optigem PersNr.'] = 0;
 				$row['Name des Läufers'] = $row['L.Name'];
 				$row['Spende pro Runde (530m)'] = number_format($sponsor->donation_per_lap, 2, ',', '');
+				$row['Maximal- oder Festbetrag'] = number_format($sponsor->donation_static_max, 2, ',', '');
 				$row['gelaufene Runden'] = $runpart->laps;
-				$row['End/ Festbetrag'] = number_format($sponsor->calculateDonationSum($runpart->laps), 2, ',', '');
+				$row['Endbetrag'] = number_format($sponsor->calculateDonationSum($runpart->laps), 2, ',', '');
 				$row['Erhalten am'] = '';
 				$row['Betrag'] = '';
 				$evaluation[] = $row;
