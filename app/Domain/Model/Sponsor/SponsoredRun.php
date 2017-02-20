@@ -151,7 +151,7 @@ class SponsoredRun extends Model
 			$user = $runpart->user;
 			foreach ($runpart->sponsors as $sponsor) {
 				$row['Läufernr'] = $user->id;
-				$row['Projekt'] = $runpart->project_id;
+				$row['Projekt'] = ''.$runpart->project_id;
 				$row['L.Optigem PersNr.'] = 0;
 				$row['L.Name'] = $user->lastname . ', ' . $user->firstname;
 				$row['L.Straße Nr.'] = $user->street . ' ' . $user->housenumber;
