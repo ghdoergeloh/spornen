@@ -165,7 +165,7 @@ class SponsoredRun extends Model
 				$row['S.Telefon'] = $sponsor->phone;
 				$row['S.Optigem PersNr.'] = 0;
 				$row['Name des Läufers'] = $row['L.Name'];
-				$row['Spende pro Runde (530m)'] = number_format($sponsor->donation_per_lap, 2, ',', '');
+				$row['Spende pro Runde'] = number_format($sponsor->donation_per_lap, 2, ',', '');
 				$row['Maximal- oder Festbetrag'] = number_format($sponsor->donation_static_max, 2, ',', '');
 				$row['gelaufene Runden'] = $runpart->laps;
 				$row['Endbetrag'] = number_format($sponsor->calculateDonationSum($runpart->laps), 2, ',', '');
