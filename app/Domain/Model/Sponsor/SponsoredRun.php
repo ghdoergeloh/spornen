@@ -4,6 +4,8 @@ namespace App\Domain\Model\Sponsor;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use libphonenumber\PhoneNumberFormat;
+use function phone;
 
 class SponsoredRun extends Model
 {
@@ -155,14 +157,14 @@ class SponsoredRun extends Model
 				$row['L.PLZ'] = $user->postcode;
 				$row['L.Stadt'] = $user->city;
 				$row['L.E-Mail'] = $user->email;
-				$row['L.Telefon'] = $user->phone;
+				$row['L.Telefon'] = phone($user->phone, 'DE', PhoneNumberFormat::INTERNATIONAL);
 				$row['Sponsorennr.'] = $sponsor->id;
 				$row['S.Name'] = $sponsor->lastname . ', ' . $sponsor->firstname;
 				$row['S.Straße Nr.'] = $sponsor->street . ' ' . $sponsor->housenumber;
 				$row['S.PLZ'] = $sponsor->postcode;
 				$row['S.Stadt'] = $sponsor->city;
 				$row['S.E-Mail'] = $sponsor->email;
-				$row['S.Telefon'] = $sponsor->phone;
+				$row['S.Telefon'] = phone($sponsor->phone, 'DE', PhoneNumberFormat::INTERNATIONAL);
 				$row['S.Optigem PersNr.'] = 0;
 				$row['Name des Läufers'] = $row['L.Name'];
 				$row['Spende pro Runde'] = number_format($sponsor->donation_per_lap, 2, ',', '');
