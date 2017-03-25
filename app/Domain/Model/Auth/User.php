@@ -4,12 +4,15 @@ namespace App\Domain\Model\Auth;
 
 use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
 
 class User extends Authenticatable
 {
+
 	use EntrustUserTrait;
-	
+	use Notifiable;
+
 	/**
 	 * The attributes that are mass assignable.
 	 *
