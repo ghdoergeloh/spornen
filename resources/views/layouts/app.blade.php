@@ -18,16 +18,8 @@
 
 		<!-- Styles -->
 
+		<link rel="stylesheet" href="{{url('/css/custom.css')}}">
 		<link rel="stylesheet" href="{{url('/css/bootstrap.min.css')}}">
-		<style>
-			body {
-				font-family: 'Lato';
-			}
-
-			.fa-btn {
-				margin-right: 6px;
-			}
-		</style>
 	</head>
 	<body id="app-layout">
 		@include('layouts.menu')
@@ -43,5 +35,6 @@
 		<script src="{{url('/js/bootstrap.min.js')}}"
 				integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 				crossorigin="anonymous"></script>
+		<script src="{{url('/js/custom.js')}}"></script>
 	</body>
 </html>

@@ -19,6 +19,7 @@
 					@if (isset($adminview) && $adminview)
 					@include('formfields.laps')
 					@endif
+					@include('formfields.share_link')
 
 					<div class="form-group">
 						<div class="col-md-6 col-md-offset-4">

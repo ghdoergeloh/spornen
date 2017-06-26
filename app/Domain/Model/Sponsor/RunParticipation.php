@@ -44,5 +44,10 @@ class RunParticipation extends Model
 	{
 		return $this->belongsTo('App\Domain\Model\Sponsor\Project');
 	}
+	
+	public function getShareLinkAttribute()
+	{
+		return "irgend.ein/link12345678";
+	}
 
 }
