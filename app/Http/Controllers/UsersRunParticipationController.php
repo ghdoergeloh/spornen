@@ -70,6 +70,7 @@ class UsersRunParticipationController extends Controller
 			$runpart->sponsoredRun()->associate($run);
 			$runpart->user()->associate($user);
 			$runpart->project_id = 0;
+			$runpart->hash = md5(microtime());
 			$runpart->save();
 		}
 		return redirect()->route('runpart.edit', $runpart->id);

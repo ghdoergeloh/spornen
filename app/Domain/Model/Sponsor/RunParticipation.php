@@ -47,7 +47,7 @@ class RunParticipation extends Model
 	
 	public function getShareLinkAttribute()
 	{
-		return "irgend.ein/link12345678";
+		return url('run')."/".$this->hash;
 	}
 
 }
