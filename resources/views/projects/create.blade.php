@@ -6,8 +6,9 @@
 <div class="container">
 	<div class="col-md-8 col-md-offset-2">
 		{{ Form::open([
-		'url' => route($root_route.'project.store', $root_route_params),
+		'url' => route('project.store'),
 		'class' => "form-horizontal"]) }}
+		@include('formfields.id', ['required' => true])
 		@include('projects.projectForm')
 		{{ Form::close() }}
 	</div>

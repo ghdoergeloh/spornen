@@ -51,6 +51,7 @@
 										'class' => "hidden",
 										'id' => 'reopen-run-form'.$sponrun->id
 									]) }}
+								{{ Form::close() }}
 								@else
 								<a class="btn btn-warning"
 								   href=""
@@ -64,11 +65,11 @@
 										'class' => "hidden",
 										'id' => 'close-run-form'.$sponrun->id
 									]) }}
-								@endif
 								{{ Form::close() }}
+								@endif
 								<a class="btn btn-danger"
 								   href=""
-								   data-toggle="tooltip" title="Sperren "
+								   data-toggle="tooltip" title="Löschen "
 								   onclick="event.preventDefault();
                                            if (confirm('Der Sponsorenlauf wird mit allen dazugehörigen Daten gelöscht.')) {
                                                document.getElementById('delete-run-form{!! $sponrun->id !!}').submit();

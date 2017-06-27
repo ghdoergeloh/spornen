@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Domain\Model\Sponsor\Project;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\MessageBag;
+use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\Response;
 
 class AdmProjController extends Controller
 {
@@ -29,10 +34,7 @@ class AdmProjController extends Controller
 	public function index()
 	{
 		$projects = Project::all();
-		return view('projects.index')
-						->with('projects', $projects)
-						->with('root_route', $this->root_route)
-						->with('root_route_params', []);
+		return view('projects.index')->with('projects', $projects);
 	}
 
 	/**
@@ -42,9 +44,7 @@ class AdmProjController extends Controller
 	 */
 	public function create()
 	{
-		return view('projects.create')
-						->with('root_route', $this->root_route)
-						->with('root_route_params', []);
+		return view('projects.create');
 	}
 
 	/**
@@ -57,13 +57,11 @@ class AdmProjController extends Controller
 	{
 		$attributes = $request->all();
 //Validate
-		$validator = Project::validator($attributes);
+		$validator = Project::validatorCreate($attributes);
 		if ($validator->fails()) {
 			$this->throwValidationException($request, $validator);
 		}
 //Save
-		$attributes['begin'] = strtotime($attributes['begin']);
-		$attributes['end'] = strtotime($attributes['end']);
 		Project::create($attributes);
 //redirect
 		return redirect()->route('project.index');
@@ -77,11 +75,7 @@ class AdmProjController extends Controller
 	 */
 	public function show(Project $project)
 	{
-		return view('projects.show')
-						->with('project', $project)
-						->with('root_route', $this->root_route)
-						->with('root_route_params', [$project->id])
-						->with('breadcrumbs',['project' => $project]);
+		return redirect()->route('project.edit', $project);
 	}
 
 	/**
@@ -92,11 +86,7 @@ class AdmProjController extends Controller
 	 */
 	public function edit(Project $project)
 	{
-		return view('projects.edit')
-						->with('project', $project)
-						->with('root_route', $this->root_route)
-						->with('root_route_params', [$project->id])
-						->with('breadcrumbs',['project' => $project]);
+		return view('projects.edit')->with('project', $project);
 	}
 
 	/**
@@ -110,13 +100,11 @@ class AdmProjController extends Controller
 	{
 		$attributes = $request->all();
 //Validate
-		$validator = Project::validator($attributes);
+		$validator = Project::validatorUpdate($attributes);
 		if ($validator->fails()) {
 			$this->throwValidationException($request, $validator);
 		}
 //Save
-		$attributes['begin'] = strtotime($attributes['begin']);
-		$attributes['end'] = strtotime($attributes['end']);
 		$project->fill($attributes);
 		$project->save();
 //redirect
@@ -131,8 +119,13 @@ class AdmProjController extends Controller
 	 */
 	public function destroy(Project $project)
 	{
-		$project->delete();
-		return redirect()->route('project.index');
+		try {
+			$project->delete();
+		} catch (QueryException $exc) {
+			Session::flash('messages-danger', new MessageBag(["Das Projekt konnte nicht gelöscht werden. Vermutlich wurde es schon einmal verwendet."]));
+		} finally {
+			return redirect()->route('project.index');
+		}
 	}
 
 	public function evaluation(Project $project)
