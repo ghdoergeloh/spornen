@@ -46,6 +46,12 @@ class RouteServiceProvider extends ServiceProvider
 			if ($runpart->user == Auth::user())
 				return $runpart;
 		});
+		Route::bind('run', function ($runHash) {
+			$runpart = RunParticipation::where('hash',$runHash)->first();
+			if (is_null($runpart))
+				return;
+			return $runpart;
+		});
 		Route::bind('sponsor', function ($sponsorId) {
 			if (!Auth::check())
 				return;

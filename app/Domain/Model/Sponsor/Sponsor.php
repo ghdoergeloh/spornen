@@ -3,6 +3,7 @@
 namespace App\Domain\Model\Sponsor;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Validator;
 
 class Sponsor extends Model
 {
@@ -54,4 +55,19 @@ class Sponsor extends Model
 		$this->attributes['donation_static_max'] = $donation_static_max == NULL ? 0 : $donation_static_max;
 	}
 
+	public static function validator(array $data)
+	{
+		return Validator::make($data, [
+					'firstname' => 'required|max:255',
+					'lastname' => 'required|max:255',
+					'street' => 'required|max:255',
+					'housenumber' => 'required|string|max:31',
+					'postcode' => 'required|numeric|between:0,99999',
+					'city' => 'required|max:255',
+					'phone' => 'nullable|phone:AUTO,DE',
+					'email' => 'nullable|email|max:255',
+					'donation_per_lap' => ['nullable', 'required_without:donation_static_max', 'regex:/^\d+[,.]?\d{0,2}$/', 'max:10'],
+					'donation_static_max' => ['nullable', 'required_without:donation_per_lap', 'regex:/^\d+[,.]?\d{0,2}$/', 'max:10']
+		]);
+	}
 }

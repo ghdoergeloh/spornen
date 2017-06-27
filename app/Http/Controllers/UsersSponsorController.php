@@ -8,7 +8,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Validator;
 
 class UsersSponsorController extends Controller
 {
@@ -56,7 +55,7 @@ class UsersSponsorController extends Controller
 	public function store(Request $request, RunParticipation $runpart)
 	{
 		$attributes = $request->all();
-		$validator = $this->validator($attributes);
+		$validator = Sponsor::validator($attributes);
 		if ($validator->fails()) {
 			$this->throwValidationException($request, $validator);
 		}
@@ -112,7 +111,7 @@ class UsersSponsorController extends Controller
 	public function update(Request $request, RunParticipation $runpart, Sponsor $sponsor)
 	{
 		$attributes = $request->all();
-		$validator = $this->validator($attributes);
+		$validator = Sponsor::validator($attributes);
 		if ($validator->fails()) {
 			$this->throwValidationException($request, $validator);
 		}
@@ -137,22 +136,6 @@ class UsersSponsorController extends Controller
 	{
 		$sponsor->delete();
 		return redirect()->route('runpart.sponsor.index', $runpart->id);
-	}
-
-	private function validator(array $data)
-	{
-		return Validator::make($data, [
-					'firstname' => 'required|max:255',
-					'lastname' => 'required|max:255',
-					'street' => 'required|max:255',
-					'housenumber' => 'required|string|max:31',
-					'postcode' => 'required|numeric|between:0,99999',
-					'city' => 'required|max:255',
-					'phone' => 'nullable|phone:AUTO,DE',
-					'email' => 'nullable|email|max:255',
-					'donation_per_lap' => ['nullable', 'required_without:donation_static_max', 'regex:/^\d+[,.]?\d{0,2}$/', 'max:10'],
-					'donation_static_max' => ['nullable', 'required_without:donation_per_lap', 'regex:/^\d+[,.]?\d{0,2}$/', 'max:10']
-		]);
 	}
 
 }
