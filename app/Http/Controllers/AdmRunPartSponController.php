@@ -26,6 +26,7 @@ class SponsorController extends Controller
 	public function __construct()
 	{
 		$this->middleware('auth');
+		$this->middleware('role:admin');
 	}
 
 	/**
@@ -65,7 +66,7 @@ class SponsorController extends Controller
 			$this->throwValidationException($request, $validator);
 		}
 
-		$user = Auth::user();
+		$user = $runpart->user;
 		$sponsor = new Sponsor();
 		$sponsor->user()->associate($user);
 		$sponsor->runParticipation()->associate($runpart);

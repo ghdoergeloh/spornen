@@ -7,9 +7,8 @@ use App\Domain\Model\Sponsor\Sponsor;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 
-class UsersSponsorController extends Controller
+class UserRunPartSponController extends Controller
 {
 
 	private $root_route = 'runpart.';
@@ -60,7 +59,7 @@ class UsersSponsorController extends Controller
 			$this->throwValidationException($request, $validator);
 		}
 
-		$user = Auth::user();
+		$user = $runpart->user;
 		$sponsor = new Sponsor();
 		$sponsor->user()->associate($user);
 		$sponsor->runParticipation()->associate($runpart);

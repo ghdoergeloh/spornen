@@ -4,9 +4,9 @@ namespace App\Domain\Model\Sponsor;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Validator;
 use libphonenumber\NumberParseException;
 use libphonenumber\PhoneNumberFormat;
-use function phone;
 
 class SponsoredRun extends Model
 {
@@ -151,7 +151,7 @@ class SponsoredRun extends Model
 			$user = $runpart->user;
 			foreach ($runpart->sponsors as $sponsor) {
 				$row['Läufernr'] = $user->id;
-				$row['Projekt'] = ''.$runpart->project_id;
+				$row['Projekt'] = '' . $runpart->project_id;
 				$row['L.Optigem PersNr.'] = 0;
 				$row['L.Name'] = $user->lastname . ', ' . $user->firstname;
 				$row['L.Straße Nr.'] = $user->street . ' ' . $user->housenumber;
@@ -198,6 +198,20 @@ class SponsoredRun extends Model
 	{
 		Carbon::setToStringFormat('Y-m-d\TH:i');
 		return new Carbon($end);
+	}
+
+	public static function validator(array $data)
+	{
+		return Validator::make($data, [
+					'name' => 'required|max:255',
+					'begin' => 'required|date',
+					'end' => 'required|date',
+					'street' => 'nullable|max:255',
+					'housenumber' => 'nullable|string|max:31',
+					'postcode' => 'nullable|numeric|between:0,99999',
+					'city' => 'nullable|max:255',
+					'description' => 'nullable|max:255'
+		]);
 	}
 
 }

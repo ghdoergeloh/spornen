@@ -18,22 +18,32 @@ Route::get('/', function () {
 Auth::routes();
 Route::get('register/verify/{confirmation_code}', 'Auth\RegisterController@confirm');
 
+//User
 Route::get('home', 'HomeController@showHomeView');
 
-Route::get('account/edit', 'AccountController@edit')->name('account.edit');
-Route::patch('account/update', 'AccountController@update')->name('account.update');
-
-Route::get('runpart/{runpart}/calculate', 'UsersRunParticipationController@calculate')->name('runpart.calculate');
-Route::resource('runpart', 'UsersRunParticipationController', ['except' => ['create', 'destroy']]);
-Route::resource('runpart.sponsor', 'UsersSponsorController');
-
-Route::resource('sponrun', 'SponsoredRunController');
-Route::get('sponrun/{sponrun}/evaluation', 'SponsoredRunController@evaluation')->name('sponrun.evaluation');
-Route::resource('sponrun.runpart', 'RunParticipationController', ['except' => ['create', 'store', 'destroy']]);
-Route::resource('sponrun.runpart.sponsor', 'SponsorController');
+Route::get('account/edit', 'AccoController@edit')->name('account.edit');
+Route::patch('account/update', 'AccoController@update')->name('account.update');
 
 
-Route::resource('run.sponsor', 'SponsorSelfController', ['only' => ['index', 'create', 'store']]);
+Route::resource('runpart', 'UserRunPartController', ['except' => ['create', 'destroy']]);
+Route::get('runpart/{runpart}/calculate', 'UserRunPartController@calculate')->name('runpart.calculate');
+
+Route::resource('runpart.sponsor', 'UserRunPartSponController');
+
+
+//Sponsor
 Route::get('run/{run}', function ($run) {
 	return redirect()->route('run.sponsor.index', $run->hash);
 });
+Route::resource('run.sponsor', 'SponSelfController', ['only' => ['index', 'create', 'store']]);
+
+
+//Admin
+Route::resource('sponrun', 'AdmRunController');
+Route::get('sponrun/{sponrun}/evaluation', 'AdmRunController@evaluation')->name('sponrun.evaluation');
+
+Route::resource('sponrun.runpart', 'AdmRunPartController', ['except' => ['create', 'store', 'destroy']]);
+Route::resource('sponrun.runpart.sponsor', 'AdmRunPartSponController');
+
+
+Route::resource('project', 'ProjController');

@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\MessageBag;
 
-class UsersRunParticipationController extends Controller
+class UserRunPartController extends Controller
 {
 
 	private $root_route = '';

@@ -7,12 +7,11 @@ use App\Domain\Model\Sponsor\RunParticipation;
 use App\Domain\Model\Sponsor\SponsoredRun;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\MessageBag;
 
-class RunParticipationController extends Controller
+class AdmRunPartController extends Controller
 {
 
 	private $root_route = 'sponrun.';

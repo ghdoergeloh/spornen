@@ -2,17 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Domain\Model\Sponsor\Evaluation;
 use App\Domain\Model\Sponsor\SponsoredRun;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
-use Validator;
-use function redirect;
-use function view;
 
-class SponsoredRunController extends Controller
+class AdmRunController extends Controller
 {
 
 	private $root_route = '';
@@ -64,7 +59,7 @@ class SponsoredRunController extends Controller
 	{
 		$attributes = $request->all();
 //Validate
-		$validator = $this->validator($attributes);
+		$validator = SponsoredRun::validator($attributes);
 		if ($validator->fails()) {
 			$this->throwValidationException($request, $validator);
 		}
@@ -117,7 +112,7 @@ class SponsoredRunController extends Controller
 	{
 		$attributes = $request->all();
 //Validate
-		$validator = $this->validator($attributes);
+		$validator = SponsoredRun::validator($attributes);
 		if ($validator->fails()) {
 			$this->throwValidationException($request, $validator);
 		}
@@ -150,20 +145,6 @@ class SponsoredRunController extends Controller
 				$sheet->fromArray($sponrun->getEvaluation());
 			});
 		})->download('csv');
-	}
-
-	private function validator(array $data)
-	{
-		return Validator::make($data, [
-					'name' => 'required|max:255',
-					'begin' => 'required|date',
-					'end' => 'required|date',
-					'street' => 'nullable|max:255',
-					'housenumber' => 'nullable|string|max:31',
-					'postcode' => 'nullable|numeric|between:0,99999',
-					'city' => 'nullable|max:255',
-					'description' => 'nullable|max:255'
-		]);
 	}
 
 }

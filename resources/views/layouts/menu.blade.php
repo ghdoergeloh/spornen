@@ -20,7 +20,19 @@
 				<li><a href="{{ route('runpart.index') }}">Meine Sponsorenläufe</a></li>
 				<li><a href="{{ route('account.edit') }}">Mein Account</a></li>
 				@if ( Entrust::hasRole('admin') )
-				<li><a href="{{ route('sponrun.index') }}">Verwaltung</a></li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle"
+					   data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+						Verwaltung
+						<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu" role="menu">
+						<li>
+							<a href="{{ route('sponrun.index') }}">Sponsorenläufe</a>
+							<a href="{{ route('project.index') }}">Projekte</a>
+						</li>
+					</ul>
+				</li>
 				@endif
 				@endif
 			</ul>

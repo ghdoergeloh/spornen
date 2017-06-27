@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\MessageBag;
 use Validator;
 
-class AccountController extends Controller
+class AccoController extends Controller
 {
 
 	/**

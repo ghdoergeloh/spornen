@@ -9,7 +9,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\MessageBag;
 
-class SponsorSelfController extends Controller
+class SponSelfController extends Controller
 {
 	private $root_route = 'run.';
     /**
