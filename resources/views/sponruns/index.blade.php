@@ -26,11 +26,6 @@
 							<td class="hidden-xs hidden-sm">{{ $sponrun->street }} {{ $sponrun->housenumber }}</td>
 							<td class="hidden-xs hidden-sm">{{ $sponrun->postcode }} {{ $sponrun->city }}</td>
 							<td>
-								{{ Form::open([
-									'method' => 'DELETE',
-									'url' => route($root_route.'sponrun.destroy', array_merge($root_route_params, [$sponrun->id])),
-									'class' => 'form-inline'
-								]) }}
 								<a class="btn btn-info hidden-xs hidden-sm"
 								   href="{{route($root_route.'sponrun.show', [$sponrun->id]) }}"
 								   data-toggle="tooltip" title="Anzeigen">
@@ -43,12 +38,47 @@
 								   href="{{route($root_route.'sponrun.evaluation', [$sponrun]) }}"
 								   data-toggle="tooltip" title="Auswertung ">
 									<span class="glyphicon glyphicon-download-alt"/></a>
-								{{ Form::button('', [
-									'type' => "submit",
-									'class' => "btn btn-danger glyphicon glyphicon-trash",
-									'data-toggle' => "tooltip",
-									'title' => "Löschen",
-									'onclick' => "return confirm('Der Sponsorenlauf wird mit allen dazugehörigen Daten gelöscht.');"
+								@if ($sponrun->isElapsed())
+								<a class="btn btn-warning"
+								   href=""
+								   data-toggle="tooltip" title="Wieder freigeben "
+								   onclick="event.preventDefault();
+                                               document.getElementById('reopen-run-form{!! $sponrun->id !!}').submit();">
+									<span class="glyphicon glyphicon-play"/></a>
+								{{ Form::open([
+										'method' => 'POST',
+										'url' => route($root_route.'sponrun.reopen', array_merge($root_route_params, [$sponrun->id])),
+										'class' => "hidden",
+										'id' => 'reopen-run-form'.$sponrun->id
+									]) }}
+								@else
+								<a class="btn btn-warning"
+								   href=""
+								   data-toggle="tooltip" title="Sperren "
+								   onclick="event.preventDefault();
+                                           document.getElementById('close-run-form{!! $sponrun->id !!}').submit();">
+									<span class="glyphicon glyphicon-stop"/></a>
+								{{ Form::open([
+										'method' => 'POST',
+										'url' => route($root_route.'sponrun.close', array_merge($root_route_params, [$sponrun->id])),
+										'class' => "hidden",
+										'id' => 'close-run-form'.$sponrun->id
+									]) }}
+								@endif
+								{{ Form::close() }}
+								<a class="btn btn-danger"
+								   href=""
+								   data-toggle="tooltip" title="Sperren "
+								   onclick="event.preventDefault();
+                                           if (confirm('Der Sponsorenlauf wird mit allen dazugehörigen Daten gelöscht.')) {
+                                               document.getElementById('delete-run-form{!! $sponrun->id !!}').submit();
+                                           }">
+									<span class="glyphicon glyphicon-trash"/></a>
+								{{ Form::open([
+									'method' => 'DELETE',
+									'url' => route($root_route.'sponrun.destroy', array_merge($root_route_params, [$sponrun->id])),
+									'class' => "hidden",
+									'id' => 'delete-run-form'.$sponrun->id
 								]) }}
 								{{ Form::close() }}
 							</td>

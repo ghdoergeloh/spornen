@@ -41,9 +41,11 @@ Route::resource('run.sponsor', 'SponSelfController', ['only' => ['index', 'creat
 //Admin
 Route::resource('sponrun', 'AdmRunController');
 Route::get('sponrun/{sponrun}/evaluation', 'AdmRunController@evaluation')->name('sponrun.evaluation');
+Route::post('sponrun/{sponrun}/close', 'AdmRunController@close')->name('sponrun.close');
+Route::post('sponrun/{sponrun}/reopen', 'AdmRunController@reopen')->name('sponrun.reopen');
 
 Route::resource('sponrun.runpart', 'AdmRunPartController', ['except' => ['create', 'store', 'destroy']]);
 Route::resource('sponrun.runpart.sponsor', 'AdmRunPartSponController');
 
 
-Route::resource('project', 'ProjController');
+Route::resource('project', 'AdmProjController');

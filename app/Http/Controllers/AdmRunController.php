@@ -147,4 +147,18 @@ class AdmRunController extends Controller
 		})->download('csv');
 	}
 
+	public function close(SponsoredRun $sponrun)
+	{
+		$sponrun->closed = true;
+		$sponrun->save();
+		return redirect()->route('sponrun.index');
+	}
+
+	public function reopen(SponsoredRun $sponrun)
+	{
+		$sponrun->closed = false;
+		$sponrun->save();
+		return redirect()->route('sponrun.index');
+	}
+
 }

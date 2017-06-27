@@ -7,7 +7,7 @@
     <div class="row">
 		<div class="col-md-12">
             <div class="panel panel-default">
-                <div class="panel-heading">Sponsorenläufe</div>
+                <div class="panel-heading">Projekte</div>
                 <div class="panel-body">
 					<a class="btn btn-primary" href="{{route($root_route.'project.create') }}">Neues Project anlegen</a>
 					<hr>

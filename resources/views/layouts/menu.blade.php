@@ -51,7 +51,7 @@
 					</a>
 					<ul class="dropdown-menu" role="menu">
 						<li>
-							<a href="{{ route('logout') }}"
+							<a href=""
 							   onclick="event.preventDefault();
                                        document.getElementById('logout-form').submit();">
 								<i class="fa fa-btn fa-sign-out"></i>Logout</a>

@@ -22,7 +22,8 @@ class SponsoredRun extends Model
 
 	public function isElapsed()
 	{
-		return $this->attributes['begin'] < Carbon::now();
+		return $this->closed;
+		//$this->attributes['begin'] < Carbon::now();
 	}
 
 	public function participants()
