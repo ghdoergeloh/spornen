@@ -47,7 +47,8 @@
 									'type' => "submit",
 									'class' => "btn btn-danger glyphicon glyphicon-trash",
 									'data-toggle' => "tooltip",
-									'title' => "Löschen"
+									'title' => "Löschen",
+									'onclick' => "return confirm('Der Sponsorenlauf wird mit allen dazugehörigen Daten gelöscht.');"
 								]) }}
 								{{ Form::close() }}
 							</td>
