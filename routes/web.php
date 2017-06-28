@@ -49,3 +49,7 @@ Route::resource('sponrun.runpart.sponsor', 'AdmRunPartSponController');
 
 
 Route::resource('project', 'AdmProjController');
+
+Route::resource('projectlist', 'AdmPlstController');
+Route::post('projectlist/removeProjects', 'AdmRunController@removeProjects')->name('projectlist.removeProjects');
+Route::post('projectlist/addProjects', 'AdmRunController@addProjects')->name('projectlist.addProjects');

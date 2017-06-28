@@ -12,8 +12,8 @@
 				<hr>
 				<table class="table table-striped">
 					<tr>
-						<th>Projekt-Nr.</th>
-						<th class="hidden-xs">Projektname</th>
+						<th class="hidden-xs">Projekt-Nr.</th>
+						<th>Projektname</th>
 						<th class="hidden-xs">Bereich</th>
 						<th></th>
 					</tr>

@@ -13,8 +13,6 @@ use Symfony\Component\HttpFoundation\Response;
 class AdmProjController extends Controller
 {
 
-	private $root_route = '';
-
 	/**
 	 * Create a new controller instance.
 	 *
@@ -122,7 +120,7 @@ class AdmProjController extends Controller
 		try {
 			$project->delete();
 		} catch (QueryException $exc) {
-			Session::flash('messages-danger', new MessageBag(["Das Projekt konnte nicht gelöscht werden. Vermutlich wurde es schon einmal verwendet."]));
+			Session::flash('messages-danger', new MessageBag(["Die Projektliste konnte nicht gelöscht werden. Vermutlich wurde sie schon einmal verwendet."]));
 		} finally {
 			return redirect()->route('project.index');
 		}
