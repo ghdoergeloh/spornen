@@ -60,14 +60,17 @@ class UserRunPartController extends Controller
 	 */
 	public function store(Request $request)
 	{
-		$run = SponsoredRun::find($request->get('run_id'));
+		$sponrun = SponsoredRun::find($request->get('run_id'));
+		if ($sponrun->isElapsed()) {
+			abort(404);
+		}
 		$user = Auth::user();
 		$runpart = RunParticipation
-						::where('sponsored_run_id', $run->id)
+						::where('sponsored_run_id', $sponrun->id)
 						->where('user_id', $user->id)->first();
 		if ($runpart == null) {
 			$runpart = new RunParticipation();
-			$runpart->sponsoredRun()->associate($run);
+			$runpart->sponsoredRun()->associate($sponrun);
 			$runpart->user()->associate($user);
 			$runpart->project_id = 0;
 			$runpart->hash = md5(microtime());
