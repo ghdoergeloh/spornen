@@ -5,7 +5,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-		<div class="col-md-12">
+		<div class="col-md-8">
 			@include('layouts.messages')
             <div class="panel panel-default">
                 <div class="panel-heading">Angaben zur Teilnahme</div>
@@ -30,7 +30,9 @@
 					{{ Form::close() }}
 				</div>
 			</div>
-			@unless (isset($adminview) && $adminview)
+		</div>
+		@unless (isset($adminview) && $adminview)
+		<div class="col-md-4">
             <div class="panel panel-default">
                 <div class="panel-heading">Wie viel würde ich sammeln, wenn...</div>
                 <div class="panel-body">
@@ -59,8 +61,12 @@
                 </div>
             </div>
 			@endif
-			@include('sponsors.list', ['edit' => true, 'root_route' => $root_route.'runpart.'])
         </div>
+    </div>
+    <div class="row">
+		<div class="col-md-12">
+			@include('sponsors.list', ['edit' => true, 'root_route' => $root_route.'runpart.'])
+		</div>
     </div>
 </div>
 @include('sponsors.calculation_dlg')
