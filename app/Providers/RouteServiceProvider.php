@@ -37,10 +37,10 @@ class RouteServiceProvider extends ServiceProvider
 
 		Route::bind('runpart', function ($runpartId) {
 			if (!Auth::check())
-				return;
+				abort(404);
 			$runpart = RunParticipation::find($runpartId);
 			if (is_null($runpart))
-				return;
+				abort(404);
 			if (Auth::user()->hasRole('admin'))
 				return $runpart;
 			if ($runpart->user == Auth::user())
@@ -49,15 +49,15 @@ class RouteServiceProvider extends ServiceProvider
 		Route::bind('run', function ($runHash) {
 			$runpart = RunParticipation::where('hash',$runHash)->first();
 			if (is_null($runpart))
-				return;
+				abort(404);
 			return $runpart;
 		});
 		Route::bind('sponsor', function ($sponsorId) {
 			if (!Auth::check())
-				return;
+				abort(404);
 			$sponsor = Sponsor::find($sponsorId);
 			if (is_null($sponsor))
-				return;
+				abort(404);
 			if (Auth::user()->hasRole('admin'))
 				return $sponsor;
 			if ($sponsor->user == Auth::user())
@@ -65,10 +65,10 @@ class RouteServiceProvider extends ServiceProvider
 		});
 		Route::bind('user', function ($userId) {
 			if (!Auth::check())
-				return;
+				abort(404);
 			$user = Sponsor::find($userId);
 			if (is_null($user))
-				return;
+				abort(404);
 			if (Auth::user()->hasRole('admin'))
 				return $user;
 			if ($user == Auth::user())

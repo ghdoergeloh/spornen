@@ -16,8 +16,9 @@
 				@include('formfields.projects', [ 'selectedProjectId' => $runpart->project->id])
 				@if (isset($adminview) && $adminview)
 				@include('formfields.laps')
-				@endif
+				@else
 				@include('formfields.share_link')
+				@endif
 
 				<div class="form-group">
 					<div class="col-md-6 col-md-offset-4">

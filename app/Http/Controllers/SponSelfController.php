@@ -30,6 +30,7 @@ class SponSelfController extends Controller
     public function create(RunParticipation $runpart)
     {
 		return view('sponsors.create')
+						->with('runpart', $runpart)
 						->with('root_route', $this->root_route)
 						->with('root_route_params', [$runpart->hash]);
     }
