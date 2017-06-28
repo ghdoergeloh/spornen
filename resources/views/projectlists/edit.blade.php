@@ -25,8 +25,8 @@
 			<div class="panel-heading">Projekte in der Liste</div>
 			<div class="panel-body">
 				{{ Form::open([
-					'method' => 'POST',
-					'url' => route('projectlist.removeProjects'),
+					'method' => 'PATCH',
+					'route' => ['projectlist.removeProjects', $projectlist->id],
 					'class' => "form-horizontal",
 				]) }}
 				<table class="table table-striped">
@@ -39,9 +39,7 @@
 					@foreach ($projectlist->projects as $project)
 					<tr>
 						<td>
-							<div class="checkbox">
-								<label>{{ Form::checkbox('projects', $project->id) }}</label>
-							</div>
+							{{ Form::checkbox('projects[]', $project->id) }}
 						</td>
 						<td class="hidden-xs">{{ $project->id }}</td>
 						<td>{{ $project->name }}</td>
@@ -49,7 +47,7 @@
 					</tr>
 					@endforeach
 				</table>
-				{{Form::button('<i class="glyphicon glyphicon-minus"></i> Hinzufügen', ['type' => 'submit', 'class' => 'btn btn-danger'])}}
+				{{Form::button('<i class="glyphicon glyphicon-minus"></i> Entfernen', ['type' => 'submit', 'class' => 'btn btn-danger'])}}
 				{{ Form::close() }}
 			</div>
 		</div>
@@ -59,8 +57,8 @@
 			<div class="panel-heading">Weitere Projekte</div>
 			<div class="panel-body">
 				{{ Form::open([
-					'method' => 'POST',
-					'url' => route('projectlist.addProjects'),
+					'method' => 'PATCH',
+					'route' => ['projectlist.addProjects', $projectlist->id],
 					'class' => "form-horizontal"
 				]) }}
 				<table class="table table-striped">
@@ -73,9 +71,7 @@
 					@foreach ($otherprojects as $project)
 					<tr>
 						<td>
-							<div class="checkbox">
-								<label>{{ Form::checkbox('projects', $project->id) }}</label>
-							</div>
+							{{ Form::checkbox('projects[]', $project->id) }}
 						</td>
 						<td class="hidden-xs">{{ $project->id }}</td>
 						<td>{{ $project->name }}</td>

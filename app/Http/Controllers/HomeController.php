@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Domain\Model\Sponsor\SponsoredRun;
-use DateTime;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {

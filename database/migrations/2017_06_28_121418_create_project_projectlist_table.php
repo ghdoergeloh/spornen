@@ -24,6 +24,7 @@ class CreateProjectProjectlistTable extends Migration
 					->on('projectlists')->onDelete('cascade');
 
 			$table->timestamps();
+            $table->primary(['project_id', 'projectlist_id']);
 		});
 	}
 
