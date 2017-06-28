@@ -8,7 +8,7 @@
 		{{ Form::open([
 		'url' => route('project.store'),
 		'class' => "form-horizontal"]) }}
-		@include('formfields.id', ['required' => true])
+		@include('formfields.project_id', ['required' => true])
 		@include('projects.projectForm')
 		{{ Form::close() }}
 	</div>

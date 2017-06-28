@@ -14,7 +14,7 @@
 					<hr>
 					<table class="table table-striped">
 						<tr>
-							<th>ID</th>
+							<th>Projekt-Nr.</th>
 							<th class="hidden-xs">Projektname</th>
 							<th class="hidden-xs">Bereich</th>
 							<th></th>
