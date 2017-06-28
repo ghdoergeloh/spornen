@@ -8,12 +8,9 @@ use App\Domain\Model\Sponsor\SponsoredRun;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Auth;
-use Validator;
-use function redirect;
-use function view;
+use Illuminate\Support\Facades\Validator;
 
-class SponsorController extends Controller
+class AdmRunPartSponController extends Controller
 {
 
 	private $root_route = 'sponrun.runpart.';

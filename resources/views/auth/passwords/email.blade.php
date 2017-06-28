@@ -8,7 +8,6 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Passwort zurücksetzen</div>
                 <div class="panel-body">
-					@include('layouts.messages')
 					{{ Form::open([
 					'method' => 'POST',
 					'url' => 'password/email',

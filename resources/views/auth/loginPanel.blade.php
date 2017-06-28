@@ -1,7 +1,6 @@
 <div class="panel panel-default">
 	<div class="panel-heading">Anmelden</div>
 	<div class="panel-body">
-		@include('layouts.messages')
 		{{ Form::open([
 		'method' => 'POST',
 		'url' => 'login',

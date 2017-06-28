@@ -25,16 +25,21 @@
 		@include('layouts.menu')
 		@include('layouts.breadcrumbs')
 		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					@include('layouts.messages')
+				</div>
+			</div>
 			<div class="content">@yield('content')</div>
 		</div>
 
 		<!-- JavaScripts -->
 		<script src="{{url('/js/jquery-3.1.1.min.js')}}"
-				integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-				crossorigin="anonymous"></script>
+			integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+			crossorigin="anonymous"></script>
 		<script src="{{url('/js/bootstrap.min.js')}}"
-				integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-				crossorigin="anonymous"></script>
+			integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+			crossorigin="anonymous"></script>
 		<script src="{{url('/js/custom.js')}}"></script>
 	</body>
 </html>
