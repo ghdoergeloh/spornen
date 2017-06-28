@@ -8,7 +8,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">Projekte</div>
 			<div class="panel-body">
-				<a class="btn btn-primary" href="{{route('project.create') }}">Neues Project anlegen</a>
+				<a class="btn btn-primary" href="{{route('project.create') }}">Neues Projekt anlegen</a>
 				<hr>
 				<table class="table table-striped">
 					<tr>
