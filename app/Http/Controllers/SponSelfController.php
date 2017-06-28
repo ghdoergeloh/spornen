@@ -11,38 +11,46 @@ use Illuminate\Support\MessageBag;
 
 class SponSelfController extends Controller
 {
-	private $root_route = 'run.';
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index(RunParticipation $runpart)
-    {
-		return redirect()->route('run.sponsor.create', $runpart->hash);
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
-    public function create(RunParticipation $runpart)
-    {
+	private $root_route = 'run.';
+
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return Response
+	 */
+	public function index(RunParticipation $runpart)
+	{
+		return redirect()->route('run.sponsor.create', $runpart->hash);
+	}
+
+	/**
+	 * Show the form for creating a new resource.
+	 *
+	 * @return Response
+	 */
+	public function create(RunParticipation $runpart)
+	{
+		if ($runpart->sponsoredRun->isElapsed()) {
+			abort(404);
+		}
 		return view('sponsors.create')
 						->with('runpart', $runpart)
 						->with('root_route', $this->root_route)
 						->with('root_route_params', [$runpart->hash]);
-    }
+	}
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  Request  $request
-     * @return Response
-     */
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @param  Request  $request
+	 * @return Response
+	 */
 	public function store(Request $request, RunParticipation $runpart)
 	{
+		if ($runpart->sponsoredRun->isElapsed()) {
+			abort(404);
+		}
 		$attributes = $request->all();
 		$validator = Sponsor::validator($attributes);
 		if ($validator->fails()) {
@@ -58,6 +66,5 @@ class SponSelfController extends Controller
 		Session::flash('messages-success', new MessageBag(["Erfolgreich gespeichert"]));
 		return redirect()->route('run.sponsor.create', $runpart->hash);
 	}
-
 
 }
