@@ -14,6 +14,9 @@
 						'class' => "form-horizontal"]) }}
 
 				@include('formfields.projects', [ 'selectedProjectId' => is_null($runpart->project)?null:$runpart->project->id])
+				@if ($runpart->sponsoredRun->with_tshirt)
+				@include('formfields.tshirt_sizes', [ 'selectedSize' => $runpart->tshirtSize])
+				@endif
 				@if (isset($adminview) && $adminview)
 				@include('formfields.laps')
 				@else

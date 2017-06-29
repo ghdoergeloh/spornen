@@ -3,6 +3,8 @@
 namespace App\Domain\Model\Sponsor;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Validator;
+use function url;
 
 class RunParticipation extends Model
 {
@@ -20,7 +22,7 @@ class RunParticipation extends Model
 		return $sum;
 	}
 
-	protected $fillable = ['laps'];
+	protected $fillable = ['laps', 'tshirt_size', 'project_id'];
 	protected $dates = [
 		'created_at', 'updated_at'
 	];
@@ -44,10 +46,18 @@ class RunParticipation extends Model
 	{
 		return $this->belongsTo('App\Domain\Model\Sponsor\Project');
 	}
-	
+
 	public function getShareLinkAttribute()
 	{
-		return url('run')."/".$this->hash;
+		return url('run') . "/" . $this->hash;
+	}
+
+	public static function validator(array $data)
+	{
+		return Validator::make($data, [
+					'laps' => 'integer|min:0',
+					'project_id' => 'exists:project,id'
+		]);
 	}
 
 }

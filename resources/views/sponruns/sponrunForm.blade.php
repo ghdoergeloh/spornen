@@ -1,6 +1,7 @@
 @include('formfields.name', ['required' => true])
 @include('formfields.begin', ['required' => true])
 @include('formfields.end', ['required' => true])
+@include('formfields.with_tshirt', ['required' => true])
 @include('formfields.street_housenumber')
 @include('formfields.postcode_city')
 @include('formfields.description')

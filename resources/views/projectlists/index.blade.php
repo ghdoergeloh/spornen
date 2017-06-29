@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title')
-- Projekte
+- Projektlisten
 @endsection
 @section('content')
 <div class="row">

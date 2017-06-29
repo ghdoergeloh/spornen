@@ -12,7 +12,7 @@ class SponsoredRun extends Model
 {
 
 	protected $fillable = [
-		'name', 'begin', 'end',
+		'name', 'begin', 'end', 'with_tshirt',
 		'street', 'housenumber',
 		'postcode', 'city', 'description'
 	];
@@ -225,6 +225,7 @@ class SponsoredRun extends Model
 					'name' => 'required|max:255',
 					'begin' => 'required|date',
 					'end' => 'required|date',
+					'with_tshirt' => 'required|boolean',
 					'street' => 'nullable|max:255',
 					'housenumber' => 'nullable|string|max:31',
 					'postcode' => 'nullable|numeric|between:0,99999',

@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Domain\Model\Sponsor\Project;
 use App\Domain\Model\Sponsor\RunParticipation;
 use App\Domain\Model\Sponsor\SponsoredRun;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\MessageBag;
 
 class AdmRunPartController extends Controller
@@ -69,7 +67,7 @@ class AdmRunPartController extends Controller
 		return view('runparts.show')->with('runpart', $runpart)
 						->with('root_route', $this->root_route)
 						->with('root_route_params', [$sponrun->id, $runpart->id])
-						->with('breadcrumbs',['sponrun' => $sponrun, 'runpart' => $runpart ]);
+						->with('breadcrumbs', ['sponrun' => $sponrun, 'runpart' => $runpart]);
 	}
 
 	/**
@@ -88,7 +86,7 @@ class AdmRunPartController extends Controller
 						->with('laps', $runpart->laps)
 						->with('root_route', $this->root_route)
 						->with('root_route_params', [$sponrun->id, $runpart->id])
-						->with('breadcrumbs',['sponrun' => $sponrun, 'runpart' => $runpart ]);
+						->with('breadcrumbs', ['sponrun' => $sponrun, 'runpart' => $runpart]);
 	}
 
 	/**
@@ -100,14 +98,14 @@ class AdmRunPartController extends Controller
 	 */
 	public function update(Request $request, SponsoredRun $sponrun, RunParticipation $runpart)
 	{
-		$data = $request->all();
-		$validator = $this->validator($data);
+		$attributes = $request->all();
+		$validator = RunParticipation::validator($attributes);
 		if ($validator->fails()) {
 			$this->throwValidationException($request, $validator);
 		}
-		$project = Project::find($request->get('project'));
-		$runpart->project()->associate($project);
-		$runpart->fill($data);
+
+		// check if the Run has already been
+		$runpart->fill($attributes);
 		$runpart->save();
 		Session::flash('messages-success', new MessageBag(["Erfolgreich gespeichert"]));
 		return redirect()->route('sponrun.runpart.edit', [$sponrun->id, $runpart->id]);
@@ -124,10 +122,4 @@ class AdmRunPartController extends Controller
 		//
 	}
 
-	private function validator(array $data)
-	{
-		return Validator::make($data, [
-					'laps' => 'required|integer|min:0'
-		]);
-	}
 }

@@ -126,8 +126,14 @@ class UserRunPartController extends Controller
 		if ($runpart->sponsoredRun->isElapsed()) {
 			return redirect()->route('runpart.show', [$runpart->sponsored_run_id]);
 		}
-		$project = Project::find($request->get('project'));
-		$runpart->project()->associate($project);
+		$attributes = $request->all();
+		$validator = RunParticipation::validator($attributes);
+		if ($validator->fails()) {
+			$this->throwValidationException($request, $validator);
+		}
+
+		// check if the Run has already been
+		$runpart->fill($attributes);
 		$runpart->save();
 		Session::flash('messages-success', new MessageBag(["Erfolgreich gespeichert"]));
 		return redirect()->route('runpart.edit', $runpart->id);
@@ -146,7 +152,7 @@ class UserRunPartController extends Controller
 
 	public function calculate(Request $request, RunParticipation $runpart)
 	{
-		$validator = $this->validatorLaps($request->all());
+		$validator = RunParticipation::validator($request->all());
 		if ($validator->fails()) {
 			$this->throwValidationException($request, $validator);
 		}
@@ -166,13 +172,6 @@ class UserRunPartController extends Controller
 						->with('sum', $sum)
 						->with('root_route', $this->root_route)
 						->with('root_route_params', [$runpart->id]);
-	}
-
-	private function validatorLaps(array $data)
-	{
-		return Validator::make($data, [
-					'laps' => 'required|integer|min:0'
-		]);
 	}
 
 }

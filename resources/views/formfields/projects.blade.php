@@ -8,7 +8,7 @@
 
 		@if ($errors->has('project'))
 		<span class="help-block">
-			<strong>{{ $errors->first('begin') }}</strong>
+			<strong>{{ $errors->first('project') }}</strong>
 		</span>
 		@endif
 	</div>
