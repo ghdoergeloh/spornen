@@ -10,27 +10,6 @@ class Project extends Model
 
 	protected $fillable = ['id', 'name', 'scope'];
 
-	public static function getProjectsSelection()
-	{
-		$projects = Project::orderBy('scope', 'asc')->orderBy('name', 'asc')->get();
-		$projectsSelection = array();
-		foreach ($projects as $project) {
-			switch ($project->scope) {
-				case 'project':
-					$scope = ' (Projekt)';
-					break;
-				case 'person':
-					$scope = ' (Person)';
-					break;
-				default:
-					$scope = '';
-					break;
-			}
-			$projectsSelection[$project->id] = $project->name . $scope;
-		}
-		return $projectsSelection;
-	}
-
 	public static function validatorCreate(array $data)
 	{
 		return Validator::make($data, [

@@ -26,6 +26,11 @@ class SponsoredRun extends Model
 		//$this->attributes['begin'] < Carbon::now();
 	}
 
+	public function projectlists()
+	{
+		return $this->belongsToMany('App\Domain\Model\Sponsor\Projectlist');
+	}
+
 	public function participants()
 	{
 		return $this->belongsToMany('App\Domain\Model\Auth\User', 'run_participations');

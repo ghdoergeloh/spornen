@@ -139,9 +139,7 @@ class AdmPlstController extends Controller
 	 */
 	public function addProjects(Request $request, Projectlist $projectlist)
 	{
-		//echo $request;
 		$projects = $request->input('projects');
-		//echo $projects;
 		$projectlist->projects()->syncWithoutDetaching($projects);
 		$projectlist->save();
 		return redirect()->route('projectlist.edit', $projectlist);

@@ -104,8 +104,30 @@ class UserRunPartController extends Controller
 		if ($runpart->sponsoredRun->isElapsed()) {
 			return redirect()->route('runpart.show', [$runpart->id]);
 		}
+
+		$runpart->sponsoredRun->load('projectlists.projects');
+		$projectlists = $runpart->sponsoredRun->projectlists;
+		$projectsSelection = array();
+		$projectsSelection[NULL] = 'Bitte auswählen';
+		foreach ($projectlists as $projectlist) {
+			foreach ($projectlist->projects as $project) {
+				switch ($project->scope) {
+					case 'project':
+						$scope = ' (Projekt)';
+						break;
+					case 'person':
+						$scope = ' (Person)';
+						break;
+					default:
+						$scope = '';
+						break;
+				}
+				$projectsSelection[$project->id] = $project->name . $scope;
+			}
+		}
+
 		return view('runparts.edit')
-						->with('projects', Project::getProjectsSelection())
+						->with('projects', $projectsSelection)
 						->with('runpart', $runpart)
 						->with('laps', $runpart->laps)
 						->with('root_route', $this->root_route)

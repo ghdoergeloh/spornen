@@ -13,7 +13,7 @@
 						'url' => route($root_route.'runpart.update', array_merge($root_route_params, [$runpart->id])),
 						'class' => "form-horizontal"]) }}
 
-				@include('formfields.projects', [ 'selectedProjectId' => $runpart->project->id])
+				@include('formfields.projects', [ 'selectedProjectId' => is_null($runpart->project)?null:$runpart->project->id])
 				@if (isset($adminview) && $adminview)
 				@include('formfields.laps')
 				@else

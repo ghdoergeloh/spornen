@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Domain\Model\Sponsor\Projectlist;
 use App\Domain\Model\Sponsor\SponsoredRun;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -83,7 +84,7 @@ class AdmRunController extends Controller
 						->with('sponrun', $sponrun)
 						->with('root_route', $this->root_route)
 						->with('root_route_params', [$sponrun->id])
-						->with('breadcrumbs',['sponrun' => $sponrun]);
+						->with('breadcrumbs', ['sponrun' => $sponrun]);
 	}
 
 	/**
@@ -94,11 +95,12 @@ class AdmRunController extends Controller
 	 */
 	public function edit(SponsoredRun $sponrun)
 	{
+		$otherprojectlists = Projectlist::whereNotIn('id', $sponrun->projectlists()->pluck('projectlist_id'))->get();
 		return view('sponruns.edit')
 						->with('sponrun', $sponrun)
+						->with('otherprojectlists', $otherprojectlists)
 						->with('root_route', $this->root_route)
-						->with('root_route_params', [$sponrun->id])
-						->with('breadcrumbs',['sponrun' => $sponrun]);
+						->with('root_route_params', [$sponrun->id]);
 	}
 
 	/**
@@ -159,6 +161,36 @@ class AdmRunController extends Controller
 		$sponrun->closed = false;
 		$sponrun->save();
 		return redirect()->route('sponrun.index');
+	}
+
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  Request  $request
+	 * @param  SponsoredRun  $sponrun
+	 * @return Response
+	 */
+	public function addProjectlists(Request $request, SponsoredRun $sponrun)
+	{
+		$projectlists = $request->input('projectlists');
+		$sponrun->projectlists()->syncWithoutDetaching($projectlists);
+		$sponrun->save();
+		return redirect()->route('sponrun.edit', $sponrun);
+	}
+
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  Request  $request
+	 * @param  Projectlist  $sponrun
+	 * @return Response
+	 */
+	public function removeProjectlists(Request $request, SponsoredRun $sponrun)
+	{
+		$projectlists = $request->input('projectlists');
+		$sponrun->projectlists()->toggle($projectlists);
+		$sponrun->save();
+		return redirect()->route('sponrun.edit', $sponrun);
 	}
 
 }

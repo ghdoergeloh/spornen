@@ -45,6 +45,9 @@ Route::post('sponrun/{sponrun}/close', 'AdmRunController@close')->name('sponrun.
 Route::post('sponrun/{sponrun}/reopen', 'AdmRunController@reopen')->name('sponrun.reopen');
 
 Route::resource('sponrun.runpart', 'AdmRunPartController', ['except' => ['create', 'store', 'destroy']]);
+Route::patch('sponrun/{sponrun}/removeProjectlists', 'AdmRunController@removeProjectlists')->name('sponrun.removeProjectlists');
+Route::patch('sponrun/{sponrun}/addProjectlists', 'AdmRunController@addProjectlists')->name('sponrun.addProjectlists');
+
 Route::resource('sponrun.runpart.sponsor', 'AdmRunPartSponController');
 
 

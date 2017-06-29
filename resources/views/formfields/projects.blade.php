@@ -1,3 +1,4 @@
+@if (isset($projects) && count($projects) > 1)
 <div class="form-group{{ $errors->has('firstname') ? ' has-error' : '' }}">
 	{{ Form::label('project', 'Unterstütztes Projekt', [ 'class' => "col-md-4 control-label"]) }}
 
@@ -12,3 +13,4 @@
 		@endif
 	</div>
 </div>
+@endif

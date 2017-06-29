@@ -28,9 +28,9 @@
 					</a>
 					<ul class="dropdown-menu" role="menu">
 						<li>
-							<a href="{{ route('sponrun.index') }}">Sponsorenläufe</a>
 							<a href="{{ route('project.index') }}">Projekte</a>
 							<a href="{{ route('projectlist.index') }}">Projektlisten</a>
+							<a href="{{ route('sponrun.index') }}">Sponsorenläufe</a>
 						</li>
 					</ul>
 				</li>
