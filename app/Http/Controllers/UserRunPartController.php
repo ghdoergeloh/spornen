@@ -72,7 +72,6 @@ class UserRunPartController extends Controller
 			$runpart = new RunParticipation();
 			$runpart->sponsoredRun()->associate($sponrun);
 			$runpart->user()->associate($user);
-			$runpart->project_id = 0;
 			$runpart->hash = md5(microtime());
 			$runpart->save();
 		}
