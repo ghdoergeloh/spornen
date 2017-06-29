@@ -52,6 +52,19 @@ class SponsoredRun extends Model
 		return $this->end->format('d.m.Y - H:i');
 	}
 
+	public function getProjectSelection()
+	{
+		$this->load('projectlists.projects');
+		$projectsSelection = array();
+		$projectsSelection[NULL] = 'Bitte auswählen';
+		foreach ($this->projectlists as $projectlist) {
+			//$projectsSelection = $projectlist->getProjectSelection();
+			$projectsSelection = $projectlist->getProjectSelection() + $projectsSelection;
+		}
+		asort($projectsSelection);
+		return $projectsSelection;
+	}
+	
 	public function totalLaps()
 	{
 		$totalLaps = 0;

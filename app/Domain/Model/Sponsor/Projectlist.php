@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Validator;
 
 class Projectlist extends Model
 {
-	
+
 	protected $fillable = ['name'];
 
 	public function projects()
@@ -21,6 +21,15 @@ class Projectlist extends Model
 		return Validator::make($data, [
 					'name' => 'required|max:255',
 		]);
+	}
+
+	public function getProjectSelection()
+	{
+		$projectsSelection = array();
+		foreach ($this->projects as $project) {
+			$projectsSelection[$project->id] = $project->getNameWithScope();
+		}
+		return $projectsSelection;
 	}
 
 }

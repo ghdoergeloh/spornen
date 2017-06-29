@@ -80,8 +80,9 @@ class AdmRunPartController extends Controller
 	 */
 	public function edit(SponsoredRun $sponrun, RunParticipation $runpart)
 	{
+		$projectsSelection = $runpart->sponsoredRun->getProjectSelection();
 		return view('runparts.edit')
-						->with('projects', Project::getProjectsSelection())
+						->with('projects', $projectsSelection)
 						->with('runpart', $runpart)
 						->with('adminview', true)
 						->with('laps', $runpart->laps)

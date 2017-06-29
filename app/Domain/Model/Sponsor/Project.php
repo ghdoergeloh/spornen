@@ -27,4 +27,20 @@ class Project extends Model
 		]);
 	}
 
+	public function getNameWithScope()
+	{
+		switch ($this->scope) {
+			case 'project':
+				$scope = ' (Projekt)';
+				break;
+			case 'person':
+				$scope = ' (Person)';
+				break;
+			default:
+				$scope = '';
+				break;
+		}
+		return $this->name . $scope;
+	}
+
 }
