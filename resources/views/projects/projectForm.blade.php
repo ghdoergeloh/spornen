@@ -1,4 +1,5 @@
 @include('formfields.name', ['required' => true])
+@include('formfields.scope', ['required' => true])
 
 <div class="form-group">
 	<div class="col-md-6 col-md-offset-4">
