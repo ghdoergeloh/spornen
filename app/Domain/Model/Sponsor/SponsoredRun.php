@@ -64,7 +64,7 @@ class SponsoredRun extends Model
 		asort($projectsSelection);
 		return $projectsSelection;
 	}
-	
+
 	public function totalLaps()
 	{
 		$totalLaps = 0;
@@ -171,6 +171,9 @@ class SponsoredRun extends Model
 			foreach ($runpart->sponsors as $sponsor) {
 				$row['Läufernr'] = $user->id;
 				$row['Projekt'] = '' . $runpart->project_id;
+				if ($this->with_tshirt) {
+					$row['T-Shirt-Größe'] = '' . $runpart->tshirt_size;
+				}
 				$row['L.Optigem PersNr.'] = 0;
 				$row['L.Name'] = $user->lastname . ', ' . $user->firstname;
 				$row['L.Straße Nr.'] = $user->street . ' ' . $user->housenumber;
