@@ -56,7 +56,7 @@ class RunParticipation extends Model
 	{
 		return Validator::make($data, [
 					'laps' => 'integer|min:0',
-					'project_id' => 'exists:project,id'
+					'project_id' => 'exists:projects,id'
 		]);
 	}
 
