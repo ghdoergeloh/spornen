@@ -78,7 +78,7 @@ use RegistersUsers;
 	 */
 	protected function create(array $data, $confirmed, $confirmation_code)
 	{
-		\Illuminate\Support\Facades\Log::info($data);
+		//\Illuminate\Support\Facades\Log::info($data);
 		return User::create([
 					'firstname' => $data['firstname'],
 					'lastname' => $data['lastname'],
@@ -130,7 +130,7 @@ use RegistersUsers;
 		event(new Registered($user));
 
 		Mail::send('auth.emails.verify', ['confirmation_code' => $confirmation_code, 'email' => $user->email], function($message) use ($user) {
-			$message->to($user->email, $user->firstname + $user->lastname)
+			$message->to($user->email, $user->firstname . " " . $user->lastname)
 					->subject('E-Mail Adresse bestätigen');
 		});
 
