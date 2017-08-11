@@ -14,7 +14,9 @@
 					<i class="fa fa-btn fa-sign-in"></i> Anmelden
 				</button>
 
-				<a class="btn btn-link" href="{{ url('/password/reset') }}">Passwort vergessen?</a>
+                                <a class="btn btn-link" href="{{ url('/password/reset') }}">Passwort vergessen?</a>
+                                <hr>
+                                <a class="btn btn-link" href="{{ url('/register') }}">Registrieren</a>
 			</div>
 		</div>
 		{{ Form::close() }}
