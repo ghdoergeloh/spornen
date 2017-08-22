@@ -82,7 +82,7 @@
 							<td class="hidden-xs">{{ $runpart->user->postcode }} {{ $runpart->user->city }}</td>
 							<td class="visible-lg">{{ $runpart->user->phone }}</td>
 							<td class="hidden-xs hidden-sm">{{ $runpart->user->email }}</td>
-							<td class="text-right hidden-xs hidden-sm">{{ $runpart->project->name }}</td>
+							<td class="text-right hidden-xs hidden-sm">{{ is_null($runpart->project) ? "Kein Projekt" : $runpart->project->name }}</td>
 							<td class="text-right hidden-xs">{{ $runpart->laps }}</td>
 							<td class="text-right hidden-xs">{{ number_format($runpart->calculateDonationSum(),2,',','.') }} €</td>
 							<td class="text-right hidden-xs hidden-sm">{{ $runpart->sponsors->count() }}</td>
