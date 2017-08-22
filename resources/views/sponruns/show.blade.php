@@ -67,9 +67,9 @@
 							<th class="hidden-xs">PLZ, Ort</th>
 							<th class="visible-lg">Telefon</th>
 							<th class="hidden-xs hidden-sm">E-Mail</th>
+							<th class="hidden-xs hidden-sm">Projekt</th>
 							<th class="hidden-xs">Runden</th>
 							<th class="hidden-xs">Betrag</th>
-							<th class="hidden-xs hidden-sm">Projekt</th>
 							<th class="hidden-xs hidden-sm">Sponsoren</th>
 							<th></th>
 						</tr>
@@ -82,9 +82,9 @@
 							<td class="hidden-xs">{{ $runpart->user->postcode }} {{ $runpart->user->city }}</td>
 							<td class="visible-lg">{{ $runpart->user->phone }}</td>
 							<td class="hidden-xs hidden-sm">{{ $runpart->user->email }}</td>
+							<td class="text-right hidden-xs hidden-sm">{{ $runpart->project->name }}</td>
 							<td class="text-right hidden-xs">{{ $runpart->laps }}</td>
 							<td class="text-right hidden-xs">{{ number_format($runpart->calculateDonationSum(),2,',','.') }} €</td>
-							<td class="text-right hidden-xs hidden-sm">{{ $runpart->project->name }}</td>
 							<td class="text-right hidden-xs hidden-sm">{{ $runpart->sponsors->count() }}</td>
 							<td>
 								<a class="btn btn-success"
