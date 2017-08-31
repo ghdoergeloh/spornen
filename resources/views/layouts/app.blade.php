@@ -17,9 +17,8 @@
 			  href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700">
 
 		<!-- Styles -->
-
 		<link rel="stylesheet" href="{{url('/css/custom.css')}}">
-		<link rel="stylesheet" href="{{url('/css/bootstrap.min.css')}}">
+		<link rel="stylesheet" href="{{url('/css/app.css')}}">
 	</head>
 	<body id="app-layout">
 		@include('layouts.menu')
@@ -34,12 +33,7 @@
 		</div>
 
 		<!-- JavaScripts -->
-		<script src="{{url('/js/jquery-3.1.1.min.js')}}"
-			integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-			crossorigin="anonymous"></script>
-		<script src="{{url('/js/bootstrap.min.js')}}"
-			integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-			crossorigin="anonymous"></script>
+		<script src="{{url('/js/app.js')}}"></script>
 		<script src="{{url('/js/custom.js')}}"></script>
 	</body>
 </html>
