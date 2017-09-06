@@ -1,6 +1,6 @@
-<div class="panel panel-default">
-	<div class="panel-heading">Registrieren</div>
-	<div class="panel-body">
+<div class="card card-default">
+	<div class="card-header">Registrieren</div>
+	<div class="card-body">
 		{{ Form::open([
 		'method' => 'POST',
 		'url' => 'register',

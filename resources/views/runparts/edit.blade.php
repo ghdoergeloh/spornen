@@ -5,9 +5,9 @@
 @section('content')
 <div class="row">
 	<div class="col-md-8">
-		<div class="panel panel-default">
-			<div class="panel-heading">Angaben zur Teilnahme</div>
-			<div class="panel-body">
+		<div class="card card-default">
+			<div class="card-header">Angaben zur Teilnahme</div>
+			<div class="card-body">
 				{{ Form::model($runpart,[
 						'method' => 'PATCH',
 						'url' => route($root_route.'runpart.update', array_merge($root_route_params, [$runpart->id])),

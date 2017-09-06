@@ -8,18 +8,18 @@
 		<img class="img-responsive" alt="To All Nations" src="{{ url('/images/logo.jpg') }}">
 	</div>
 	<div class="col-md-6 col-md-offset-1">
-		<div class="panel panel-default">
-			<div class="panel-heading">Hallo {{ Auth::user()->firstname }} </div>
+		<div class="card card-default">
+			<div class="card-header">Hallo {{ Auth::user()->firstname }} </div>
 
-			<div class="panel-body">
+			<div class="card-body">
 				<b>Herzlich Willkommen!</b> Schön, dass du am Sponsorenlauf teilnimmst.
 			</div>
 		</div>
 
-		<div class="panel panel-default">
-			<div class="panel-heading">Die Nächsten Sponsorenläufe</div>
+		<div class="card card-default">
+			<div class="card-header">Die Nächsten Sponsorenläufe</div>
 
-			<div class="panel-body">
+			<div class="card-body">
 				<table class="table table-striped">
 					<tr>
 						<th class="hidden-xs">Datum</th>

@@ -1,7 +1,7 @@
 <div class="col-md-4">
-	<div class="panel panel-default">
-		<div class="panel-heading">Wie viel würde ich sammeln, wenn...</div>
-		<div class="panel-body">
+	<div class="card card-default">
+		<div class="card-header">Wie viel würde ich sammeln, wenn...</div>
+		<div class="card-body">
 			{{ Form::open([
 				'method' => 'GET',
 				'url' => route($root_route.'runpart.calculate', array_merge($root_route_params, [$runpart->id])),

@@ -1,6 +1,6 @@
-<div class="panel panel-default">
-	<div class="panel-heading">Meine Sponsoren</div>
-	<div class="panel-body">
+<div class="card card-default">
+	<div class="card-header">Meine Sponsoren</div>
+	<div class="card-body">
 		@if ($edit)
 		<a class="btn btn-primary" href="{{route($root_route.'sponsor.create', $root_route_params) }}">Neuen Sponsor Hinzufügen</a>
 		<hr>

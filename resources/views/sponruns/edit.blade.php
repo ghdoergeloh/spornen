@@ -5,9 +5,9 @@
 @section('content')
 <div class="row">
 	<div class="col-md-12">
-		<div class="panel panel-default">
-			<div class="panel-heading">Sponsorenlauf bearbeiten</div>
-			<div class="panel-body">
+		<div class="card card-default">
+			<div class="card-header">Sponsorenlauf bearbeiten</div>
+			<div class="card-body">
 		{{ Form::model($sponrun, [
 		'method' => 'PATCH',
 		'route' => [$root_route.'sponrun.update', implode(',', $root_route_params)],
@@ -21,9 +21,9 @@
 
 <div class="row">
 	<div class="col-md-6">
-		<div class="panel panel-default">
-			<div class="panel-heading">Unterstützte Projektlisten vom Sponsorenlauf</div>
-			<div class="panel-body">
+		<div class="card card-default">
+			<div class="card-header">Unterstützte Projektlisten vom Sponsorenlauf</div>
+			<div class="card-body">
 				{{ Form::open([
 					'method' => 'PATCH',
 					'route' => ['sponrun.removeProjectlists', $sponrun->id],
@@ -49,9 +49,9 @@
 		</div>
 	</div>
 	<div class="col-md-6">
-		<div class="panel panel-default">
-			<div class="panel-heading">Weitere Projektlisten</div>
-			<div class="panel-body">
+		<div class="card card-default">
+			<div class="card-header">Weitere Projektlisten</div>
+			<div class="card-body">
 				{{ Form::open([
 					'method' => 'PATCH',
 					'route' => ['sponrun.addProjectlists', $sponrun->id],

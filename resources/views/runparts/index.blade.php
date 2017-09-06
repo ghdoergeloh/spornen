@@ -5,9 +5,9 @@
 @section('content')
 <div class="row">
 	<div class="col-md-12">
-		<div class="panel panel-default">
-			<div class="panel-heading">Meine Teilnahmen</div>
-			<div class="panel-body">
+		<div class="card card-default">
+			<div class="card-header">Meine Teilnahmen</div>
+			<div class="card-body">
 				<table class="table table-striped">
 					<tr>
 						<th class="hidden-xs">Datum</th>

@@ -6,9 +6,9 @@
 <div class="container">
     <div class="row">
 		<div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">Statistik</div>
-                <div class="panel-body">
+            <div class="card card-default">
+                <div class="card-header">Statistik</div>
+                <div class="card-body">
 					<dl>
 						<dt>Anzahl der Läufer:</dt>
 						<dd>{{ $sponrun->participants_count }}</dd>
@@ -55,9 +55,9 @@
 					@endif
 				</div>
 			</div>
-			<div class="panel panel-default">
-				<div class="panel-heading">Läufer</div>
-				<div class="panel-body">
+			<div class="card card-default">
+				<div class="card-header">Läufer</div>
+				<div class="card-body">
 					<table class="table table-striped table-hover table-condensed">
 						<tr>
 							<th>Nr.</th>

@@ -6,9 +6,9 @@
 <div class="container">
     <div class="row">
 		<div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">Daten</div>
-                <div class="panel-body">
+            <div class="card card-default">
+                <div class="card-header">Daten</div>
+                <div class="card-body">
 					<dl class="dl-horizontal">
 						<dt>Anzahl der Sponsoren:</dt>
 						<dd>{{ $runpart->sponsors->count() }}</dd>

@@ -5,9 +5,9 @@
 @section('content')
 <div class="row">
 	<div class="col-md-12">
-		<div class="panel panel-default">
-			<div class="panel-heading">Projektlisten</div>
-			<div class="panel-body">
+		<div class="card card-default">
+			<div class="card-header">Projektlisten</div>
+			<div class="card-body">
 				<a class="btn btn-primary" href="{{route('projectlist.create') }}">Neue Projektliste anlegen</a>
 				<hr>
 				<table class="table table-striped">

@@ -5,7 +5,7 @@
 		<img class="img-responsive" alt="To All Nations" src="{{ url('/images/logo_5xx.jpg') }}">
 	</div>
 	<div class="col-md-6 col-md-offset-1">
-		<div class="panel panel-default">
+		<div class="card card-default">
 			@yield('error-message')
 		</div>
 	</div>

@@ -5,9 +5,9 @@
 @section('content')
 <div class="row">
 	<div class="col-md-12">
-		<div class="panel panel-default">
-			<div class="panel-heading">Projekt bearbeiten</div>
-			<div class="panel-body">
+		<div class="card card-default">
+			<div class="card-header">Projekt bearbeiten</div>
+			<div class="card-body">
 				{{ Form::model($projectlist, [
 					'method' => 'PATCH',
 					'route' => ['projectlist.update', $projectlist->id],
@@ -21,9 +21,9 @@
 
 <div class="row">
 	<div class="col-md-6">
-		<div class="panel panel-default">
-			<div class="panel-heading">Projekte in der Liste</div>
-			<div class="panel-body">
+		<div class="card card-default">
+			<div class="card-header">Projekte in der Liste</div>
+			<div class="card-body">
 				{{ Form::open([
 					'method' => 'PATCH',
 					'route' => ['projectlist.removeProjects', $projectlist->id],
@@ -53,9 +53,9 @@
 		</div>
 	</div>
 	<div class="col-md-6">
-		<div class="panel panel-default">
-			<div class="panel-heading">Weitere Projekte</div>
-			<div class="panel-body">
+		<div class="card card-default">
+			<div class="card-header">Weitere Projekte</div>
+			<div class="card-body">
 				{{ Form::open([
 					'method' => 'PATCH',
 					'route' => ['projectlist.addProjects', $projectlist->id],

@@ -6,9 +6,9 @@
 <div class="container">
     <div class="row">
 		<div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">Sponsorenläufe</div>
-                <div class="panel-body">
+            <div class="card card-default">
+                <div class="card-header">Sponsorenläufe</div>
+                <div class="card-body">
 					<a class="btn btn-primary" href="{{route($root_route.'sponrun.create') }}">Neuen Sponsorenlauf anlegen</a>
 					<hr>
 					<table class="table table-striped">

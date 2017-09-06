@@ -5,10 +5,10 @@
 			<img class="img-responsive" alt="To All Nations" src="{{ url('/images/logo.jpg') }}">
 		</div>
 		<div class="col-md-6 col-md-offset-1">
-			<div class="panel panel-default">
-				<div class="panel-heading">Willkommen</div>
+			<div class="card card-default">
+				<div class="card-header">Willkommen</div>
 
-				<div class="panel-body">
+				<div class="card-body">
 					
 				</div>
 			</div>
