@@ -10,6 +10,11 @@ Tokenizer PHP Extension
 
 
 ## Installation
+### Composer
+$ cd /usr/src
+$ curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
+
+
 ### SponRun
 $ cd $SPONRUN_HOME
 Ordner auf den Server kopieren.
@@ -17,20 +22,15 @@ Dem Web-Server Nutzer Schreibrechte für die Verzeichnisse "storage" und "bootst
 VirtuellenHost einrichten auf das Verzeichnis "public".
 Die Datei ".env.example" kopieren und in ".env" umbenennen.
 Einstellungen für DB,URL,... vornehmen.
+Mit Composer alle Abhängigkeiten laden
+$ composer install
+bzw. für Server
+$ composer install --no-dev
 App-Key erstellen
 $ php artisan key:generate
 Datenbank erzeugen
+Dann das DB-Schema generieren lassen
 $ php artisan migrate
-
-
-### Laravel
-#### Composer installieren
-$ cd /usr/src
-$ curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
-#### Laravel installieren
-$ cd $SPONRUN_HOME
-$ composer update
-$ php artisan key:generate
 
 
 # Laravel PHP Framework
