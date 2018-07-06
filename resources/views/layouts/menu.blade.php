@@ -40,6 +40,12 @@
 			<!-- Right Side Of Navbar -->
 			<ul class="nav navbar-nav navbar-right">
 				<!-- Authentication Links -->
+				@if (!empty(env('URL_IMPRESSUM')))
+				<li><a href="{{ env('URL_IMPRESSUM') }}">Impressum</a></li>
+				@endif
+				@if (!empty(env('URL_PRIVACY_STATEMENT')))
+				<li><a href="{{ env('URL_PRIVACY_STATEMENT') }}">Datenschutz</a></li>
+				@endif
 				@if (Auth::guest())
 				<li><a href="{{ url('/login') }}">Anmelden</a></li>
 				<li><a href="{{ url('/register') }}">Registrieren</a></li>
