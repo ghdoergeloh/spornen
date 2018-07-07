@@ -10,10 +10,12 @@ Tokenizer PHP Extension
 
 
 ## Installation
-### Composer
-$ cd /usr/src
-$ curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
+###Tools
+#### Composer
+https://getcomposer.org/
 
+#### npm
+https://www.npmjs.com/
 
 ### SponRun
 $ cd $SPONRUN_HOME
@@ -22,10 +24,12 @@ Dem Web-Server Nutzer Schreibrechte für die Verzeichnisse "storage" und "bootst
 VirtuellenHost einrichten auf das Verzeichnis "public".
 Die Datei ".env.example" kopieren und in ".env" umbenennen.
 Einstellungen für DB,URL,... vornehmen.
-Mit Composer alle Abhängigkeiten laden
+Mit Composer alle PHP-Abhängigkeiten laden
 $ composer install
 bzw. für Server
 $ composer install --no-dev
+Mit npm alle JS-Abhängigkeiten laden
+$ npm install
 App-Key erstellen
 $ php artisan key:generate
 Datenbank erzeugen
