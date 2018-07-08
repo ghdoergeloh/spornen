@@ -55,9 +55,7 @@ class UserRunPartSponController extends Controller
 	{
 		$attributes = $request->all();
 		$validator = Sponsor::validator($attributes);
-		if ($validator->fails()) {
-			$this->throwValidationException($request, $validator);
-		}
+		$validator->validate();
 
 		$user = $runpart->user;
 		$sponsor = new Sponsor();
@@ -111,9 +109,7 @@ class UserRunPartSponController extends Controller
 	{
 		$attributes = $request->all();
 		$validator = Sponsor::validator($attributes);
-		if ($validator->fails()) {
-			$this->throwValidationException($request, $validator);
-		}
+		$validator->validate();
 
 		// check if the Run hs already been
 		// check if the Run hs already been

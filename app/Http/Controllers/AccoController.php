@@ -4,10 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\MessageBag;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\MessageBag;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 
 class AccoController extends Controller
 {
@@ -52,10 +52,7 @@ class AccoController extends Controller
 	 */
 	public function update(Request $request)
 	{
-		$validator = $this->validator($request->all());
-		if ($validator->fails()) {
-			$this->throwValidationException($request, $validator);
-		}
+		$this->validator($request->all())->validate();
 		$user = Auth::user();
 		$user->firstname = $request->firstname;
 		$user->lastname = $request->lastname;

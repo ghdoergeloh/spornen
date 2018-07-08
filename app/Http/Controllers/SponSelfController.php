@@ -53,9 +53,7 @@ class SponSelfController extends Controller
 		}
 		$attributes = $request->all();
 		$validator = Sponsor::validator($attributes);
-		if ($validator->fails()) {
-			$this->throwValidationException($request, $validator);
-		}
+		$validator->validate();
 
 		$user = $runpart->user;
 		$sponsor = new Sponsor();

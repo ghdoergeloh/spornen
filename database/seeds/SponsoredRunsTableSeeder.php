@@ -13,8 +13,14 @@ class SponsoredRunsTableSeeder extends Seeder
 	 */
 	public function run()
 	{
-		$date = new DateTime('17.09.2016');
-		SponsoredRun::create(['begin' => $date , 'name' => 'To All Nations - Freundestag 2016']);
+	    $begin = new DateTime('17.09.2016 10:00');
+	    $end = new DateTime('17.09.2016 11:00');
+	    SponsoredRun::create([
+	        'begin' => $begin,
+	        'end' => $end,
+	        'name' => 'To All Nations - Freundestag 2016',
+	        'with_tshirt' => true
+	    ]);
 	}
 
 }
