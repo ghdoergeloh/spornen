@@ -184,6 +184,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Propaganistas\LaravelPhone\PhoneServiceProvider::class,
+        App\Providers\FormServiceProvider::class,
 
     ],
 
