@@ -18,7 +18,7 @@
 
 		<!-- Styles -->
 		<link rel="stylesheet" href="{{url('/css/custom.css')}}">
-		<link rel="stylesheet" href="{{url('/css/app.css')}}">
+		<link rel="stylesheet" href="{{mix('/css/app.css')}}">
 	</head>
 	<body id="app-layout">
 		@include('layouts.menu')
@@ -33,7 +33,7 @@
 		</div>
 
 		<!-- JavaScripts -->
-		<script src="{{url('/js/app.js')}}"></script>
+		<script src="{{mix('/js/app.js')}}"></script>
 		<script src="{{url('/js/custom.js')}}"></script>
 	</body>
 </html>
