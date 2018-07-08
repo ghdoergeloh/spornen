@@ -28,7 +28,7 @@
 							   href=""
 							   data-toggle="tooltip" title="Löschen "
 							   onclick="event.preventDefault();
-                                       if (confirm('Das Projekt wird gelöscht.')) {
+                                       if (confirm('Die Projektliste wird gelöscht.')) {
                                            document.getElementById('delete-projectlist-form{!! $projectlist->id !!}').submit();
                                        }">
 								<span class="glyphicon glyphicon-trash"/></a>
