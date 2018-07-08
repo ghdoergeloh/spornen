@@ -56,9 +56,7 @@ class AdmProjController extends Controller
 		$attributes = $request->all();
 //Validate
 		$validator = Project::validatorCreate($attributes);
-		if ($validator->fails()) {
-			$this->throwValidationException($request, $validator);
-		}
+		$validator->validate();
 //Save
 		Project::create($attributes);
 //redirect
@@ -99,9 +97,7 @@ class AdmProjController extends Controller
 		$attributes = $request->all();
 //Validate
 		$validator = Project::validatorUpdate($attributes);
-		if ($validator->fails()) {
-			$this->throwValidationException($request, $validator);
-		}
+		$validator->validate();
 //Save
 		$project->fill($attributes);
 		$project->save();

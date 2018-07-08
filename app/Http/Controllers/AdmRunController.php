@@ -61,9 +61,7 @@ class AdmRunController extends Controller
 		$attributes = $request->all();
 //Validate
 		$validator = SponsoredRun::validator($attributes);
-		if ($validator->fails()) {
-			$this->throwValidationException($request, $validator);
-		}
+		$validator->validate();
 //Save
 		$attributes['begin'] = strtotime($attributes['begin']);
 		$attributes['end'] = strtotime($attributes['end']);
@@ -115,9 +113,7 @@ class AdmRunController extends Controller
 		$attributes = $request->all();
 //Validate
 		$validator = SponsoredRun::validator($attributes);
-		if ($validator->fails()) {
-			$this->throwValidationException($request, $validator);
-		}
+		$validator->validate();
 //Save
 		$attributes['begin'] = strtotime($attributes['begin']);
 		$attributes['end'] = strtotime($attributes['end']);

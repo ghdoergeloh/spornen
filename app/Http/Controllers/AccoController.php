@@ -52,10 +52,7 @@ class AccoController extends Controller
 	 */
 	public function update(Request $request)
 	{
-		$validator = $this->validator($request->all());
-		if ($validator->fails()) {
-			$this->throwValidationException($request, $validator);
-		}
+		$this->validator($request->all())->validate();
 		$user = Auth::user();
 		$user->firstname = $request->firstname;
 		$user->lastname = $request->lastname;

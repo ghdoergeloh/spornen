@@ -100,9 +100,7 @@ class AdmRunPartController extends Controller
 	{
 		$attributes = $request->all();
 		$validator = RunParticipation::validator($attributes);
-		if ($validator->fails()) {
-			$this->throwValidationException($request, $validator);
-		}
+		$validator->validate();
 
 		// check if the Run has already been
 		$runpart->fill($attributes);
