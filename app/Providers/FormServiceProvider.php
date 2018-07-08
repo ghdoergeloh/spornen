@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Form;
+use Collective\Html\FormFacade as Form;
 
 class FormServiceProvider extends ServiceProvider
 {

@@ -5,8 +5,6 @@ namespace App\Domain\Model\Sponsor;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
-use libphonenumber\NumberParseException;
-use libphonenumber\PhoneNumberFormat;
 
 class SponsoredRun extends Model
 {
@@ -161,53 +159,6 @@ class SponsoredRun extends Model
 			}
 		}
 		return $participants;
-	}
-
-	public function getEvaluation()
-	{
-		$evaluation = array();
-		foreach ($this->runParticipations as $runpart) {
-			$user = $runpart->user;
-			foreach ($runpart->sponsors as $sponsor) {
-				$row['Läufernr'] = $user->id;
-				$row['Projekt'] = '' . $runpart->project_id;
-				if ($this->with_tshirt) {
-					$row['T-Shirt-Größe'] = '' . $runpart->tshirt_size;
-				}
-				$row['L.Optigem PersNr.'] = 0;
-				$row['L.Name'] = $user->lastname . ', ' . $user->firstname;
-				$row['L.Straße Nr.'] = $user->street . ' ' . $user->housenumber;
-				$row['L.PLZ'] = $user->postcode;
-				$row['L.Stadt'] = $user->city;
-				$row['L.E-Mail'] = $user->email;
-				try {
-					$row['L.Telefon'] = phone($user->phone, 'DE', PhoneNumberFormat::INTERNATIONAL);
-				} catch (NumberParseException $ex) {
-					$row['L.Telefon'] = $user->phone;
-				}
-				$row['Sponsorennr.'] = $sponsor->id;
-				$row['S.Name'] = $sponsor->lastname . ', ' . $sponsor->firstname;
-				$row['S.Straße Nr.'] = $sponsor->street . ' ' . $sponsor->housenumber;
-				$row['S.PLZ'] = $sponsor->postcode;
-				$row['S.Stadt'] = $sponsor->city;
-				$row['S.E-Mail'] = $sponsor->email;
-				try {
-					$row['S.Telefon'] = phone($sponsor->phone, 'DE', PhoneNumberFormat::INTERNATIONAL);
-				} catch (NumberParseException $ex) {
-					$row['S.Telefon'] = $sponsor->phone;
-				}
-				$row['S.Optigem PersNr.'] = 0;
-				$row['Name des Läufers'] = $row['L.Name'];
-				$row['Spende pro Runde'] = number_format($sponsor->donation_per_lap, 2, ',', '');
-				$row['Maximal- oder Festbetrag'] = number_format($sponsor->donation_static_max, 2, ',', '');
-				$row['gelaufene Runden'] = $runpart->laps;
-				$row['Endbetrag'] = number_format($sponsor->calculateDonationSum($runpart->laps), 2, ',', '');
-				$row['Erhalten am'] = '';
-				$row['Betrag'] = '';
-				$evaluation[] = $row;
-			}
-		}
-		return $evaluation;
 	}
 
 	public function getBeginAttribute($begin)

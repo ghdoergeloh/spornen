@@ -7,6 +7,7 @@ use App\Domain\Model\Sponsor\SponsoredRun;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Domain\Model\Sponsor\Exports\Evaluation;
 
 class AdmRunController extends Controller
 {
@@ -61,9 +62,7 @@ class AdmRunController extends Controller
 		$attributes = $request->all();
 //Validate
 		$validator = SponsoredRun::validator($attributes);
-		if ($validator->fails()) {
-			$this->throwValidationException($request, $validator);
-		}
+		$validator->validate();
 //Save
 		$attributes['begin'] = strtotime($attributes['begin']);
 		$attributes['end'] = strtotime($attributes['end']);
@@ -115,9 +114,7 @@ class AdmRunController extends Controller
 		$attributes = $request->all();
 //Validate
 		$validator = SponsoredRun::validator($attributes);
-		if ($validator->fails()) {
-			$this->throwValidationException($request, $validator);
-		}
+		$validator->validate();
 //Save
 		$attributes['begin'] = strtotime($attributes['begin']);
 		$attributes['end'] = strtotime($attributes['end']);
@@ -141,12 +138,14 @@ class AdmRunController extends Controller
 
 	public function evaluation(SponsoredRun $sponrun)
 	{
-		Excel::create('Auswertung ' . $sponrun->name, function($excel) use($sponrun) {
-			$excel->sheet('Tabelle 1', function($sheet) use($sponrun) {
-				//$sheet->loadView('sponruns.evaluation')
-				$sheet->fromArray($sponrun->getEvaluation());
-			});
-		})->download('csv');
+	    return Excel::download(new Evaluation($sponrun), 'Auswertung ' . $sponrun->name .'.xlsx');
+
+// 		Excel::create('Auswertung ' . $sponrun->name, function($excel) use($sponrun) {
+// 			$excel->sheet('Tabelle 1', function($sheet) use($sponrun) {
+// 				//$sheet->loadView('sponruns.evaluation')
+// 				$sheet->fromArray($sponrun->getEvaluation());
+// 			});
+// 		})->download('csv');
 	}
 
 	public function close(SponsoredRun $sponrun)
