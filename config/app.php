@@ -172,7 +172,6 @@ return [
          * Plugin Service Providers...
          */
         Collective\Html\HtmlServiceProvider::class,
-        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         Zizaco\Entrust\EntrustServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
 
@@ -185,7 +184,6 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Propaganistas\LaravelPhone\PhoneServiceProvider::class,
-        App\Providers\FormServiceProvider::class,
 
     ],
 

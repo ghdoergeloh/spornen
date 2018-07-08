@@ -2,6 +2,6 @@
 	{{ Form::label('id', 'Projekt-Nr.'.(isset($required) && $required ?' *':''), [ 'class' => "col-md-4 control-label"]) }}
 
 	<div class="col-md-6 " >
-		{{ Form::output('id', null, [ 'class' => "form-control"]) }}
+		{{ Form::text('id', null, [ 'class' => "form-control", 'readonly']) }}
 	</div>
 </div>
