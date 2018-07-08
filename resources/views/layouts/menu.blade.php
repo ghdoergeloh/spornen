@@ -9,7 +9,7 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="{{ url('/') }}">SponRun</a>
+			<a class="navbar-brand" href="{{ url('/') }}">{{ config('app.name') }}</a>
 		</div>
 
 		<div id="bs-navbar" class="navbar-collapse collapse"
