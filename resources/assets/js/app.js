@@ -5,6 +5,4 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('jquery');
-require('tether');
-require('bootstrap');
+require('./bootstrap');

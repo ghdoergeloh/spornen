@@ -59,9 +59,7 @@ class AdmRunPartSponController extends Controller
 	{
 		$attributes = $request->all();
 		$validator = $this->validator($attributes);
-		if ($validator->fails()) {
-			$this->throwValidationException($request, $validator);
-		}
+		$validator->validate();
 
 		$user = $runpart->user;
 		$sponsor = new Sponsor();
@@ -113,9 +111,7 @@ class AdmRunPartSponController extends Controller
 	{
 		$attributes = $request->all();
 		$validator = $this->validator($attributes);
-		if ($validator->fails()) {
-			$this->throwValidationException($request, $validator);
-		}
+		$validator->validate();
 
 		// check if the Run has already been
 		$sponsor->fill($attributes);

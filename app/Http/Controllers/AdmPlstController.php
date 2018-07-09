@@ -58,9 +58,7 @@ class AdmPlstController extends Controller
 		$attributes = $request->all();
 //Validate
 		$validator = Projectlist::validator($attributes);
-		if ($validator->fails()) {
-			$this->throwValidationException($request, $validator);
-		}
+		$validator->validate();
 //Save
 		Projectlist::create($attributes);
 //redirect
@@ -103,9 +101,7 @@ class AdmPlstController extends Controller
 		$attributes = $request->all();
 //Validate
 		$validator = Projectlist::validator($attributes);
-		if ($validator->fails()) {
-			$this->throwValidationException($request, $validator);
-		}
+		$validator->validate();
 //Save
 		$projectlist->fill($attributes);
 		$projectlist->save();

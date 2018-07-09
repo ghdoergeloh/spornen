@@ -5,7 +5,7 @@
             aria-controls="bs-navbar" aria-expanded="false" aria-label="Navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand" href="{{ url('/') }}">SponRun</a>
+			<a class="navbar-brand" href="{{ url('/') }}">{{ config('app.name') }}</a>
 
     <div class="collapse navbar-collapse" id="bs-navbar">
         <ul class="navbar-nav mr-auto">
@@ -33,6 +33,12 @@
 		</ul>
         <ul class="navbar-nav">
             <!-- Authentication Links -->
+				@if (!empty(env('URL_IMPRESSUM')))
+				<li><a href="{{ env('URL_IMPRESSUM') }}">Impressum</a></li>
+				@endif
+				@if (!empty(env('URL_PRIVACY_STATEMENT')))
+				<li><a href="{{ env('URL_PRIVACY_STATEMENT') }}">Datenschutz</a></li>
+				@endif
             @if (Auth::guest())
             <li class="nav-item pull-right"><a class="nav-link" href="{{ url('/login') }}">Anmelden</a></li>
             <li class="nav-item pull-right"><a class="nav-link" href="{{ url('/register') }}">Registrieren</a></li>

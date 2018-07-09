@@ -5,15 +5,13 @@ namespace App\Http\Controllers\Auth;
 use App\Domain\Model\Auth\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Contracts\Validation\Validator as Validator2;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\MessageBag;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\MessageBag;
-use Mail;
-use Symfony\Component\HttpFoundation\Request as Request2;
 
 class RegisterController extends Controller
 {
@@ -51,7 +49,7 @@ use RegistersUsers;
 	 * Get a validator for an incoming registration request.
 	 *
 	 * @param  array  $data
-	 * @return Validator2
+	 * @return Validator
 	 */
 	protected function validator(array $data)
 	{
@@ -96,7 +94,7 @@ use RegistersUsers;
 		]);
 	}
 
-	public function confirm(Request2 $request, $confirmation_code)
+	public function confirm(Request $request, $confirmation_code)
 	{
 		if (is_null($confirmation_code)) {
 			return redirect($this->redirectPath());
@@ -121,7 +119,7 @@ use RegistersUsers;
 	 * @param  Request  $request
 	 * @return Response
 	 */
-	public function register(Request2 $request)
+	public function register(Request $request)
 	{
 		$this->validator($request->all())->validate();
 

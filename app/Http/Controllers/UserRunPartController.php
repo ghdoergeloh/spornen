@@ -128,9 +128,7 @@ class UserRunPartController extends Controller
 		}
 		$attributes = $request->all();
 		$validator = RunParticipation::validator($attributes);
-		if ($validator->fails()) {
-			$this->throwValidationException($request, $validator);
-		}
+		$validator->validate();
 
 		// check if the Run has already been
 		$runpart->fill($attributes);
@@ -152,10 +150,8 @@ class UserRunPartController extends Controller
 
 	public function calculate(Request $request, RunParticipation $runpart)
 	{
-		$validator = RunParticipation::validator($request->all());
-		if ($validator->fails()) {
-			$this->throwValidationException($request, $validator);
-		}
+	    $validator = RunParticipation::validator($request->all());
+	    $validator->validate();
 		// check if the Run hs already been
 		if ($runpart->sponsoredRun->isElapsed()) {
 			return redirect()->route('runpart.show', [$runpart->id]);

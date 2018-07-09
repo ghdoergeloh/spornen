@@ -15,7 +15,11 @@
 					</dl>
 					<dl class="dl-horizontal">
 						<dt>Gewähltes Projekt:</dt>
+						@if (isset($runpart->project))
 						<dd>{{ $runpart->project->name }}</dd>
+						@else
+						<dd></dd>
+						@endif
 					</dl>
 					<dl class="dl-horizontal">
 						<dt>Gelaufene Runden:</dt>
