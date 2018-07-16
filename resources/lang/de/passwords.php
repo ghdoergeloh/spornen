@@ -17,6 +17,6 @@ return [
     'reset' => 'Dein Passwort wurde zurückgesetzt!',
     'sent' => 'Ein Link zum Zurücksetzen deines Passworts wurde dir per E-Mail zugeschickt!',
     'token' => 'Dieser Link ist ungültig.',
-    'user' => "Ein User mit dieser E-Mail Adresse existiert nicht.",
+    'user' => "Ein User mit dieser E-Mail-Adresse existiert nicht.",
 
 ];

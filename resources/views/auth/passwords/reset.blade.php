@@ -1,33 +1,23 @@
 @extends('layouts.app')
-
+@section('title')
+- Passwort zurücksetzen
+@endsection
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="card card-default">
-                <div class="card-header">Reset Password</div>
+<div class="card card-login mx-auto mt-5">
+    <div class="card-header">Passwort zurücksetzen</div>
+    <div class="card-body">
+		{{ Form::open([
+		'method' => 'POST',
+		'url' => 'password/reset']) }}
+		
+		{{ Form::hidden('token', $token) }}
 
-                <div class="card-body">
-					{{ Form::open([
-					'method' => 'POST',
-					'url' => 'password/reset',
-					'class' => "form-horizontal"]) }}
-					
-					{{ Form::hidden('token', $token) }}
+		@include('formfields.email')
+		@include('formfields.password')
+		@include('formfields.password_confirmation')
 
-					@include('formfields.email')
-					@include('formfields.password')
-					@include('formfields.password_confirmation')
-
-					<div class="form-group">
-						<div class="col-md-6 col-md-offset-4">
-							{{ Form::button('<i class="fa fa-btn fa-refresh"></i> Passwort zurücksetzen', ['type' => 'submit', 'class' => "btn btn-primary"]) }}
-						</div>
-					</div>
-					{{ Form::close() }}
-                </div>
-            </div>
-        </div>
+		{{ Form::button('<i class="fa fa-refresh"></i> Passwort zurücksetzen', ['type' => 'submit', 'class' => "btn btn-primary btn-block"]) }}
+		{{ Form::close() }}
     </div>
 </div>
 @endsection

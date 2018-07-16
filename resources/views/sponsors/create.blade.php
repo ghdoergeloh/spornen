@@ -1,18 +1,17 @@
-@extends('layouts.app')
+@extends('layouts.app', [ 'bgWhite' => 'true'])
 @section('title')
 - Sponsor anlegen
 @endsection
 @section('content')
-<div class="container">
-	<div class="col-md-8 col-md-offset-2">
+<div class="row">
+	<div class="col-md-8">
 		@if (isset($runpart))
 		<p class="lead">Ich möchte Sponsor für den Läufer {{ $runpart->user->firstname }} {{ $runpart->user->lastname }} 
 		sein{{ is_null( $runpart->project ) ? '.' : ', der für das Projekt "'. $runpart->project->name .'" läuft.' }}
 		</p>
 		@endif
 		{{ Form::open([
-			'url' => route($root_route.'sponsor.store', $root_route_params),
-			'class' => "form-horizontal"]) }}
+			'url' => route($root_route.'sponsor.store', $root_route_params)]) }}
 		@include('sponsors.sponsorForm')
 		{{ Form::close() }}
 	</div>

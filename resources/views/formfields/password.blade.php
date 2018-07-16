@@ -1,17 +1,17 @@
-<div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-	{{ Form::label('password', 'Passwort'.(isset($required) && $required ?' *':''), [ 'class' => "col-md-4 control-label"]) }}
+<div class="form-group">
+	{{ Form::label('password', 'Passwort'.(isset($required) && $required ?' *':''), [ 'class' => ""]) }}
 
-	<div class="col-md-6">
+	<div class="">
 		@if(isset($required) && $required)
-		{{ Form::password('password', [ 'class' => "form-control", 'required' => "required" ]) }}
+		{{ Form::password('password', [ 'class' => "form-control".($errors->has('password') ? ' is-invalid' : ''), 'required' => "required" ]) }}
 		@else
-		{{ Form::password('password', [ 'class' => "form-control"]) }}
+		{{ Form::password('password', [ 'class' => "form-control".($errors->has('password') ? ' is-invalid' : '')]) }}
 		@endif
 
 		@if ($errors->has('password'))
-		<span class="help-block">
-			<strong>{{ $errors->first('password') }}</strong>
-		</span>
+		<div class="invalid-feedback">
+			{{ $errors->first('password') }}
+		</div>
 		@endif
 	</div>
 </div>

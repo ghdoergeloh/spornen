@@ -1,17 +1,17 @@
-<div class="form-group{{ $errors->has('birthday') ? ' has-error' : '' }}">
-	{{ Form::label('birthday', 'Geburtstag'.(isset($required) && $required ?' *':''), [ 'class' => "col-md-4 control-label"]) }}
+<div class="form-group">
+	{{ Form::label('birthday', 'Geburtstag'.(isset($required) && $required ?' *':'')) }}
 
-	<div class="col-md-6">
+	<div>
 		@if(isset($required) && $required)
-		{{ Form::date('birthday', null, [ 'class' => "form-control", 'required' => "required"]) }}
+		{{ Form::date('birthday', null, [ 'class' => "form-control".($errors->has('birthday') ? ' is-invalid' : ''), 'required' => "required"]) }}
 		@else
-		{{ Form::date('birthday', null, [ 'class' => "form-control"]) }}
+		{{ Form::date('birthday', null, [ 'class' => "form-control".($errors->has('birthday') ? ' is-invalid' : '')]) }}
 		@endif
 
 		@if ($errors->has('birthday'))
-		<span class="help-block">
-			<strong>{{ $errors->first('birthday') }}</strong>
-		</span>
+		<div class="invalid-feedback">
+			{{ $errors->first('birthday') }}
+		</div>
 		@endif
 	</div>
 </div>

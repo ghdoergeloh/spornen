@@ -1,17 +1,18 @@
-<div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-	{{ Form::label('email', 'E-Mail Addresse'.(isset($required) && $required ?' *':''), [ 'class' => "col-md-4 control-label"]) }}
+<div class="form-group">
+	{{ Form::label('email', 'E-Mail-Adresse'.(isset($required) && $required ?' *':'')) }}
 
-	<div class="col-md-6">
+	<div>
 		@if(isset($required) && $required)
-		{{ Form::text('email', null, [ 'class' => "form-control", 'required' => "required"]) }}
+		{{ Form::text('email', null, [ 'class' => "form-control".($errors->has('email') ? ' is-invalid' : ''),
+			'required' => "required"]) }}
 		@else
-		{{ Form::text('email', null, [ 'class' => "form-control"]) }}
+		{{ Form::text('email', null, [ 'class' => "form-control".($errors->has('email') ? ' is-invalid' : '')]) }}
 		@endif
 
 		@if ($errors->has('email'))
-		<span class="help-block">
-			<strong>{{ $errors->first('email') }}</strong>
-		</span>
+		<div class="invalid-feedback">
+			{{ $errors->first('email') }}
+		</div>
 		@endif
 	</div>
 </div>

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Domain\Model\Sponsor\RunParticipation;
 use App\Domain\Model\Sponsor\Sponsor;
 use App\Domain\Model\Sponsor\SponsoredRun;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;

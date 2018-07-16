@@ -2,14 +2,12 @@
 
 namespace App\Providers;
 
-use App\Domain\Model\Auth\User;
 use App\Domain\Model\Sponsor\RunParticipation;
 use App\Domain\Model\Sponsor\Sponsor;
 use App\Domain\Model\Sponsor\SponsoredRun;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Zizaco\Entrust\Entrust;
 use function base_path;
 
 class RouteServiceProvider extends ServiceProvider

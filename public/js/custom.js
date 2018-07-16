@@ -12,3 +12,20 @@ function selectText(element) {
         selection.addRange(range);
     }
 }
+
+function copyToClipboard(element) {
+	element.select();
+	document.execCommand("copy");
+	$(element).attr('data-title', "Kopiert")
+    .tooltip('show');
+}
+
+function disposeTooltip(element, text) {
+	$(element).tooltip('dispose');
+}
+
+$(document).ready(function() {
+    $('.dataTable').each(function( index ) {
+    	  $( this ).DataTable();
+    });
+} );

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Domain\Model\Sponsor\RunParticipation;
@@ -8,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\MessageBag;
+use App\Notifications\NewSponsor;
 
 class SponSelfController extends Controller
 {
@@ -34,16 +34,17 @@ class SponSelfController extends Controller
 		if ($runpart->sponsoredRun->isElapsed()) {
 			abort(404);
 		}
-		return view('sponsors.create')
-						->with('runpart', $runpart)
-						->with('root_route', $this->root_route)
-						->with('root_route_params', [$runpart->hash]);
+		return view('sponsors.create')->with('runpart', $runpart)
+			->with('root_route', $this->root_route)
+			->with('root_route_params', [
+			$runpart->hash
+		]);
 	}
 
 	/**
 	 * Store a newly created resource in storage.
 	 *
-	 * @param  Request  $request
+	 * @param Request $request
 	 * @return Response
 	 */
 	public function store(Request $request, RunParticipation $runpart)
@@ -61,8 +62,12 @@ class SponSelfController extends Controller
 		$sponsor->runParticipation()->associate($runpart);
 		$sponsor->fill($attributes);
 		$sponsor->save();
-		Session::flash('messages-success', new MessageBag(["Erfolgreich gespeichert"]));
+		Session::flash('messages-success', new MessageBag([
+			"Erfolgreich gespeichert"
+		]));
+		$user->notify(
+			new NewSponsor($sponsor->firstname . ' ' . $sponsor->lastname, $sponsor->donation_per_lap,
+				$sponsor->donation_static_max));
 		return redirect()->route('run.sponsor.create', $runpart->hash);
 	}
-
 }

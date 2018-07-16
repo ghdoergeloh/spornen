@@ -120,7 +120,7 @@ return [
 		'city' => 'Ort',
 		'birthday' => 'Geburtstag',
 		'phone' => 'Telefon',
-		'email' => 'E-Mail Addresse',
+		'email' => 'E-Mail-Adresse',
 		'password' => 'Passwort',
 		'password-confirm' => 'Passwort bestätigen',
 		'donation_per_lap' => 'Spende pro Runde',

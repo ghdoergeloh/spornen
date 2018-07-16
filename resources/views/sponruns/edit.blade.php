@@ -5,13 +5,12 @@
 @section('content')
 <div class="row">
 	<div class="col-md-12">
-		<div class="card card-default">
+		<div class="card mb-3">
 			<div class="card-header">Sponsorenlauf bearbeiten</div>
 			<div class="card-body">
 		{{ Form::model($sponrun, [
 		'method' => 'PATCH',
-		'route' => [$root_route.'sponrun.update', implode(',', $root_route_params)],
-		'class' => "form-horizontal"]) }}
+		'route' => [$root_route.'sponrun.update', implode(',', $root_route_params)]]) }}
 		@include('sponruns.sponrunForm')
 		{{ Form::close() }}
 			</div>
@@ -21,13 +20,12 @@
 
 <div class="row">
 	<div class="col-md-6">
-		<div class="card card-default">
+		<div class="card mb-3">
 			<div class="card-header">Unterstützte Projektlisten vom Sponsorenlauf</div>
 			<div class="card-body">
 				{{ Form::open([
 					'method' => 'PATCH',
 					'route' => ['sponrun.removeProjectlists', $sponrun->id],
-					'class' => "form-horizontal",
 				]) }}
 				<table class="table table-striped">
 					<tr>
@@ -43,19 +41,18 @@
 					</tr>
 					@endforeach
 				</table>
-				{{Form::button('<i class="glyphicon glyphicon-minus"></i> Entfernen', ['type' => 'submit', 'class' => 'btn btn-danger'])}}
+				{{Form::button('<i class="fa fa-minus"></i> Entfernen', ['type' => 'submit', 'class' => 'btn btn-danger'])}}
 				{{ Form::close() }}
 			</div>
 		</div>
 	</div>
 	<div class="col-md-6">
-		<div class="card card-default">
+		<div class="card mb-3">
 			<div class="card-header">Weitere Projektlisten</div>
 			<div class="card-body">
 				{{ Form::open([
 					'method' => 'PATCH',
-					'route' => ['sponrun.addProjectlists', $sponrun->id],
-					'class' => "form-horizontal"
+					'route' => ['sponrun.addProjectlists', $sponrun->id]
 				]) }}
 				<table class="table table-striped">
 					<tr>
@@ -71,7 +68,7 @@
 					</tr>
 					@endforeach
 				</table>
-				{{Form::button('<i class="glyphicon glyphicon-plus"></i> Hinzufügen', ['type' => 'submit', 'class' => 'btn btn-success'])}}
+				{{Form::button('<i class="fa fa-plus"></i> Hinzufügen', ['type' => 'submit', 'class' => 'btn btn-success'])}}
 				{{ Form::close() }}
 			</div>
 		</div>

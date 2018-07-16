@@ -9,9 +9,9 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\MessageBag;
-use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use App\Notifications\VerifyEmail;
 
 class RegisterController extends Controller
 {
@@ -126,11 +126,8 @@ use RegistersUsers;
 		$confirmation_code = str_random(30);
 		$user = $this->create($request->all(), false, $confirmation_code);
 		event(new Registered($user));
-
-		Mail::send('auth.emails.verify', ['confirmation_code' => $confirmation_code, 'email' => $user->email], function($message) use ($user) {
-			$message->to($user->email, $user->firstname . " " . $user->lastname)
-					->subject('E-Mail Adresse bestätigen');
-		});
+		
+		$user->notify(new VerifyEmail($confirmation_code));
 
 		return view('auth.registerEmailSend');
 	}

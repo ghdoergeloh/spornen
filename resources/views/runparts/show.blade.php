@@ -6,7 +6,7 @@
 <div class="container">
     <div class="row">
 		<div class="col-md-12">
-            <div class="card card-default">
+            <div class="card mb-3">
                 <div class="card-header">Daten</div>
                 <div class="card-body">
 					<dl class="dl-horizontal">
