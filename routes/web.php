@@ -23,6 +23,7 @@ Route::get('home', 'HomeController@showHomeView');
 
 Route::get('account/edit', 'AccoController@edit')->name('account.edit');
 Route::patch('account/update', 'AccoController@update')->name('account.update');
+Route::post('account/send', 'AccoController@sendMail')->name('account.send');
 
 
 Route::resource('runpart', 'UserRunPartController', ['except' => ['create', 'destroy']]);

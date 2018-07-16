@@ -5,13 +5,13 @@
 @section('content')
 <div class="row">
 	<div class="col-md-8">
-		<div class="panel panel-default">
-			<div class="panel-heading">Angaben zur Teilnahme</div>
-			<div class="panel-body">
+		<div class="card mb-3">
+			<div class="card-header">Angaben zur Teilnahme</div>
+			<div class="card-body">
 				{{ Form::model($runpart,[
 						'method' => 'PATCH',
-						'url' => route($root_route.'runpart.update', array_merge($root_route_params, [$runpart->id])),
-						'class' => "form-horizontal"]) }}
+						'url' => route($root_route.'runpart.update', array_merge($root_route_params, [$runpart->id]))
+				]) }}
 
 				@include('formfields.projects', [ 'selectedProjectId' => is_null($runpart->project)?null:$runpart->project->id])
 				@if ($runpart->sponsoredRun->with_tshirt)
@@ -24,10 +24,8 @@
 				@endif
 
 				<div class="form-group">
-					<div class="col-md-6 col-md-offset-4">
-						{{ Form::reset('Abbrechen', [ 'class' => "btn btn-default"]) }}
-						{{ Form::submit('Speichern', [ 'class' => "btn btn-primary"]) }}
-					</div>
+					{{ Form::reset('Abbrechen', [ 'class' => "btn btn-secondary"]) }}
+					{{ Form::submit('Speichern', [ 'class' => "btn btn-primary"]) }}
 				</div>
 				{{ Form::close() }}
 			</div>

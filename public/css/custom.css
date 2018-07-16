@@ -1,11 +1,14 @@
-body {
-    font-family: 'Lato';
-}
-
 .fa-btn {
     margin-right: 6px;
 }
 pre.form-control{
     overflow: hidden;
     font: inherit;
+}
+.action-cell{
+	white-space: nowrap;
+}
+
+.background-white{
+	background: white;
 }

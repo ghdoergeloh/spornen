@@ -1,1 +1,1 @@
-<pre {!! Html::attributes($attributes) !!} onclick="selectText(this);">{{ Form::getValueAttribute($name, $value) }}</pre>
+<input {!! Html::attributes($attributes) !!} value="{{ Form::getValueAttribute($name, $value) }}" readOnly="true"></input>

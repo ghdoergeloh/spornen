@@ -3,7 +3,7 @@
 - Sponsor anzeigen
 @endsection
 @section('content')
-<div class="col-md-8 col-md-offset-2">
+<div class="col-md-8">
 	<dl class="dl-horizontal">
 		<dt>Vorname</dt>
 		<dd>{{ $sponsor->firstname }}</dd>
@@ -25,7 +25,7 @@
 		<dd>{{ $sponsor->phone }}</dd>
 	</dl>
 	<dl class="dl-horizontal">
-		<dt>E-Mail Addresse</dt>
+		<dt>E-Mail-Adresse</dt>
 		<dd>{{ $sponsor->email }}</dd>
 	</dl>
 	<dl class="dl-horizontal">

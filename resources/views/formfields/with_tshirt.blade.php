@@ -1,28 +1,24 @@
-<div class="form-group{{ $errors->has('with_tshirt') ? ' has-error' : '' }}">
-	{{ Form::label('with_tshirt', 'Mit T-Shirt'.(isset($required) && $required ?' *':''), [ 'class' => "col-md-4 control-label"]) }}
+<div class="form-group">
+	{{ Form::label('with_tshirt', 'Mit T-Shirt'.(isset($required) && $required ?' *':'')) }}
 
-	<div class="col-md-6">
-		<div class="radio-inline">
-			<label>
-				@if(isset($required) && $required)
-				{{ Form::radio('with_tshirt', 1, [ 'required' => "required" ]) }}
-				@else
-				{{ Form::radio('with_tshirt', 1) }}
-				@endif
-				Ja
-			</label>
+	<div>
+		<div class="form-check form-check-inline {{ $errors->has('with_tshirt') ? ' is-invalid' : '' }}">
+			@if(isset($required) && $required)
+			{{ Form::radio('with_tshirt', 1, null, [ 'class' => "form-check-input".($errors->has('with_tshirt') ? ' is-invalid' : ''), 'required' => "required" ]) }}
+			@else
+			{{ Form::radio('with_tshirt', 1, null, [ 'class' => "form-check-input".($errors->has('with_tshirt') ? ' is-invalid' : '')]) }}
+			@endif
+			{{ Form::label('1', 'Ja', [ 'class' => "form-check-label"]) }}
 		</div>
-		<div class="radio-inline">
-			<label>
-				{{ Form::radio('with_tshirt', 0) }}
-				Nein
-			</label>
+		<div class="form-check form-check-inline">
+			{{ Form::radio('with_tshirt', 0, null, [ 'class' => "form-check-input".($errors->has('with_tshirt') ? ' is-invalid' : '')]) }}
+			{{ Form::label('0', 'Nein', [ 'class' => "form-check-label"]) }}
 		</div>
 
 		@if ($errors->has('with_tshirt'))
-		<span class="help-block">
-			<strong>{{ $errors->first('with_tshirt') }}</strong>
-		</span>
+		<div class="invalid-feedback" style="display: block;">
+			{{ $errors->first('with_tshirt') }}
+		</div>
 		@endif
 	</div>
 </div>

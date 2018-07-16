@@ -1,17 +1,17 @@
-<div class="form-group{{ $errors->has('firstname') ? ' has-error' : '' }}">
-	{{ Form::label('description', 'Beschreibung'.(isset($required) && $required ?' *':''), [ 'class' => "col-md-4 control-label"]) }}
+<div class="form-group">
+	{{ Form::label('description', 'Beschreibung'.(isset($required) && $required ?' *':'')) }}
 
-	<div class="col-md-6">
+	<div>
 		@if(isset($required) && $required)
-		{{ Form::textarea('description', null, [ 'class' => "form-control", 'required' => "required"]) }}
+		{{ Form::textarea('description', null, [ 'class' => "form-control".($errors->has('description') ? ' is-invalid' : ''), 'required' => "required"]) }}
 		@else
-		{{ Form::textarea('description', null, [ 'class' => "form-control"]) }}
+		{{ Form::textarea('description', null, [ 'class' => "form-control".($errors->has('description') ? ' is-invalid' : '')]) }}
 		@endif
 
 		@if ($errors->has('description'))
-		<span class="help-block">
-			<strong>{{ $errors->first('description') }}</strong>
-		</span>
+		<div class="invalid-feedback">
+			{{ $errors->first('description') }}
+		</div>
 		@endif
 	</div>
 </div>

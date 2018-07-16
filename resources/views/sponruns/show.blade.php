@@ -6,9 +6,9 @@
 <div class="container">
     <div class="row">
 		<div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-heading">Statistik</div>
-                <div class="panel-body">
+            <div class="card mb-3">
+                <div class="card-header">Statistik</div>
+                <div class="card-body">
 					<dl>
 						<dt>Anzahl der Läufer:</dt>
 						<dd>{{ $sponrun->participants_count }}</dd>
@@ -55,48 +55,59 @@
 					@endif
 				</div>
 			</div>
-			<div class="panel panel-default">
-				<div class="panel-heading">Läufer</div>
-				<div class="panel-body">
-					<table class="table table-striped table-hover table-condensed">
-						<tr>
-							<th>Nr.</th>
-							<th>Nachname</th>
-							<th>Vorname</th>
-							<th class="hidden-xs">Straße, Nr.</th>
-							<th class="hidden-xs">PLZ, Ort</th>
-							<th class="visible-lg">Telefon</th>
-							<th class="hidden-xs hidden-sm">E-Mail</th>
-							<th class="hidden-xs hidden-sm">Projekt</th>
-							<th class="hidden-xs">Runden</th>
-							<th class="hidden-xs">Betrag</th>
-							<th class="hidden-xs hidden-sm">Sponsoren</th>
-							<th></th>
-						</tr>
-						@foreach ($sponrun->runParticipations as $runpart)
-						<tr>
-							<td>{{ $runpart->user->id }}</td>
-							<td>{{ $runpart->user->lastname }}</td>
-							<td>{{ $runpart->user->firstname }}</td>
-							<td class="hidden-xs">{{ $runpart->user->street }} {{ $runpart->user->housenumber }}</td>
-							<td class="hidden-xs">{{ $runpart->user->postcode }} {{ $runpart->user->city }}</td>
-							<td class="visible-lg">{{ $runpart->user->phone }}</td>
-							<td class="hidden-xs hidden-sm">{{ $runpart->user->email }}</td>
-							<td class="text-right hidden-xs hidden-sm">{{ is_null($runpart->project) ? "Kein Projekt" : $runpart->project->name }}</td>
-							<td class="text-right hidden-xs">{{ $runpart->laps }}</td>
-							<td class="text-right hidden-xs">{{ number_format($runpart->calculateDonationSum(),2,',','.') }} €</td>
-							<td class="text-right hidden-xs hidden-sm">{{ $runpart->sponsors->count() }}</td>
-							<td>
-								<a class="btn btn-success"
-								   href="{{route($root_route.'sponrun.runpart.edit', array_merge($root_route_params,[$runpart->id])) }}"
-								   data-toggle="tooltip" title="Bearbeiten">
-									<span class="glyphicon glyphicon-pencil"/></a></td>
-						</tr>
-						@endforeach
-					</table>
+			<div class="card mb-3">
+				<div class="card-header">Läufer</div>
+				<div class="card-body">
+					<div class="table-responsive">
+						<table class="table table-striped table-hover table-condensed dataTable" cellspacing="0">
+							<thead>
+								<tr>
+									<th>Nr.</th>
+									<th>Nachname</th>
+									<th>Vorname</th>
+									<th class="hidden-xs">Straße, Nr.</th>
+									<th class="hidden-xs">PLZ, Ort</th>
+									<th class="visible-lg">Telefon</th>
+									<th class="hidden-xs hidden-sm">E-Mail</th>
+									<th class="hidden-xs hidden-sm">Projekt</th>
+									<th class="hidden-xs">Runden</th>
+									<th class="hidden-xs">Betrag</th>
+									<th class="hidden-xs hidden-sm">Sponsoren</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								@foreach ($sponrun->runParticipations as $runpart)
+								<tr>
+									<td>{{ $runpart->user->id }}</td>
+									<td>{{ $runpart->user->lastname }}</td>
+									<td>{{ $runpart->user->firstname }}</td>
+									<td class="hidden-xs">{{ $runpart->user->street }} {{
+										$runpart->user->housenumber }}</td>
+									<td class="hidden-xs">{{ $runpart->user->postcode }} {{
+										$runpart->user->city }}</td>
+									<td class="visible-lg">{{ $runpart->user->phone }}</td>
+									<td class="hidden-xs hidden-sm">{{ $runpart->user->email }}</td>
+									<td class="text-right hidden-xs hidden-sm">{{
+										is_null($runpart->project) ? "Kein Projekt" :
+										$runpart->project->name }}</td>
+									<td class="text-right hidden-xs">{{ $runpart->laps }}</td>
+									<td class="text-right hidden-xs">{{
+										number_format($runpart->calculateDonationSum(),2,',','.') }} €</td>
+									<td class="text-right hidden-xs hidden-sm">{{
+										$runpart->sponsors->count() }}</td>
+									<td><a class="btn btn-success"
+										href="{{route($root_route.'sponrun.runpart.edit', array_merge($root_route_params,[$runpart->id])) }}"
+										data-toggle="tooltip" title="Bearbeiten"> <span
+											class="fa fa-pencil" /></a></td>
+								</tr>
+								@endforeach
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
-        </div>
+		</div>
     </div>
 </div>
 @endsection

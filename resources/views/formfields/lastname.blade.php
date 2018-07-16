@@ -1,17 +1,17 @@
-<div class="form-group{{ $errors->has('lastname') ? ' has-error' : '' }}">
-	{{ Form::label('lastname', 'Nachname'.(isset($required) && $required ?' *':''), [ 'class' => "col-md-4 control-label"]) }}
+<div class="form-group">
+	{{ Form::label('lastname', 'Nachname'.(isset($required) && $required ?' *':'')) }}
 
-	<div class="col-md-6">
+	<div>
 		@if(isset($required) && $required)
-		{{ Form::text('lastname', null, [ 'class' => "form-control", 'required' => "required" ]) }}
+		{{ Form::text('lastname', null, [ 'class' => "form-control".($errors->has('lastname') ? ' is-invalid' : ''), 'required' => "required" ]) }}
 		@else
-		{{ Form::text('lastname', null, [ 'class' => "form-control"]) }}
+		{{ Form::text('lastname', null, [ 'class' => "form-control".($errors->has('lastname') ? ' is-invalid' : '')]) }}
 		@endif
 
 		@if ($errors->has('lastname'))
-		<span class="help-block">
-			<strong>{{ $errors->first('lastname') }}</strong>
-		</span>
+		<div class="invalid-feedback">
+			{{ $errors->first('lastname') }}
+		</div>
 		@endif
 	</div>
 </div>

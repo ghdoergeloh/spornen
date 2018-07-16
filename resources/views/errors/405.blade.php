@@ -1,7 +1,7 @@
 @extends('errors.4xx')
 @section('error-message')
-<div class="panel-heading">Error 405 - Method Not Allowed</div>
-<div class="panel-body">
+<div class="card-header">Error 405 - Method Not Allowed</div>
+<div class="card-body">
 	Diese Methode ist nicht möglich oder erlaubt.
 </div>
 @endsection

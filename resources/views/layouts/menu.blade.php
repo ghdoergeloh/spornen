@@ -1,78 +1,95 @@
-<nav class="navbar navbar-default navbar-static-top" id="top"
-	 role="banner">
-	<div class="container">
-		<div class="navbar-header">
-			<button class="navbar-toggle collapsed" type="button"
-					data-toggle="collapse" data-target="#bs-navbar"
-					aria-controls="bs-navbar" aria-expanded="false">
-				<span class="sr-only">Toggle navigation</span> <span
-					class="icon-bar"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="{{ url('/') }}">{{ config('app.name') }}</a>
-		</div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+	<a class="navbar-brand" href="{{ url('/') }}">{{ config('app.name') }}</a>
+	<button class="navbar-toggler navbar-toggler-right" type="button"
+			data-toggle="collapse" data-target="#bs-navbar"
+			aria-controls="bs-navbar" aria-expanded="false" aria-label="Navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
 
-		<div id="bs-navbar" class="navbar-collapse collapse"
-			 aria-expanded="false">
-			<ul class="nav navbar-nav">
-				@if (Auth::check())
-				<li><a href="{{ url('/home') }}">Home</a></li>
-				<li><a href="{{ route('runpart.index') }}">Meine Sponsorenläufe</a></li>
-				<li><a href="{{ route('account.edit') }}">Mein Account</a></li>
-				@if ( Entrust::hasRole('admin') )
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle"
-					   data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-						Verwaltung
-						<span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu" role="menu">
-						<li>
-							<a href="{{ route('project.index') }}">Projekte</a>
-							<a href="{{ route('projectlist.index') }}">Projektlisten</a>
-							<a href="{{ route('sponrun.index') }}">Sponsorenläufe</a>
-						</li>
-					</ul>
-				</li>
-				@endif
-				@endif
-			</ul>
-			<!-- Right Side Of Navbar -->
-			<ul class="nav navbar-nav navbar-right">
-				<!-- Authentication Links -->
-				@if (!empty(env('URL_IMPRESSUM')))
-				<li><a href="{{ env('URL_IMPRESSUM') }}">Impressum</a></li>
-				@endif
-				@if (!empty(env('URL_PRIVACY_STATEMENT')))
-				<li><a href="{{ env('URL_PRIVACY_STATEMENT') }}">Datenschutz</a></li>
-				@endif
-				@if (Auth::guest())
-				<li><a href="{{ url('/login') }}">Anmelden</a></li>
-				<li><a href="{{ url('/register') }}">Registrieren</a></li>
-				@else
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle"
-					   data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-						{{Auth::user()->lastname}}, {{Auth::user()->firstname}}
-						<span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu" role="menu">
-						<li>
-							<a href=""
-							   onclick="event.preventDefault();
-                                       document.getElementById('logout-form').submit();">
-								<i class="fa fa-btn fa-sign-out"></i>Logout</a>
-							{{ Form::open([
+	<div class="collapse navbar-collapse" id="bs-navbar">
+	<!-- left navigation bar -->
+		@if (!(isset($withoutLeftBar) && $withoutLeftBar))
+		<ul class="navbar-nav navbar-sidenav" id="actionsAccordion">
+			@if (Auth::check())
+			<li class="nav-item"><a class="nav-link" href="{{ url('/home') }}">
+			<i class="fa fa-fw fa-home"></i>
+			<span class="nav-link-text">Home</span></a></li>
+			<li class="nav-item"><a class="nav-link" href="{{ route('runpart.index') }}">
+			<i class="fa fa-fw fa-flag-checkered"></i>
+			<span class="nav-link-text">Meine Sponsorenläufe</span></a></li>
+			<li class="nav-item"><a class="nav-link" href="{{ route('account.edit') }}">
+			<i class="fa fa-fw fa-user"></i>
+			<span class="nav-link-text">Mein Account</span></a></li>
+			@if ( Entrust::hasRole('admin') )
+			<li class="nav-item">
+				<a href="#collapseVerwaltung" class="nav-link nav-link-collapse collapsed"
+				   	data-toggle="collapse">
+				   	<i class="fa fa-fw fa-wrench"></i>
+					<span class="nav-link-text">Verwaltung</span>
+				</a>
+				<ul class="sidenav-second-level collapse" id="collapseVerwaltung" >
+					<li>
+						<a href="{{ route('project.index') }}">Projekte</a>
+					</li>
+					<li>
+						<a href="{{ route('projectlist.index') }}">Projektlisten</a>
+					</li>
+					<li>
+						<a href="{{ route('sponrun.index') }}">Sponsorenläufe</a>
+					</li>
+				</ul>
+			</li>
+			@endif
+			@endif
+		</ul>
+		<ul class="navbar-nav sidenav-toggler">
+			<li class="nav-item"><a class="nav-link text-center" id="sidenavToggler">
+				<i class="fa fa-fw fa-angle-left"></i>
+			</a></li>
+		</ul>
+		@endif
+	<!-- top navigation bar -->
+		<ul class="navbar-nav ml-auto">
+			<!-- Authentication Links -->
+			@if (!empty(env('URL_IMPRESSUM')))
+			<li class="nav-item">
+				<a class="nav-link" href="{{ env('URL_IMPRESSUM') }}">
+					<i class="fa fa-fw fa-info"></i>
+					<span class="nav-link-text">Impressum</span>
+				</a>
+			</li>
+			@endif
+			@if (!empty(env('URL_PRIVACY_STATEMENT')))
+			<li class="nav-item">
+				<a class="nav-link" href="{{ env('URL_PRIVACY_STATEMENT') }}">
+					<i class="fa fa-fw fa-lock"></i>
+					<span class="nav-link-text">Datenschutz</span>
+				</a>
+			</li>
+			@endif
+			@if (!Auth::guest())
+			<li class="nav-item dropdown">
+				<a href="#" class="nav-link dropdown-toggle mr-lg-2" id="accountDropdown"
+				   data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+					{{Auth::user()->lastname}}, {{Auth::user()->firstname}}
+					<span class="caret"></span>
+				</a>
+				<ul class="dropdown-menu"  aria-labelledby="accountDropdown">
+					<li>
+						<a href="" class="dropdown-item"
+						   onclick="event.preventDefault();
+								   document.getElementById('logout-form').submit();">
+							<i class="fa fa-fw fa-sign-out"></i>Logout</a>
+						{{ Form::open([
 								'method' => 'POST',
 								'route' => 'logout',
 								'class' => "hidden",
 								'id' => 'logout-form']) }}
-							{{ Form::close() }}
-						</li>
-					</ul>
-				</li>
-				@endif
-			</ul>
-		</div>
+						{{ Form::close() }}
+					</li>
+				</ul>
+			</li>
+			@endif
+		</ul>
 	</div>
 </nav>

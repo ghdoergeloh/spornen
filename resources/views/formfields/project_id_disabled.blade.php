@@ -1,7 +1,7 @@
-<div class="form-group{{ $errors->has('id') ? ' has-error' : '' }}">
-	{{ Form::label('id', 'Projekt-Nr.'.(isset($required) && $required ?' *':''), [ 'class' => "col-md-4 control-label"]) }}
+<div class="form-group">
+	{{ Form::label('id', 'Projekt-Nr.'.(isset($required) && $required ?' *':'')) }}
 
 	<div class="col-md-6 " >
-		{{ Form::output('id', null, [ 'class' => "form-control"]) }}
+		{{ Form::output('id', null, [ 'class' => "form-control".($errors->has('id') ? ' is-invalid' : '')]) }}
 	</div>
 </div>

@@ -6,6 +6,9 @@ use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
+use App\Notifications\ResetPassword;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\MessageBag;
 
 class User extends Authenticatable
 {
@@ -47,4 +50,18 @@ class User extends Authenticatable
 		return new Carbon($birthday);
 	}
 
+	public function sendMail() {
+	    $this->notify(new ResetPassword());
+	}
+	
+	
+	/**
+	 * {@inheritDoc}
+	 * @see \Illuminate\Contracts\Auth\CanResetPassword::sendPasswordResetNotification()
+	 */
+	public function sendPasswordResetNotification($token)
+	{
+		$this->notify(new ResetPassword($token));
+		Session::flash('messages-success', new MessageBag(["Dir wurde eine Mail zugeschickt"]));
+	}
 }

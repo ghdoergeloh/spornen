@@ -1,28 +1,28 @@
-<div class="form-group{{ $errors->has('scope') ? ' has-error' : '' }}">
-	{{ Form::label('scope', 'Bereich'.(isset($required) && $required ?' *':''), [ 'class' => "col-md-4 control-label"]) }}
+<div class="form-group">
+	{{ Form::label('scope', 'Bereich'.(isset($required) && $required ?' *':'')) }}
 
-	<div class="col-md-6">
-		<div class="radio-inline">
+	<div>
+		<div class="form-check form-check-inline">
 			<label>
 				@if(isset($required) && $required)
-				{{ Form::radio('scope', 'person', [ 'required' => "required" ]) }}
+				{{ Form::radio('scope', 'person', null, [ 'class' => "form-check-input".($errors->has('scope') ? ' is-invalid' : ''), 'required' => "required" ]) }}
 				@else
-				{{ Form::radio('scope', 'person') }}
+				{{ Form::radio('scope', 'person', null, [ 'class' => "form-check-input".($errors->has('scope') ? ' is-invalid' : '')]) }}
 				@endif
 				Person
 			</label>
 		</div>
-		<div class="radio-inline">
+		<div class="form-check form-check-inline">
 			<label>
-				{{ Form::radio('scope', 'project') }}
+				{{ Form::radio('scope', 'project', [ 'class' => "form-check-input".($errors->has('scope') ? ' is-invalid' : '')]) }}
 				Projekt
 			</label>
 		</div>
 
 		@if ($errors->has('scope'))
-		<span class="help-block">
-			<strong>{{ $errors->first('scope') }}</strong>
-		</span>
+		<div class="invalid-feedback">
+			{{ $errors->first('scope') }}
+		</div>
 		@endif
 	</div>
 </div>

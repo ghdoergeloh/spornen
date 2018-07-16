@@ -3,11 +3,10 @@
 - Sponsor bearbeiten
 @endsection
 @section('content')
-<div class="col-md-8 col-md-offset-2">
+<div class="col-md-8">
 	{{ Form::model($sponsor, [
 		'method' => 'PATCH',
-		'url' => route($root_route.'sponsor.update', array_merge($root_route_params, [$sponsor->id])),
-		'class' => "form-horizontal"]) }}
+		'url' => route($root_route.'sponsor.update', array_merge($root_route_params, [$sponsor->id]))]) }}
 	@include('sponsors.sponsorForm')
 	{{ Form::close() }}
 </div>

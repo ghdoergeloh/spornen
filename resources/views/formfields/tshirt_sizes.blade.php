@@ -1,14 +1,15 @@
-<div class="form-group{{ $errors->has('firstname') ? ' has-error' : '' }}">
-	{{ Form::label('tshirt_size', 'T-Shirt-Größe', [ 'class' => "col-md-4 control-label"]) }}
+<div class="form-group">
+	{{ Form::label('tshirt_size', 'T-Shirt-Größe') }}
 
 
-	<div class="col-md-6">
-		{{ Form::select('tshirt_size', [NULL => 'Bitte Auswählen','XS'=>'XS', 'S'=>'S', 'M'=>'M', 'L'=>'L', 'XL'=>'XL', 'XXL'=>'XXL'], $selectedSize, [ 'class' => "form-control" ]) }}
+	<div>
+		{{ Form::select('tshirt_size', [NULL => 'Bitte Auswählen','XS'=>'XS', 'S'=>'S', 'M'=>'M', 'L'=>'L', 'XL'=>'XL', 'XXL'=>'XXL'],
+			$selectedSize, [ 'class' => "form-control".($errors->has('tshirt_size') ? ' is-invalid' : '') ]) }}
 
 		@if ($errors->has('tshirt_size'))
-		<span class="help-block">
-			<strong>{{ $errors->first('tshirt_size') }}</strong>
-		</span>
+		<div class="invalid-feedback">
+			{{ $errors->first('tshirt_size') }}
+		</div>
 		@endif
 	</div>
 </div>
