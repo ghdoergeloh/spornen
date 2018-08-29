@@ -1,16 +1,13 @@
 <?php
-
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
-use Illuminate\Support\MessageBag;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
+use App\Domain\Model\Auth\User;
 
 class AccoController extends Controller
 {
-	
 	private $validation = [
 		'firstname' => 'string|max:255',
 		'lastname' => 'string|max:255',
@@ -21,6 +18,8 @@ class AccoController extends Controller
 		'birthday' => 'date',
 		'gender' => 'in:m,f',
 		'phone' => 'nullable|phone:AUTO,DE',
+		'email' => 'email|max:255|unique:users',
+		'password' => 'string|min:6|confirmed'
 	];
 
 	/**
@@ -30,57 +29,45 @@ class AccoController extends Controller
 	 */
 	public function __construct()
 	{
-		$this->middleware('auth');
+		// $this->middleware('auth');
 	}
 
 	/**
 	 * Display the specified resource.
 	 *
+	 * @param Request $request
 	 * @return Response
 	 */
-	public function show()
+	public function show($id)
 	{
-		return redirect()->route('user.edit');
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit()
-	{
-		$user = Auth::user();
-		return view('account.edit')->with('user', $user);
+		$user = User::find($id);
+		return response()->json($user);
 	}
 
 	/**
 	 * Update the specified resource in storage.
 	 *
-	 * @param  Request  $request
+	 * @param Request $request
 	 * @return Response
 	 */
-	public function update(Request $request)
+	public function update(Request $request, $id)
 	{
-		$user = Auth::user();
+		$user = User::findOrFail($id);
 		$request->validate($this->validation);
 		$request->birthday = strtotime($request->birthday);
-		
+
 		$user->update($request->all());
-		Session::flash('messages-success', new MessageBag(["Erfolgreich gespeichert"]));
-		return redirect()->route('account.edit');
+		return response()->json($user);
 	}
 
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param  int  $id
+	 * @param int $id
 	 * @return Response
 	 */
 	public function destroy()
 	{
 		//
 	}
-
 }
