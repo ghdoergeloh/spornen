@@ -9,6 +9,7 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use function base_path;
+use App\Domain\Model\Auth\User;
 
 class RouteServiceProvider extends ServiceProvider
 {
@@ -64,7 +65,7 @@ class RouteServiceProvider extends ServiceProvider
 		Route::bind('user', function ($userId) {
 			if (!Auth::check())
 				abort(404);
-			$user = Sponsor::find($userId);
+			$user = User::find($userId);
 			if (is_null($user))
 				abort(404);
 			if (Auth::user()->hasRole('admin'))
