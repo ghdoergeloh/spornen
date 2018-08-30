@@ -9,12 +9,14 @@ use Zizaco\Entrust\Traits\EntrustUserTrait;
 use App\Notifications\ResetPassword;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\MessageBag;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
 
 	use EntrustUserTrait;
 	use Notifiable;
+	use HasApiTokens;
 
 	/**
 	 * The attributes that are mass assignable.
