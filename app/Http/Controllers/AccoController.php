@@ -38,20 +38,27 @@ class AccoController extends Controller
 	 *
 	 * @return Response
 	 */
-	public function show()
+	public function show(Request $request)
 	{
+		if ($request->wantsJson()) {
+			$user = Auth::user();
+			return response()->json($user);
+		}
 		return redirect()->route('user.edit');
 	}
 
 	/**
 	 * Show the form for editing the specified resource.
 	 *
-	 * @param  int  $id
+	 * @param  Request  $request
 	 * @return Response
 	 */
-	public function edit()
+	public function edit(Request $request)
 	{
 		$user = Auth::user();
+		if ($request->wantsJson()) {
+			return response()->json($user);
+		}
 		return view('account.edit')->with('user', $user);
 	}
 
@@ -62,12 +69,15 @@ class AccoController extends Controller
 	 * @return Response
 	 */
 	public function update(Request $request)
-	{
+	{		
 		$user = Auth::user();
 		$request->validate($this->validation);
 		$request->birthday = strtotime($request->birthday);
 		
 		$user->update($request->all());
+		if ($request->wantsJson()) {
+			return response()->json($user);
+		}
 		Session::flash('messages-success', new MessageBag(["Erfolgreich gespeichert"]));
 		return redirect()->route('account.edit');
 	}

@@ -25,7 +25,7 @@ Route::get('register/verify/{confirmation_code}', 'Auth\RegisterController@confi
 Route::get('home', 'HomeController@showHomeView');
 
 Route::get('account/edit', 'AccoController@edit')->name('account.edit');
-Route::patch('account/update', 'AccoController@update')->name('account.update');
+Route::patch('account', 'AccoController@update')->name('account.update');
 
 Route::get('runpart/{runpart}/calculate', 'UserRunPartController@calculate')->name(
 	'runpart.calculate');

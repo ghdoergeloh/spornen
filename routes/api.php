@@ -12,8 +12,8 @@ use Illuminate\Support\Facades\Auth;
  * | is assigned the "api" middleware group. Enjoy building your API!
  * |
  */
-
-Route::apiResource('account', 'Api\AccoController',['parameters' => [
-	'account' => 'id'
-]]);
+Route::middleware('auth:api')->group(function () {
+	Route::get('account', 'AccoController@show')->name('account.show');
+	Route::patch('account', 'AccoController@update')->name('account.update');
+});
 Auth::routes();

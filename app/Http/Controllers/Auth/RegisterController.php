@@ -84,9 +84,12 @@ class RegisterController extends Controller
 	{
 		$data['password'] = bcrypt($data['password']);
 		$data['birthday'] = strtotime($data['birthday']);
-		$data['confirmed'] = $confirmed;
-		$data['confirmation_code'] = $confirmation_code;
-		return User::create($data);
+		$user = new User($data);
+		$user->email = $data['email'];
+		$user->confirmed = false;
+		$user->confirmation_code = $confirmation_code;
+		$user->save();
+		return $user;
 	}
 
 	public function confirm(Request $request, $confirmation_code)
