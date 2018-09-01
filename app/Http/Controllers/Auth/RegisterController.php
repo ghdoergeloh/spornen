@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Auth;
 
 use App\Domain\Model\Auth\User;
@@ -16,17 +15,23 @@ use App\Notifications\VerifyEmail;
 class RegisterController extends Controller
 {
 	/*
-	  |--------------------------------------------------------------------------
-	  | Register Controller
-	  |--------------------------------------------------------------------------
-	  |
-	  | This controller handles the registration of new users as well as their
-	  | validation and creation. By default this controller uses a trait to
-	  | provide this functionality without requiring any additional code.
-	  |
+	 * |--------------------------------------------------------------------------
+	 * | Register Controller
+	 * |--------------------------------------------------------------------------
+	 * |
+	 * | This controller handles the registration of new users as well as their
+	 * | validation and creation. By default this controller uses a trait to
+	 * | provide this functionality without requiring any additional code.
+	 * |
+	 * | Two Controller-Methodes registered by Illuminate\Routing\Router::auth()
+	 * | * showRegistrationForm()
+	 * | * register()
+	 * | And one custom Method
+	 * | * confirm
+	 * |
 	 */
 
-use RegistersUsers;
+	use RegistersUsers;
 
 	/**
 	 * Where to redirect users after registration.
@@ -48,50 +53,40 @@ use RegistersUsers;
 	/**
 	 * Get a validator for an incoming registration request.
 	 *
-	 * @param  array  $data
+	 * @param array $data
 	 * @return Validator
 	 */
 	protected function validator(array $data)
 	{
-		return Validator::make($data, [
-					'firstname' => 'required|max:255',
-					'lastname' => 'required|max:255',
-					'street' => 'required|max:255',
-					'housenumber' => 'required|string|max:31',
-					'postcode' => 'required|numeric|between:0,99999',
-					'city' => 'required|max:255',
-					'birthday' => 'required|date',
-					'gender' => 'required|in:m,f',
-					'phone' => 'nullable|phone:AUTO,DE',
-					'email' => 'required|email|max:255|unique:users',
-					'password' => 'required|min:6|confirmed',
-		]);
+		return Validator::make($data,
+			[
+				'firstname' => 'required|max:255',
+				'lastname' => 'required|max:255',
+				'street' => 'required|max:255',
+				'housenumber' => 'required|string|max:31',
+				'postcode' => 'required|numeric|between:0,99999',
+				'city' => 'required|max:255',
+				'birthday' => 'required|date',
+				'gender' => 'required|in:m,f',
+				'phone' => 'nullable|phone:AUTO,DE',
+				'email' => 'required|email|max:255|unique:users',
+				'password' => 'required|min:6|confirmed'
+			]);
 	}
 
 	/**
 	 * Create a new user instance after a valid registration.
 	 *
-	 * @param  array  $data
+	 * @param array $data
 	 * @return User
 	 */
 	protected function create(array $data, $confirmed, $confirmation_code)
 	{
-		//\Illuminate\Support\Facades\Log::info($data);
-		return User::create([
-					'firstname' => $data['firstname'],
-					'lastname' => $data['lastname'],
-					'street' => $data['street'],
-					'housenumber' => $data['housenumber'],
-					'postcode' => $data['postcode'],
-					'city' => $data['city'],
-					'birthday' => strtotime($data['birthday']),
-					'gender' => $data['gender'],
-					'phone' => $data['phone'],
-					'email' => $data['email'],
-					'password' => bcrypt($data['password']),
-					'confirmed' => $confirmed,
-					'confirmation_code' => $confirmation_code
-		]);
+		$data['password'] = bcrypt($data['password']);
+		$data['birthday'] = strtotime($data['birthday']);
+		$data['confirmed'] = $confirmed;
+		$data['confirmation_code'] = $confirmation_code;
+		return User::create($data);
 	}
 
 	public function confirm(Request $request, $confirmation_code)
@@ -101,14 +96,20 @@ use RegistersUsers;
 		}
 
 		$email = $request->input('email');
-		$user = User::where('email','=', $email)->where('confirmation_code', '=', $confirmation_code)->first();
+		$user = User::where('email', '=', $email)->where('confirmation_code', '=',
+			$confirmation_code)->first();
 
-		if (!is_null($user)) {
+		if (! is_null($user)) {
 			$user->confirmed = 1;
 			$user->confirmation_code = null;
+			$user->generateToken();
 			$user->save();
-			Session::flash('messages-success', new MessageBag(["Die E-Mail-Adresse wurde bestätigt. Du kannst dich jetzt anmelden."]));
-			return view('auth.login');
+			Session::flash('messages-success',
+				new MessageBag([
+					"Die E-Mail-Adresse wurde bestätigt."
+				]));
+			$this->guard()->login($user);
+			return redirect('home');
 		}
 		return redirect($this->redirectPath());
 	}
@@ -116,20 +117,20 @@ use RegistersUsers;
 	/**
 	 * Handle a registration request for the application.
 	 *
-	 * @param  Request  $request
+	 * @param Request $request
 	 * @return Response
 	 */
 	public function register(Request $request)
 	{
-		$this->validator($request->all())->validate();
+		$this->validator($request->all())
+			->validate();
 
 		$confirmation_code = str_random(30);
 		$user = $this->create($request->all(), false, $confirmation_code);
 		event(new Registered($user));
-		
+
 		$user->notify(new VerifyEmail($confirmation_code));
 
 		return view('auth.registerEmailSend');
 	}
-
 }

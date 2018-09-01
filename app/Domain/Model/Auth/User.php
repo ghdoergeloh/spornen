@@ -50,8 +50,12 @@ class User extends Authenticatable
 		return new Carbon($birthday);
 	}
 
-	public function sendMail() {
-	    $this->notify(new ResetPassword());
+	public function generateToken()
+	{
+		$this->api_token = str_random(60);
+		$this->save();
+		
+		return $this->api_token;
 	}
 	
 	

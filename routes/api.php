@@ -1,5 +1,6 @@
 <?php
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
  * |--------------------------------------------------------------------------
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\Route;
  * |
  */
 
-Route::apiResource('user', 'Api\AccoController',['parameters' => [
-	'user' => 'id'
+Route::apiResource('account', 'Api\AccoController',['parameters' => [
+	'account' => 'id'
 ]]);
+Auth::routes();
