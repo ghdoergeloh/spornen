@@ -17,6 +17,10 @@ class ResetPasswordController extends Controller
 	 * | and uses a simple trait to include this behavior. You're free to
 	 * | explore this trait and override any methods you wish to tweak.
 	 * |
+	 * | Two Controller-Methodes registered by Illuminate\Routing\Router::auth()
+	 * | * showResetForm()
+	 * | * reset()
+	 * |
 	 */
 
 	use ResetsPasswords{
@@ -48,7 +52,10 @@ class ResetPasswordController extends Controller
 	 */
 	protected function sendResetResponse($response)
 	{
-		Session::flash('messages-success', new MessageBag(["Das Passwort wurde erfolgreich geändert."]));
+		Session::flash('messages-success',
+			new MessageBag([
+				"Das Passwort wurde erfolgreich geändert."
+			]));
 		return $this->sendResetResponseTrait($response);
 	}
 }

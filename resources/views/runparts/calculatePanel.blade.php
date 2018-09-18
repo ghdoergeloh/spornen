@@ -5,12 +5,14 @@
 			{{ Form::open([
 				'method' => 'GET',
 				'url' => route($root_route.'runpart.calculate', array_merge($root_route_params, [$runpart->id])),
-				'class' => 'form-inline '.($errors->has('laps') ? ' is-invalid' : '')]) }}
+				'class' => ''.($errors->has('laps') ? ' is-invalid' : '')]) }}
+			<div class="form-inline">
 			<p>ich 
 				{{ Form::number('laps', $laps, [ 'class' => "form-control", 'min' => "0", 'step' => "1", 'style' => "width: 60px"]) }}
 				Runden laufen würde?
 				<span role="button" class="fa fa-info-circle" data-toggle="modal" data-target="#calculation_dlg"></span>
 			</p>
+			</div>
 			<p>
 				{{ Form::submit('Ausrechnen', [ 'class' => "btn btn-primary"]) }}
 			</p>
