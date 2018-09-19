@@ -40,7 +40,7 @@
     							{{ Form::submit('Teilnehmen', [ 'class' => "btn btn-secondary btn-block"]) }}
     							{{ Form::close() }}
     							@else
-    							<a class="btn btn-light btn-block" href="{{ route('runpart.edit',
+    							<a class="btn btn-primary btn-block" href="{{ route('runpart.edit',
     											$sponrun->runParticipations
     											->filter(function($runpart) {
     												return $runpart->user == Auth::user();
@@ -58,4 +58,7 @@
 		</div>
 	</div>
 </div>
+@if ( config('app.newsletter_optional') && is_null(Auth::user()->wants_newsletter) )
+	@include('general_dialogs.newsletter_dlg')
+@endif
 @endsection

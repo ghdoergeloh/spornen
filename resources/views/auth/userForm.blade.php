@@ -5,3 +5,6 @@
 @include('formfields.birthday', ['required' => true])
 @include('formfields.gender', ['required' => true])
 @include('formfields.phone')
+@if (config('app.newsletter_optional'))
+@include('formfields.wants_newsletter')
+@endif

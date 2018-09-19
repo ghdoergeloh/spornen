@@ -22,11 +22,12 @@
 				@else
 				@include('formfields.share_link')
 				@endif
-
+				@if ($runpart->sponsoredRun->with_tshirt || (isset($adminview) && $adminview))
 				<div class="form-group">
 					{{ Form::reset('Abbrechen', [ 'class' => "btn btn-secondary"]) }}
 					{{ Form::submit('Speichern', [ 'class' => "btn btn-primary"]) }}
 				</div>
+				@endif
 				{{ Form::close() }}
 			</div>
 		</div>

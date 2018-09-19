@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\MessageBag;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Log;
 
 class AccoController extends Controller
 {
@@ -21,6 +22,7 @@ class AccoController extends Controller
 		'birthday' => 'date',
 		'gender' => 'in:m,f',
 		'phone' => 'nullable|phone:AUTO,DE',
+		'wants_newsletter' => 'boolean',
 	];
 
 	/**
@@ -64,8 +66,9 @@ class AccoController extends Controller
 	{		
 		$user = Auth::user();
 		$request->validate($this->validation);
-		$request->birthday = strtotime($request->birthday);
-		
+		if (isset($request->birthday)) {
+			$request->birthday = strtotime($request->birthday);
+		}
 		$user->update($request->all());
 		Session::flash('messages-success', new MessageBag(["Erfolgreich gespeichert"]));
 		return redirect()->route('account.edit');

@@ -26,7 +26,7 @@ class User extends Authenticatable
 		'street', 'housenumber',
 		'postcode', 'city',
 		'birthday', 'phone', 'gender',
-		'password'
+		'password', 'wants_newsletter'
 	];
 
 	/**

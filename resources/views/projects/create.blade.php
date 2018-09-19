@@ -4,7 +4,7 @@
 @endsection
 @section('content')
 <div class="row">
-	<div class="col-md-8 col-md-offset-2">
+	<div class="col-md-6 offset-md-2">
 		{{ Form::open([
 		'url' => route('project.store')]) }}
 		@include('formfields.project_id', ['required' => true])
