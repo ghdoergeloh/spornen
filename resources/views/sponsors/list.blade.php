@@ -41,18 +41,25 @@
 				<td class="hidden-xs text-right">{{ number_format($sponsor->donation_static_max,2,',','.') }} €</td>
 				@if ($edit)
 				<td class="action-cell">
-					{{ Form::open([
-						'method' => 'DELETE',
-						'url' => route($root_route.'sponsor.destroy', array_merge($root_route_params, [$sponsor->id])) ]) }}
 					<a class="btn btn-success hidden-xs hidden-sm"
 					   href="{{route($root_route.'sponsor.edit', array_merge($root_route_params, [$sponsor->id])) }}"
 					   data-toggle="tooltip" title="Bearbeiten">
 						<span class="fa fa-pencil"/></a>
-					{{ Form::button('<span class="fa fa-trash"></span>', [
-						'type' => "submit",
-						'class' => "btn btn-danger",
-						'data-toggle' => "tooltip",
-						'title' => "Löschen"
+					
+					<a class="btn btn-danger" href="" data-toggle="tooltip"
+							title="Löschen"
+							onclick="
+								event.preventDefault();
+								event.stopPropagation();
+								if (confirm('Der Sponsor wird gelöscht.')) {
+									document.getElementById('delete-sponsor-form{!! $sponsor->id !!}').submit();
+								}
+							"> <span class="fa fa-trash" /></a>
+					{{ Form::open([
+						'method' => 'DELETE',
+						'url' => route($root_route.'sponsor.destroy', array_merge($root_route_params, [$sponsor->id])),
+						'class' => "hidden",
+						'id' => 'delete-sponsor-form'.$sponsor->id
 					]) }}
 					{{ Form::close() }}
 				</td>
