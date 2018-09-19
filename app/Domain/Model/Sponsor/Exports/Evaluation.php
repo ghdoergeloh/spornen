@@ -40,6 +40,9 @@ class Evaluation implements FromCollection
         if ($this->sponrun->with_tshirt) {
             $row[] = 'T-Shirt-Größe';
         }
+        //if () {
+        	$row[] = 'Newsletter';
+        //}
         $row[] = 'L.Optigem PersNr.';
         $row[] = 'L.Name';
         $row[] = 'L.Straße Nr.';
@@ -81,6 +84,7 @@ class Evaluation implements FromCollection
         if ($this->sponrun->with_tshirt) {
             $row['T-Shirt-Größe'] = '' . $runpart->tshirt_size;
         }
+        $row['Newsletter'] = $user->wants_newsletter ? 'Ja' : 'Nein';
         $row['L.Optigem PersNr.'] = 0;
         $row['L.Name'] = $user->lastname . ', ' . $user->firstname;
         $row['L.Straße Nr.'] = $user->street . ' ' . $user->housenumber;
