@@ -115,9 +115,10 @@ class AdmRunPartController extends Controller
 	 * @param  RunParticipation  $runpart
 	 * @return Response
 	 */
-	public function destroy(RunParticipation $runpart)
+	public function destroy(SponsoredRun $sponrun, RunParticipation $runpart)
 	{
-		//
+		$runpart->delete();
+		return redirect()->route('sponrun.show', [$sponrun->id]);
 	}
 
 }

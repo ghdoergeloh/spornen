@@ -29,7 +29,7 @@ Route::patch('account', 'AccoController@update')->name('account.update');
 
 Route::get('runpart/{runpart}/calculate', 'UserRunPartController@calculate')->name(
 	'runpart.calculate');
-Route::resource('runpart', 'UserRunPartController')->except('create', 'destroy');
+Route::resource('runpart', 'UserRunPartController')->except('create');
 
 Route::resource('runpart.sponsor', 'UserRunPartSponController');
 
@@ -51,7 +51,7 @@ Route::patch('sponrun/{sponrun}/addProjectlists', 'AdmRunController@addProjectli
 	'sponrun.addProjectlists');
 Route::resource('sponrun', 'AdmRunController');
 
-Route::resource('sponrun.runpart', 'AdmRunPartController')->except('create', 'store', 'destroy');
+Route::resource('sponrun.runpart', 'AdmRunPartController')->except('create', 'store');
 
 Route::resource('sponrun.runpart.sponsor', 'AdmRunPartSponController');
 

@@ -28,7 +28,20 @@
 					{{ Form::submit('Speichern', [ 'class' => "btn btn-primary"]) }}
 				</div>
 				@endif
-				{{ Form::close() }}
+				{{ Form::close() }} <a class="btn btn-danger"
+					href="" data-toggle="tooltip" title="Abmelden"
+					onclick="
+								event.preventDefault();
+								if (confirm('Wenn du dich abmeldest, werden alle deine Daten (z.B. deine Sponsoren) gelöscht. Du wirst jetzt vom Sponsorenlauf abgemeldet.')) {
+									document.getElementById('cancel-runpart-form').submit();
+								}
+							">Abmelden</a> {{ Form::open([
+						'method' => 'DELETE',
+						'url' => route($root_route.'runpart.destroy', array_merge($root_route_params, [$runpart->id])),
+						'class' => "hidden",
+						'id' => 'cancel-runpart-form'
+					]) }}
+					{{ Form::close() }}
 			</div>
 		</div>
 	</div>

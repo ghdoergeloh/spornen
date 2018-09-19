@@ -143,7 +143,8 @@ class UserRunPartController extends Controller
 	 */
 	public function destroy(RunParticipation $runpart)
 	{
-		//
+		$runpart->delete();
+		return redirect()->route('runpart.index');
 	}
 
 	public function calculate(Request $request, RunParticipation $runpart)
