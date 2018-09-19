@@ -22,6 +22,7 @@ class AccoController extends Controller
 		'birthday' => 'date',
 		'gender' => 'in:m,f',
 		'phone' => 'nullable|phone:AUTO,DE',
+		'wants_newsletter' => 'boolean',
 	];
 
 	/**

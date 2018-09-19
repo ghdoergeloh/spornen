@@ -3,13 +3,14 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\App;
 
 class HttpsProtocol
 {
 
 	public function handle($request, Closure $next)
 	{
-		if (!$request->secure() && env('APP_ENV') !== 'local') {
+		if (!$request->secure() && App::environment() !== 'local') {
 			return redirect()->secure($request->getRequestUri());
 		}
 

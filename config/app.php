@@ -124,6 +124,18 @@ return [
     'log' => env('APP_LOG', 'single'),
 
     'log_level' => env('APP_LOG_LEVEL', 'debug'),
+	
+	/*
+	|--------------------------------------------------------------------------
+	| Newsletter
+	|--------------------------------------------------------------------------
+	|
+	| You can activate a possibility for the user to choose wether he wants to 
+	| receive Newsletters from your organisation or not.
+	|
+	*/
+	
+	'newsletter_optional' => env('NEWSLETTER_OPTIONAL', false),
 
     /*
     |--------------------------------------------------------------------------

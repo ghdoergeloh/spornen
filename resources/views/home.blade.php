@@ -58,7 +58,7 @@
 		</div>
 	</div>
 </div>
-@if ( is_null(Auth::user()->wants_newsletter) )
+@if ( config('app.newsletter_optional') && is_null(Auth::user()->wants_newsletter) )
 	@include('general_dialogs.newsletter_dlg')
 @endif
 @endsection
