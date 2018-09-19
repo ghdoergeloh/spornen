@@ -60,9 +60,9 @@ class AdmPlstController extends Controller
 		$validator = Projectlist::validator($attributes);
 		$validator->validate();
 //Save
-		Projectlist::create($attributes);
+		$projectlist = Projectlist::create($attributes);
 //redirect
-		return redirect()->route('projectlist.index');
+		return redirect()->route('projectlist.edit', $projectlist);
 	}
 
 	/**

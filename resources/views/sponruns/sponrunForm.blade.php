@@ -7,8 +7,6 @@
 @include('formfields.description')
 
 <div class="form-group">
-	<div>
-		<a type="submit" class="btn btn-secondary" href="{{route($root_route.'sponrun.index')}}">Abbrechen</a>
-		{{ Form::submit('Speichern', [ 'class' => "btn btn-primary"]) }}
-	</div>
+	<a type="submit" class="btn btn-secondary" href="{{route($root_route.'sponrun.index')}}">Abbrechen</a>
+	{{ Form::submit('Speichern', [ 'class' => "btn btn-primary"]) }}
 </div>

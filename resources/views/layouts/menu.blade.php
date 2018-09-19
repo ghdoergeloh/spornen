@@ -12,14 +12,13 @@
 		<ul class="navbar-nav navbar-sidenav" id="actionsAccordion">
 			@if (Auth::check())
 			<li class="nav-item"><a class="nav-link" href="{{ url('/home') }}">
-			<i class="fa fa-fw fa-home"></i>
-			<span class="nav-link-text">Home</span></a></li>
+				<i class="fa fa-fw fa-home"></i>
+				<span class="nav-link-text">Home</span></a>
+			</li>
 			<li class="nav-item"><a class="nav-link" href="{{ route('runpart.index') }}">
-			<i class="fa fa-fw fa-flag-checkered"></i>
-			<span class="nav-link-text">Meine Sponsorenläufe</span></a></li>
-			<li class="nav-item"><a class="nav-link" href="{{ route('account.edit') }}">
-			<i class="fa fa-fw fa-user"></i>
-			<span class="nav-link-text">Mein Account</span></a></li>
+				<i class="fa fa-fw fa-flag-checkered"></i>
+				<span class="nav-link-text">Meine Sponsorenläufe</span></a>
+			</li>
 			@if ( Entrust::hasRole('admin') )
 			<li class="nav-item">
 				<a href="#collapseVerwaltung" class="nav-link nav-link-collapse collapsed"
@@ -75,6 +74,10 @@
 					<span class="caret"></span>
 				</a>
 				<ul class="dropdown-menu"  aria-labelledby="accountDropdown">
+					<li><a class="dropdown-item" href="{{ route('account.edit') }}">
+						<i class="fa fa-fw fa-user"></i>
+						<span class="nav-link-text">Mein Account</span></a>
+					</li>
 					<li>
 						<a href="" class="dropdown-item"
 						   onclick="event.preventDefault();

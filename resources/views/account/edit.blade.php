@@ -3,8 +3,8 @@
 - Account bearbeiten
 @endsection
 @section('content')
-<div class="row">         
-	<div class="col-md-8">
+<div class="row">
+	<div class="col-md-6 offset-md-2">
 		{{ Form::model($user, ['method' => 'PATCH', 'route' => 'account.update']) }}
 		@include('auth.userForm')
 		<div class="form-group">

@@ -7,7 +7,7 @@
 	<div class="card-body">
 		Dir wurde soeben eine E-Mail zugesandt. Bitte klicke auf den Link in
 		der Mail, um deine E-Mail zu bestätigen und die Registrierung
-		abzuschließen. Bei Schwierigkeiten wende Dich sich bitte an <a
+		abzuschließen. Bei Schwierigkeiten wende Dich bitte an <a
 			href="mailto:{{ env('MAIL_WEBMASTER') }}">{{ env('MAIL_WEBMASTER') }}</a>.
 	</div>
 </div>

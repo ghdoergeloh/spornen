@@ -46,7 +46,7 @@ class VerifyEmail extends Notification
 			->line('Du erhältst diese E-Mail, weil diese E-Mail-Adresse auf unserer Website zur Registrierung angegeben wurde.')
 			->line('Wenn Du Deinen Account freischalten möchtest, bestätige bitte Deine E-Mail:')
 			->action('E-Mail-Adresse bestätigen', $link)
-			->line('Wenn Du Sich nicht auf unserer Website registriert hast, solltest Du die Mail nicht bestätigen.');
+			->line('Wenn Du dich nicht auf unserer Website registriert hast, solltest Du die E-Mail nicht bestätigen.');
 	}
 
     /**

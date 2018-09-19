@@ -4,7 +4,7 @@
 @endsection
 @section('content')
 <div class="row">
-	<div class="col-md-8">
+	<div class="col-md-6 offset-md-2">
 		@if (isset($runpart))
 		<p class="lead">Ich möchte Sponsor für den Läufer {{ $runpart->user->firstname }} {{ $runpart->user->lastname }} 
 		sein{{ is_null( $runpart->project ) ? '.' : ', der für das Projekt "'. $runpart->project->name .'" läuft.' }}

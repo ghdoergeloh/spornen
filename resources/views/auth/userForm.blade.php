@@ -5,3 +5,4 @@
 @include('formfields.birthday', ['required' => true])
 @include('formfields.gender', ['required' => true])
 @include('formfields.phone')
+@include('formfields.wants_newsletter')
