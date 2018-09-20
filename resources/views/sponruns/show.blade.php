@@ -64,7 +64,7 @@
 			<div class="card-body">
 				<div class="table table-responsive">
 					<table
-						class="table table-striped table-hover table-condensed dataTableX"
+						class="table table-striped table-hover table-condensed dataTable"
 						cellspacing="0">
 						<thead>
 							<tr>
