@@ -15,9 +15,10 @@
 						<thead>
 							<tr>
 								<th>Name</th>
-								<th class="hidden-xs">Beginn<br>Ende</th>
-								<th class="hidden-xs hidden-sm">Straße, Nr.</th>
-								<th class="hidden-xs hidden-sm">PLZ, Ort</th>
+								<th class="d-none d-sm-table-cell">Beginn<br>Ende</th>
+								<th class="d-none d-md-table-cell">Straße, Nr.</th>
+								<th class="d-none d-md-table-cell">PLZ, Ort</th>
+    							<th class="d-none d-lg-table-cell">Teilnehmer</th>
 								<th></th>
 							</tr>
 						</thead>
@@ -25,11 +26,12 @@
 							@foreach ($sponruns as $sponrun)
 							<tr class="clickable-row">
 								<td onclick="window.document.location = '{{route($root_route.'sponrun.show', [$sponrun->id]) }}';">{{ $sponrun->name }}</td>
-								<td class="hidden-xs">{{ $sponrun->getBeginF() }}<br>{{ $sponrun->getEndF() }}</td>
-								<td class="hidden-xs hidden-sm">{{ $sponrun->street }} {{ $sponrun->housenumber }}</td>
-								<td class="hidden-xs hidden-sm">{{ $sponrun->postcode }} {{ $sponrun->city }}</td>
+								<td class="d-none d-sm-table-cell">{{ $sponrun->getBeginF() }}<br>{{ $sponrun->getEndF() }}</td>
+								<td class="d-none d-md-table-cell">{{ $sponrun->street }} {{ $sponrun->housenumber }}</td>
+								<td class="d-none d-md-table-cell">{{ $sponrun->postcode }} {{ $sponrun->city }}</td>
+    							<td class="d-none d-lg-table-cell">{{ $sponrun->participants_count }}</td>
 								<td class="action-cell">
-									<a class="btn btn-info hidden-xs hidden-sm"
+									<a class="btn btn-info"
 									   href="{{route($root_route.'sponrun.show', [$sponrun->id]) }}"
 									   data-toggle="tooltip" title="Anzeigen">
 										<span class="fa fa-list"/></a>

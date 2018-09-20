@@ -32,7 +32,7 @@ class AdmRunController extends Controller
 	 */
 	public function index()
 	{
-		$sponruns = SponsoredRun::orderBy('begin', 'desc')->get();
+		$sponruns = SponsoredRun::orderBy('begin', 'desc')->withCount('participants')->get();
 		return view('sponruns.index')
 						->with('sponruns', $sponruns)
 						->with('root_route', $this->root_route)

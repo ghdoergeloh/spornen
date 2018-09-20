@@ -23,16 +23,16 @@
 				<div class="table-responsive">
     				<table class="table table-striped">
     					<tr>
-    						<th class="hidden-xs">Datum</th>
+    						<th class="d-none d-sm-table-cell">Datum</th>
     						<th>Name</th>
-    						<th class="visible-lg">Teilnehmer</th>
+    						<th class="d-none d-lg-table-cell">Teilnehmer</th>
     						<th></th>
     					</tr>
     					@foreach ($sponruns as $sponrun)
     					<tr>
-    						<td class="hidden-xs">{{ $sponrun->begin->format('d.m.Y') }}</td>
+    						<td class="d-none d-sm-table-cell">{{ $sponrun->begin->format('d.m.Y') }}</td>
     						<td>{{ $sponrun->name }}</td>
-    						<td class="visible-lg">{{ $sponrun->participants_count }}</td>
+    						<td class="d-none d-lg-table-cell">{{ $sponrun->participants_count }}</td>
     						<td>
     							@if ( !$sponrun->participants->contains(Auth::user()) )
     							{{ Form::open(['route' => 'runpart.store']) }}
