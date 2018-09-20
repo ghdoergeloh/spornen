@@ -105,8 +105,14 @@ class AdmRunPartController extends Controller
 		// check if the Run has already been
 		$runpart->fill($attributes);
 		$runpart->save();
-		Session::flash('messages-success', new MessageBag(["Erfolgreich gespeichert"]));
-		return redirect()->route('sponrun.runpart.edit', [$sponrun->id, $runpart->id]);
+		
+		if ($request->wantsJson()) {
+			return response()->json(new \App\Http\Resources\RunParticipation($runpart));
+		}
+		else {
+			Session::flash('messages-success', new MessageBag(["Erfolgreich gespeichert"]));
+			return redirect()->route('sponrun.runpart.edit', [$sponrun->id, $runpart->id]);
+		}
 	}
 
 	/**
