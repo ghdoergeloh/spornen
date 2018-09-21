@@ -3,16 +3,20 @@
 
 	<div>
 		<div class="form-check form-check-inline{{ $errors->has('gender') ? ' is-invalid' : '' }}">
-			@if(isset($required) && $required)
-			{{ Form::radio('gender', 'm', null, [ 'class' => "form-check-input".($errors->has('gender') ? ' is-invalid' : ''), 'required' => "required" ]) }}
-			@else
-			{{ Form::radio('gender', 'm', null, [ 'class' => "form-check-input".($errors->has('gender') ? ' is-invalid' : '')]) }}
-			@endif
-			{{ Form::label('m', 'Mann', [ 'class' => "form-check-label"]) }}
+			<label class="form-check-label">
+				@if(isset($required) && $required)
+				{{ Form::radio('gender', 'm', null, [ 'class' => "form-check-input".($errors->has('gender') ? ' is-invalid' : ''), 'required' => "required" ]) }}
+				@else
+				{{ Form::radio('gender', 'm', null, [ 'class' => "form-check-input".($errors->has('gender') ? ' is-invalid' : '')]) }}
+				@endif
+				Mann
+			</label>
 		</div>
 		<div class="form-check form-check-inline">
+			<label class="form-check-label">
 			{{ Form::radio('gender', 'f', null, [ 'class' => "form-check-input".($errors->has('gender') ? ' is-invalid' : '')]) }}
-			{{ Form::label('f', 'Frau', [ 'class' => "form-check-label"]) }}
+			Frau
+			</label>
 		</div>
 
 		@if ($errors->has('gender'))
