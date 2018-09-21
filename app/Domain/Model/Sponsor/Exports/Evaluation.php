@@ -40,9 +40,6 @@ class Evaluation implements FromCollection
 		if ($this->sponrun->with_tshirt) {
 			$row[] = 'T-Shirt-Größe';
 		}
-		if (config('app.newsletter_optional')) {
-			$row[] = 'Newsletter';
-		}
 		$row[] = 'L.Optigem PersNr.';
 		$row[] = 'L.Name';
 		$row[] = 'L.Straße Nr.';
@@ -50,14 +47,20 @@ class Evaluation implements FromCollection
 		$row[] = 'L.Stadt';
 		$row[] = 'L.E-Mail';
 		$row[] = 'L.Telefon';
+		if (config('app.newsletter_optional')) {
+			$row[] = 'L.Newsletter';
+		}
 		$row[] = 'Sponsorennr.';
+		$row[] = 'S.Optigem PersNr.';
 		$row[] = 'S.Name';
 		$row[] = 'S.Straße Nr.';
 		$row[] = 'S.PLZ';
 		$row[] = 'S.Stadt';
 		$row[] = 'S.E-Mail';
 		$row[] = 'S.Telefon';
-		$row[] = 'S.Optigem PersNr.';
+		if (config('app.newsletter_optional')) {
+			$row[] = 'S.Newsletter';
+		}
 		$row[] = 'Name des Läufers';
 		$row[] = 'Spende pro Runde';
 		$row[] = 'Maximal- oder Festbetrag';
@@ -84,9 +87,6 @@ class Evaluation implements FromCollection
 		if ($this->sponrun->with_tshirt) {
 			$row['T-Shirt-Größe'] = '' . $runpart->tshirt_size;
 		}
-		if (config('app.newsletter_optional')) {
-			$row['Newsletter'] = $user->wants_newsletter ? 'Ja' : 'Nein';
-		}
 		$row['L.Optigem PersNr.'] = 0;
 		$row['L.Name'] = $user->lastname . ', ' . $user->firstname;
 		$row['L.Straße Nr.'] = $user->street . ' ' . $user->housenumber;
@@ -98,7 +98,11 @@ class Evaluation implements FromCollection
 		} catch (NumberParseException $ex) {
 			$row['L.Telefon'] = $user->phone;
 		}
+		if (config('app.newsletter_optional')) {
+			$row['L.Newsletter'] = $user->wants_newsletter ? 'Ja' : 'Nein';
+		}
 		$row['Sponsorennr.'] = $sponsor->id;
+		$row['S.Optigem PersNr.'] = 0;
 		$row['S.Name'] = $sponsor->lastname . ', ' . $sponsor->firstname;
 		$row['S.Straße Nr.'] = $sponsor->street . ' ' . $sponsor->housenumber;
 		$row['S.PLZ'] = $sponsor->postcode;
@@ -109,7 +113,9 @@ class Evaluation implements FromCollection
 		} catch (NumberParseException $ex) {
 			$row['S.Telefon'] = $sponsor->phone;
 		}
-		$row['S.Optigem PersNr.'] = 0;
+		if (config('app.newsletter_optional')) {
+			$row['S.Newsletter'] = $sponsor->wants_newsletter ? 'Ja' : 'Nein';
+		}
 		$row['Name des Läufers'] = $row['L.Name'];
 		$row['Spende pro Runde'] = number_format($sponsor->donation_per_lap, 2, ',', '');
 		$row['Maximal- oder Festbetrag'] = number_format($sponsor->donation_static_max, 2, ',', '');
