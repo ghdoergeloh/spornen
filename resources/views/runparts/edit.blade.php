@@ -22,20 +22,24 @@
 				@else
 				@include('formfields.share_link')
 				@endif
-				@if ($runpart->sponsoredRun->with_tshirt || (isset($adminview) && $adminview))
+				@if (isset($projects) && count($projects) > 1
+					|| $runpart->sponsoredRun->with_tshirt
+					|| (isset($adminview) && $adminview))
 				<div class="form-group">
 					{{ Form::reset('Abbrechen', [ 'class' => "btn btn-secondary"]) }}
 					{{ Form::submit('Speichern', [ 'class' => "btn btn-primary"]) }}
 				</div>
 				@endif
-				{{ Form::close() }} <a class="btn btn-danger"
+				{{ Form::close() }}
+				<a class="btn btn-danger"
 					href="" data-toggle="tooltip" title="Abmelden"
 					onclick="
 								event.preventDefault();
 								if (confirm('Wenn du dich abmeldest, werden alle deine Daten (z.B. deine Sponsoren) gelöscht. Du wirst jetzt vom Sponsorenlauf abgemeldet.')) {
-									document.getElementById('cancel-runpart-form').submit();
+									$('#cancel-runpart-form').submit();
 								}
-							">Abmelden</a> {{ Form::open([
+							">Abmelden</a>
+					{{ Form::open([
 						'method' => 'DELETE',
 						'url' => route($root_route.'runpart.destroy', array_merge($root_route_params, [$runpart->id])),
 						'class' => "hidden",
