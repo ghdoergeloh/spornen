@@ -6,6 +6,7 @@
 @include('formfields.email')
 @include('formfields.donation_per_lap')
 @include('formfields.donation_static_max')
+@include('formfields.wants_newsletter')
 
 <div class="form-group">
 	<div">

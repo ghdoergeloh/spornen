@@ -17,7 +17,8 @@ class Sponsor extends Model
 		'firstname', 'lastname',
 		'street', 'housenumber',
 		'postcode', 'city', 'phone',
-		'email', 'donation_per_lap', 'donation_static_max'
+		'email', 'donation_per_lap',
+		'donation_static_max', 'wants_newsletter'
 	];
 	protected $dates = [
 		'created_at', 'updated_at', 'begin'
@@ -67,7 +68,8 @@ class Sponsor extends Model
 					'phone' => 'nullable|phone:AUTO,DE',
 					'email' => 'nullable|email|max:255',
 					'donation_per_lap' => ['nullable', 'required_without:donation_static_max', 'regex:/^\d+[,.]?\d{0,2}$/', 'max:10'],
-					'donation_static_max' => ['nullable', 'required_without:donation_per_lap', 'regex:/^\d+[,.]?\d{0,2}$/', 'max:10']
+					'donation_static_max' => ['nullable', 'required_without:donation_per_lap', 'regex:/^\d+[,.]?\d{0,2}$/', 'max:10'],
+					'wants_newsletter' => 'boolean'
 		]);
 	}
 }

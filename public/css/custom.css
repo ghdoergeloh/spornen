@@ -12,3 +12,7 @@ pre.form-control{
 .background-white{
 	background: white;
 }
+
+.container{
+	padding-top: 1rem;
+}
