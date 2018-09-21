@@ -2,8 +2,8 @@
 	{{ Form::label('scope', 'Bereich'.(isset($required) && $required ?' *':'')) }}
 
 	<div>
-		<div class="form-check form-check-inline">
-			<label>
+		<div class="form-check form-check-inline{{ $errors->has('scope') ? ' is-invalid' : '' }}">
+			<label class="form-check-label">
 				@if(isset($required) && $required)
 				{{ Form::radio('scope', 'person', null, [ 'class' => "form-check-input".($errors->has('scope') ? ' is-invalid' : ''), 'required' => "required" ]) }}
 				@else
@@ -13,7 +13,7 @@
 			</label>
 		</div>
 		<div class="form-check form-check-inline">
-			<label>
+			<label class="form-check-label">
 				{{ Form::radio('scope', 'project', [ 'class' => "form-check-input".($errors->has('scope') ? ' is-invalid' : '')]) }}
 				Projekt
 			</label>
