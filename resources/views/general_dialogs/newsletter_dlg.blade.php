@@ -7,15 +7,16 @@
 				<h5 class="modal-title" id="calculation_dlg_lbl">Newsletter</h5>
 			</div>
 			<div class="modal-body">
-				{{ Form::open([ 'method' => 'PATCH', 'route' => 'account.update'])
+				{{ Form::open([ 'method' => 'PATCH', 'route' => 'account.update', 'class' => "ajax-submit"])
 				}}
 				<p>Wir senden regelmäßig Informationen über unsere Arbeit als
 					Newsletter an alle, die mehr darüber erfahren möchten oder immer
 					auf dem Laufenden gehalten werden möchten.</p>
 				@include('formfields.wants_newsletter')
 
-				<div class="modal-footer">{{ Form::submit('Fertig', [ 'class' =>
-					"btn btn-primary"]) }}</div>
+				<div class="modal-footer">
+					{{ Form::submit('Fertig', [ 'class' => "btn btn-primary" ]) }}
+				</div>
 				{{ Form::close() }}
 			</div>
 		</div>

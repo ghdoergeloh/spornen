@@ -63,13 +63,16 @@ class AccoController extends Controller
 	 * @return Response
 	 */
 	public function update(Request $request)
-	{		
+	{
 		$user = Auth::user();
 		$request->validate($this->validation);
 		if (isset($request->birthday)) {
 			$request->birthday = strtotime($request->birthday);
 		}
 		$user->update($request->all());
+		if ($request->wantsJson()) {
+			return response()->json($user);
+		}
 		Session::flash('messages-success', new MessageBag(["Erfolgreich gespeichert"]));
 		return redirect()->route('account.edit');
 	}

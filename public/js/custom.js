@@ -2,7 +2,33 @@ $(document).ready(function() {
 	$('.dataTable').DataTable();
 	
 	if ($('#newsletter_dlg').length)
+	{
 		$('#newsletter_dlg').modal('show');
+		$('#newsletter_dlg').find('form').bind("afterSubmit",function(e){
+			$('#newsletter_dlg').modal('hide');
+		});
+	}
+		
+	
+	$(function() {
+		$('form.ajax-submit').submit(function(event) {
+			event.preventDefault();
+			var form = this;
+			var formData = $(form).serialize();
+			$.ajax({
+				type : $(form).attr('method'),
+				url : $(form).attr('action'),
+				dataType : 'JSON',
+				data : formData
+			})
+			.done(function(data) {
+				$(form).trigger('afterSubmit');
+			})
+			.fail(function(data){
+				console.log(data);
+			});
+		});
+	});
 
 	$('.editableLaps').click(function(){
 		if($(this).children().length == 0){
@@ -46,18 +72,18 @@ $(document).ready(function() {
 				var result = $.ajax({
 					url : url,
 					type : 'PATCH',
+					dataType : 'JSON',
 					data : {
 						_token : CSRF_TOKEN,
 						laps : laps
-					},
-					dataType : 'JSON',
-					success : function(data) {
-						$(cell).text(data['laps']);
-						$(row).children('td[name=sum]').text(data['sum'] + " €")
-					},
-					error : function(data) {
-						$(input).addClass('is-invalid');
 					}
+				})
+				.done(function(data) {
+					$(cell).text(data['laps']);
+					$(row).children('td[name=sum]').text(data['sum'] + " €")
+				})
+				.fail(function(data) {
+					$(input).addClass('is-invalid');
 				});
 			});
 			$(input).bind("exit",function(e){
