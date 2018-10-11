@@ -1,6 +1,4 @@
-$(document).ready(function() {
-	$('.dataTable').DataTable();
-	
+$(document).ready(function() {	
 	if ($('#newsletter_dlg').length)
 	{
 		$('#newsletter_dlg').modal('show');
@@ -114,6 +112,8 @@ $(document).ready(function() {
 			});
 		}
 	});
+
+	$('.dataTable').DataTable();
 });
 
 
