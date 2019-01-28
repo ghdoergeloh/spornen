@@ -1,0 +1,22 @@
+.fa-btn {
+    margin-right: 6px;
+}
+pre.form-control{
+    overflow: hidden;
+    font: inherit;
+}
+.action-cell{
+	white-space: nowrap;
+}
+
+.background-white{
+	background: white;
+}
+
+.container{
+	padding-top: 1rem;
+}
+
+.table {
+	border-spacing: 0;
+}
