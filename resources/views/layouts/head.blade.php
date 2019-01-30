@@ -8,6 +8,6 @@
     <meta name="author" content="Georg Dörgeloh">
     <title>{{ config('app.name') }} @yield('title')</title>
     
-    <link rel="icon" type="image/x-icon" href="{{url('/favicon.ico')}}" />
+    <link rel="icon" type="image/x-icon" href="{{url('/custom/' . env('CF_FAVICON'))}}" />
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>

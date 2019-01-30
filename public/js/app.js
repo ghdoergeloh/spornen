@@ -21244,6 +21244,60 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! DataTables 1
 
 /***/ }),
 
+/***/ "./node_modules/fittextjs/index.js":
+/*!*****************************************!*\
+  !*** ./node_modules/fittextjs/index.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* global jQuery, define */
+/*!
+* FitText.js 1.2
+*
+* Copyright 2011, Dave Rupert http://daverupert.com
+* Released under the WTFPL license
+* http://sam.zoy.org/wtfpl/
+*
+* Date: Thu May 05 14:23:00 2011 -0600
+*/
+;(function (factory) {
+  if (true) {
+    !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__))
+  } else {}
+}(function ($) {
+  $.fn.fitText = function (kompressor, options) {
+    // Setup options
+    var compressor = kompressor || 1
+    var settings = $.extend({
+      'minFontSize': Number.NEGATIVE_INFINITY,
+      'maxFontSize': Number.POSITIVE_INFINITY
+    }, options)
+
+    return this.each(function () {
+      // Store the object
+      var $this = $(this)
+
+      // Resizer() resizes items based on the object width divided by the compressor * 10
+      var resizer = function () {
+        $this.css('font-size', Math.max(Math.min($this.width() / (compressor * 10), parseFloat(settings.maxFontSize)), parseFloat(settings.minFontSize)))
+      }
+
+      // Call once to set.
+      resizer()
+
+      // Call on resize. Opera debounces their resize by default.
+      $(window).on('resize.fittext orientationchange.fittext', resizer)
+    })
+  }
+}))
+
+
+/***/ }),
+
 /***/ "./node_modules/is-buffer/index.js":
 /*!*****************************************!*\
   !*** ./node_modules/is-buffer/index.js ***!
@@ -67236,9 +67290,9 @@ module.exports = function(module) {
  */
 __webpack_require__(/*! ./bootstrap */ "./resources/assets/js/bootstrap.js");
 
-__webpack_require__(/*! ./custom */ "./resources/assets/js/custom.js");
-
 __webpack_require__(/*! jquery.easing */ "./node_modules/jquery.easing/jquery.easing.js");
+
+__webpack_require__(/*! fittextjs */ "./node_modules/fittextjs/index.js");
 
 __webpack_require__(/*! startbootstrap-sb-admin/vendor/chart.js/Chart.min.js */ "./node_modules/startbootstrap-sb-admin/vendor/chart.js/Chart.min.js");
 
@@ -67247,6 +67301,8 @@ __webpack_require__(/*! startbootstrap-sb-admin/vendor/datatables/dataTables.boo
 __webpack_require__(/*! startbootstrap-sb-admin/vendor/datatables/jquery.dataTables.js */ "./node_modules/startbootstrap-sb-admin/vendor/datatables/jquery.dataTables.js");
 
 __webpack_require__(/*! startbootstrap-sb-admin/js/sb-admin.min.js */ "./node_modules/startbootstrap-sb-admin/js/sb-admin.min.js");
+
+__webpack_require__(/*! ./custom */ "./resources/assets/js/custom.js");
 
 /***/ }),
 
@@ -67316,6 +67372,8 @@ if (token) {
 /***/ (function(module, exports) {
 
 $(document).ready(function () {
+  $(".fittext").fitText();
+
   if ($('#newsletter_dlg').length) {
     $('#newsletter_dlg').modal('show');
     $('#newsletter_dlg').find('form').bind("afterSubmit", function (e) {

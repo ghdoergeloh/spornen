@@ -3034,3 +3034,27 @@ pre.form-control{
 	border-spacing: 0;
 }
 
+.fittext-container {
+	display: block;
+	top: 50%;
+	-webkit-transform: translate(0%,-50%);
+	        transform: translate(0%,-50%);
+	width: 100%;
+	position: absolute;
+	text-align: center;
+	vertical-align: middle;
+	marin-right: -15px;
+	margin-left: -15px;
+}
+
+.fittext{
+	padding-right: 15px;
+	padding-left: 15px;
+	margin: 0;
+	color: red;
+	font-weight: bold;
+	white-space: nowrap;
+    -webkit-transform: rotate( 10deg );
+            transform: rotate( 10deg );
+}
+

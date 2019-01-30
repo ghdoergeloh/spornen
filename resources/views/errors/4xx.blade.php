@@ -1,12 +1,12 @@
 @extends('layouts.app')
 @section('content')
-<div class="row">
-	<div class="col-md-6 offset-md-3">
-		<div class="card mb-3">
-			@yield('error-message')
-        	<div class="media col-md-6 offset-md-3">
-    			<img class="img-responsive" alt="To All Nations" src="{{ url('/images/logo_4xx.jpg') }}">
-        	</div>
+<div class="card card-login mx-auto mt-5">
+	@yield('error-message')
+	<div class="media col-md-10 offset-md-1 mb-3">
+		<img class="img-responsive" alt="client error"
+			src="{{ url('/custom/' . env('CF_LOGO')) }}">
+		<div class="fittext-container">
+			<p class="fittext">Client-Fehler</p>
 		</div>
 	</div>
 </div>

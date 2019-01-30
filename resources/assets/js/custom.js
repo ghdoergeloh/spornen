@@ -1,4 +1,6 @@
-$(document).ready(function() {	
+$(document).ready(function() {
+	$(".fittext").fitText();
+
 	if ($('#newsletter_dlg').length)
 	{
 		$('#newsletter_dlg').modal('show');
@@ -6,7 +8,6 @@ $(document).ready(function() {
 			$('#newsletter_dlg').modal('hide');
 		});
 	}
-		
 	
 	$(function() {
 		$('form.ajax-submit').submit(function(event) {
