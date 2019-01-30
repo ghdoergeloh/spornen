@@ -11,6 +11,7 @@ yarn-error.log
 
 #customer-files and settings 
 .env
+/public/custom
 
 #eclipse
 /.buildpath
