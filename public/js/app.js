@@ -67381,21 +67381,28 @@ $(document).ready(function () {
     });
   }
 
-  $(function () {
-    $('form.ajax-submit').submit(function (event) {
-      event.preventDefault();
-      var form = this;
-      var formData = $(form).serialize();
-      $.ajax({
-        type: $(form).attr('method'),
-        url: $(form).attr('action'),
-        dataType: 'JSON',
-        data: formData
-      }).done(function (data) {
-        $(form).trigger('afterSubmit');
-      }).fail(function (data) {
-        console.log(data);
-      });
+  $('#share-link-button').click(function (event) {
+    var element = $('#share-link');
+    element.select();
+    document.execCommand("copy");
+    $(element).attr('data-title', "Kopiert").tooltip('show');
+  });
+  $('#share-link-button').mouseleave(function (event) {
+    $('#share-link').tooltip('dispose');
+  });
+  $('form.ajax-submit').submit(function (event) {
+    event.preventDefault();
+    var form = this;
+    var formData = $(form).serialize();
+    $.ajax({
+      type: $(form).attr('method'),
+      url: $(form).attr('action'),
+      dataType: 'JSON',
+      data: formData
+    }).done(function (data) {
+      $(form).trigger('afterSubmit');
+    }).fail(function (data) {
+      console.log(data);
     });
   });
   $('.editableLaps').click(function () {
@@ -67472,32 +67479,6 @@ $(document).ready(function () {
   });
   $('.dataTable').DataTable();
 });
-
-function selectText(element) {
-  var range, selection;
-
-  if (document.body.createTextRange) {
-    range = document.body.createTextRange();
-    range.moveToElementText(element);
-    range.select();
-  } else if (window.getSelection) {
-    selection = window.getSelection();
-    range = document.createRange();
-    range.selectNodeContents(element);
-    selection.removeAllRanges();
-    selection.addRange(range);
-  }
-}
-
-function copyToClipboard(element) {
-  element.select();
-  document.execCommand("copy");
-  $(element).attr('data-title', "Kopiert").tooltip('show');
-}
-
-function disposeTooltip(element, text) {
-  $(element).tooltip('dispose');
-}
 
 /***/ }),
 
