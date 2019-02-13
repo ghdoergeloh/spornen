@@ -56,7 +56,7 @@
 			<!-- Authentication Links -->
 			@if (!empty(env('URL_IMPRESSUM')))
 			<li class="nav-item">
-				<a class="nav-link" href="{{ env('URL_IMPRESSUM') }}">
+				<a class="nav-link" href="{{ env('URL_IMPRESSUM') }}" target="_blank">
 					<i class="fa fa-fw fa-info"></i>
 					<span class="nav-link-text">Impressum</span>
 				</a>
@@ -64,7 +64,7 @@
 			@endif
 			@if (!empty(env('URL_PRIVACY_STATEMENT')))
 			<li class="nav-item">
-				<a class="nav-link" href="{{ env('URL_PRIVACY_STATEMENT') }}">
+				<a class="nav-link" href="{{ env('URL_PRIVACY_STATEMENT') }}" target="_blank">
 					<i class="fa fa-fw fa-lock"></i>
 					<span class="nav-link-text">Datenschutz</span>
 				</a>
