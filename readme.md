@@ -28,18 +28,15 @@ cd $SPONRUN_HOME
 Projekt auf den Server kopieren:
 
 ```bash
-git clone -b productive https://github.com/ghdoergeloh/sponrun.git .
+git clone -b master https://github.com/ghdoergeloh/sponrun.git .
 ```
 Dem Web-Server Nutzer Schreibrechte für die Verzeichnisse "storage" und "bootstrap/cache" gewähren.
-
-VirtuellenHost einrichten auf das Verzeichnis "public".
 
 Mit Composer alle PHP-Abhängigkeiten laden:
 
 ```bash
 composer install --no-dev
 ```
-
 Die Datei ".env.example" kopieren und in ".env" umbenennen:
 
 ```bash
@@ -59,6 +56,7 @@ Dann das DB-Schema generieren lassen:
 ```bash
 php artisan migrate
 ```
+Abschließend den VirtuellenHost einrichten auf das Verzeichnis "public".
 
 ### Für Entwicklung
 Alle PHP-Abhängigkeiten für Entwickler laden:
@@ -76,8 +74,8 @@ npm install
 ## Update
 ```bash
 cd $SPONRUN_HOME
-git fetch origin productive
-git pull origin productive -f
+git fetch origin master
+git pull origin master -f
 composer install --no-dev
 php artisan migrate
 ```
