@@ -12,12 +12,12 @@
 			<div class="card-header">Hallo {{ Auth::user()->firstname }} </div>
 
 			<div class="card-body">
-				<b>Herzlich Willkommen!</b> Schön, dass du am Sponsorenlauf teilnimmst.
+				<b>Herzlich willkommen!</b> Schön, dass du am Sponsorenlauf teilnimmst.
 			</div>
 		</div>
 
 		<div class="card mb-3">
-			<div class="card-header">Die Nächsten Sponsorenläufe</div>
+			<div class="card-header">Die nächsten Sponsorenläufe</div>
 
 			<div class="card-body">
 				<div class="table-responsive">
