@@ -12,7 +12,7 @@ SponRun ist eine Anwendung, die Organisationen für einen Sponsorenlauf nutzen k
   - Tokenizer PHP Extension
 - Laravel kompatible Datenbank (<https://laravel.com/docs/database>)
 
-##Tools
+## Tools
 ### Composer
 <https://getcomposer.org/>
 
@@ -57,6 +57,16 @@ Dann das DB-Schema generieren lassen:
 php artisan migrate
 ```
 Abschließend den VirtuellenHost einrichten auf das Verzeichnis "public".
+
+### Admin einrichten
+Auf der Webseite registrieren (Der erste User erhält die ID=1)
+
+Dann die Admin-Rolle in die Datenbank einfügen und dem User (mit ID=1) die Rolle zuweisen.
+
+```bash
+php artisan db:seed --class=RolesAndFirstAdmin
+```
+
 
 ### Für Entwicklung
 Alle PHP-Abhängigkeiten für Entwickler laden:
