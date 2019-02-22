@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\MessageBag;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use App\Notifications\VerifyEmail;
@@ -82,7 +83,7 @@ class RegisterController extends Controller
 	 */
 	protected function create(array $data, $confirmed, $confirmation_code)
 	{
-		$data['password'] = bcrypt($data['password']);
+		$data['password'] = Hash::make($data['password']);
 		$data['birthday'] = strtotime($data['birthday']);
 		$user = new User($data);
 		$user->email = $data['email'];
