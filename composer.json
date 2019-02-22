@@ -1,22 +1,23 @@
 {
-	"name" : "laravel/laravel",
-	"description" : "The Laravel Framework.",
+	"name" : "ghdoergeloh/sponrun",
+	"description" : "App zur Verwaltung von Sponsorenläufen.",
 	"keywords" : [
-		"framework",
-		"laravel"
+		"sponsor",
+		"run",
+		"sponrun"
 	],
 	"license" : "MIT",
 	"type" : "project",
 	"require" : {
-		"php": "~7.0.0",
-		"doctrine/dbal": "^2.5",
-		"fideloper/proxy": "~3.3",
-		"laravel/framework": "5.5.*",
-		"laravel/tinker": "~1.0",
-		"laravelcollective/html": "5.5.*",
-		"maatwebsite/excel": "~3.0",
-		"propaganistas/laravel-phone": "~4.0",
-		"zizaco/entrust": "^1.9"
+		"php" : "~7.3.0",
+		"doctrine/dbal" : "^2.5",
+		"fideloper/proxy" : "~3.3",
+		"laravel/framework" : "5.5.*",
+		"laravel/tinker" : "~1.0",
+		"laravelcollective/html" : "5.5.*",
+		"maatwebsite/excel" : "~3.0",
+		"propaganistas/laravel-phone" : "~4.0",
+		"zizaco/entrust" : "^1.9"
 	},
 	"require-dev" : {
 		"filp/whoops" : "~2.0",
@@ -51,5 +52,13 @@
 		"preferred-install" : "dist",
 		"sort-packages" : true,
 		"optimize-autoloader" : true
-	}
+	},
+	"homepage" : "https://www.ghdoergeloh.de/sponrun",
+	"minimum-stability" : "stable",
+	"authors" : [{
+			"name" : "Georg Dörgeloh",
+			"email" : "georg@ghdoergeloh.de",
+			"homepage" : "https://www.ghdoergeloh.de"
+		}
+	]
 }
