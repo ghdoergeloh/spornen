@@ -7,9 +7,6 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Zizaco\Entrust\Traits\EntrustUserTrait;
-use App\Notifications\ResetPassword;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\MessageBag;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -71,16 +68,5 @@ class User extends Authenticatable implements MustVerifyEmail
 		$this->save();
 		
 		return $this->api_token;
-	}
-	
-	
-	/**
-	 * {@inheritDoc}
-	 * @see \Illuminate\Contracts\Auth\CanResetPassword::sendPasswordResetNotification()
-	 */
-	public function sendPasswordResetNotification($token)
-	{
-		$this->notify(new ResetPassword($token));
-		Session::flash('messages-success', new MessageBag(["Dir wurde eine Mail zugeschickt"]));
 	}
 }
