@@ -40,20 +40,7 @@ class LoginController extends Controller
 	 */
 	public function __construct()
 	{
-		$this->middleware('guest', ['except' => 'logout']);
-	}
-
-	/**
-	 * Get the needed authorization credentials from the request.
-	 *
-	 * @param Request $request
-	 * @return array
-	 */
-	protected function credentials(Request $request)
-	{
-		$credentials = $request->only($this->username(), 'password');
-		$credentials['confirmed'] = true;
-		return $credentials;
+		$this->middleware('guest')->except('logout');
 	}
 
 	/**

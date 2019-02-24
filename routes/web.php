@@ -18,8 +18,6 @@ Route::get('/', function () {
 });
 
 Auth::routes(['verify' => true]);
-Route::get('register/verify/{confirmation_code}', 'Auth\RegisterController@confirm')->name(
-	'register.verify');
 
 // User
 Route::get('home', 'HomeController@showHomeView');

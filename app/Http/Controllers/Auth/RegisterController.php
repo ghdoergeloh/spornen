@@ -54,8 +54,8 @@ class RegisterController extends Controller
 	/**
 	 * Get a validator for an incoming registration request.
 	 *
-	 * @param array $data
-	 * @return Validator
+	 * @param  array  $data
+	 * @return \Illuminate\Contracts\Validation\Validator
 	 */
 	protected function validator(array $data)
 	{
@@ -81,59 +81,13 @@ class RegisterController extends Controller
 	 * @param array $data
 	 * @return User
 	 */
-	protected function create(array $data, $confirmed, $confirmation_code)
+	protected function create(array $data)
 	{
 		$data['password'] = Hash::make($data['password']);
 		$data['birthday'] = strtotime($data['birthday']);
 		$user = new User($data);
 		$user->email = $data['email'];
-		$user->confirmed = false;
-		$user->confirmation_code = $confirmation_code;
 		$user->save();
 		return $user;
-	}
-
-	public function confirm(Request $request, $confirmation_code)
-	{
-		if (is_null($confirmation_code)) {
-			return redirect($this->redirectPath());
-		}
-
-		$email = $request->input('email');
-		$user = User::where('email', '=', $email)->where('confirmation_code', '=',
-			$confirmation_code)->first();
-
-		if (! is_null($user)) {
-			$user->confirmed = 1;
-			$user->confirmation_code = null;
-			$user->save();
-			Session::flash('messages-success',
-				new MessageBag([
-					"Die E-Mail-Adresse wurde bestätigt."
-				]));
-			$this->guard()->login($user);
-			return redirect('home');
-		}
-		return redirect($this->redirectPath());
-	}
-
-	/**
-	 * Handle a registration request for the application.
-	 *
-	 * @param Request $request
-	 * @return Response
-	 */
-	public function register(Request $request)
-	{
-		$this->validator($request->all())
-			->validate();
-
-		$confirmation_code = str_random(30);
-		$user = $this->create($request->all(), false, $confirmation_code);
-		event(new Registered($user));
-
-		$user->notify(new VerifyEmail($confirmation_code));
-
-		return view('auth.registerEmailSend');
 	}
 }
