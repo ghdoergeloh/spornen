@@ -51,7 +51,8 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
+    	'ability' => \Zizaco\Entrust\Middleware\EntrustAbility::class,
+    	'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
     	'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
@@ -61,6 +62,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
 		'role' => \Zizaco\Entrust\Middleware\EntrustRole::class,
 		'permission' => \Zizaco\Entrust\Middleware\EntrustPermission::class,
-		'ability' => \Zizaco\Entrust\Middleware\EntrustAbility::class,
+    	'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
     ];
 }

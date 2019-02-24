@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\MessageBag;
 
@@ -47,15 +48,16 @@ class ResetPasswordController extends Controller
 	/**
 	 * Get the response for a successful password reset.
 	 *
-	 * @param string $response
+	 * @param  \Illuminate\Http\Request  $request
+	 * @param  string  $response
 	 * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
 	 */
-	protected function sendResetResponse($response)
+	protected function sendResetResponse(Request $request, $response)
 	{
 		Session::flash('messages-success',
 			new MessageBag([
 				"Das Passwort wurde erfolgreich geändert."
 			]));
-		return $this->sendResetResponseTrait($response);
+		return $this->sendResetResponseTrait($request, $response);
 	}
 }

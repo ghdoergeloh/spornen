@@ -2,22 +2,18 @@
 /public/hot
 /public/storage
 /storage/*.key
-/vendor/.idea
-/.vagrant
+/vendor
+.env
+.phpunit.result.cache
 Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-.phpunit.result.cache
 
-#customer-files and settings 
-.env
+#customer-files and settings
 /public/custom
 
 #eclipse
 /.buildpath
 /.project
 /.settings
-
-
-/vendor/
