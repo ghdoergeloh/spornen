@@ -27,8 +27,7 @@ class CreateUsersTable extends Migration
 			$table->string('city');
 			$table->enum('gender', array('m', 'f'));
 			$table->string('password');
-			$table->boolean('confirmed')->default(false);
-			$table->string('confirmation_code')->nullable();
+			$table->timestamp('email_verified_at')->nullable();
 			$table->rememberToken();
 			$table->timestamps();
 		});

@@ -1,0 +1,16 @@
+{
+    "Verify Your Email Address": "E-Mail-Adresse bestätigen",
+    "A fresh verification link has been sent to your email address.": "Ein neuer Bestätigungslink wurde dir per Mail zugeschickt.",
+    "Before proceeding, please check your email for a verification link.": "Bevor Du fortfährst, schaue bitte in Deine E-Mails nach einem Link zur Bestätigung Deiner E-Mail-Adresse.",
+    "If you did not receive the email": "Falls Du die E-Mail nicht erhalten hast",
+    "click here to request another": "klicke hier um eine neue zuerhalten",
+    "If you have any problems, please contact": "Bei Schwierigkeiten wende Dich bitte an",
+    "Please click the button below to verify your email address.": "Bitte klicke auf den Button unten, um deine E-Mail-Adresse zu bestätigen.",
+    "Verify Email Address": "E-Mail-Adresse bestätigen",
+    "If you did not create an account, no further action is required.": "Wenn du keinen Account erstellt hast, ist keine Aktion nötig.",
+    "Reset Password Notification": "Passwort zurücksetzen",
+    "You are receiving this email because we received a password reset request for your account.": "Du erhältst diese E-Mail, weil für Deinen Account eine Anfrage gestellt wurde, das Passwort zurück zu setzen.",
+    "Reset Password": "Passwort zurücksetzen",
+    "This password reset link will expire in :count minutes.": "Dieser Reset-Link wird in :count Minuten ablaufen.",
+    "If you did not request a password reset, no further action is required.": "Wenn du dein Passwort nicht zurücksetzen willst, ist keine Aktion nötig."
+}

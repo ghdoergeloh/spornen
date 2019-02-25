@@ -13,50 +13,61 @@
 		"php": "~7.3.0",
 		"doctrine/dbal": "^2.5",
 		"fideloper/proxy": "4.0",
-		"laravel/framework": "5.6.*",
+		"laravel/framework": "5.7.*",
 		"laravel/tinker": "~1.0",
-		"laravelcollective/html": "5.6.*",
+		"laravelcollective/html": "5.7.*",
 		"maatwebsite/excel": "~3.1",
 		"propaganistas/laravel-phone": "~4.1",
 		"symfony/thanks": "^1.1",
 		"zizaco/entrust": "^1.9"
 	},
 	"require-dev" : {
+	    "beyondcode/laravel-dump-server": "^1.0",
 		"filp/whoops" : "~2.0",
 		"fzaninotto/faker" : "~1.4",
 		"mockery/mockery" : "~1.0",
 		"nunomaduro/collision": "^2.0",
 		"phpunit/phpunit" : "^7.0"
 	},
-	"autoload" : {
+	"config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": []
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        },
 		"classmap" : [
 			"database/seeds",
 			"database/factories"
-		],
-		"psr-4" : {
-			"App\\" : "app/"
-		}
+		]
 	},
 	"autoload-dev" : {
 		"psr-4" : {
 			"Tests\\" : "tests/"
 		}
 	},
+	"minimum-stability": "dev",
+    "prefer-stable": true,
 	"scripts" : {
-		"post-root-package-install" : "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
-		"post-create-project-cmd" : "@php artisan key:generate",
-		"post-autoload-dump" : [
-			"Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-			"@php artisan package:discover"
-		]
-	},
-	"config" : {
-		"preferred-install" : "dist",
-		"sort-packages" : true,
-		"optimize-autoloader" : true
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi"
+        ],
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "@php artisan key:generate --ansi"
+        ]
 	},
 	"homepage" : "https://www.ghdoergeloh.de/sponrun",
-	"minimum-stability" : "stable",
 	"authors" : [{
 			"name" : "Georg Dörgeloh",
 			"email" : "georg@ghdoergeloh.de",

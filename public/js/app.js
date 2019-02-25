@@ -67473,19 +67473,14 @@ module.exports = function(module) {
 
 /***/ }),
 
-/***/ "./resources/assets/js/app.js":
-/*!************************************!*\
-  !*** ./resources/assets/js/app.js ***!
-  \************************************/
+/***/ "./resources/js/app.js":
+/*!*****************************!*\
+  !*** ./resources/js/app.js ***!
+  \*****************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-__webpack_require__(/*! ./bootstrap */ "./resources/assets/js/bootstrap.js");
+__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 __webpack_require__(/*! jquery.easing */ "./node_modules/jquery.easing/jquery.easing.js");
 
@@ -67499,19 +67494,18 @@ __webpack_require__(/*! startbootstrap-sb-admin/vendor/datatables/jquery.dataTab
 
 __webpack_require__(/*! startbootstrap-sb-admin/js/sb-admin.min.js */ "./node_modules/startbootstrap-sb-admin/js/sb-admin.min.js");
 
-__webpack_require__(/*! ./custom */ "./resources/assets/js/custom.js");
+__webpack_require__(/*! ./custom */ "./resources/js/custom.js");
 
 /***/ }),
 
-/***/ "./resources/assets/js/bootstrap.js":
-/*!******************************************!*\
-  !*** ./resources/assets/js/bootstrap.js ***!
-  \******************************************/
+/***/ "./resources/js/bootstrap.js":
+/*!***********************************!*\
+  !*** ./resources/js/bootstrap.js ***!
+  \***********************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-window.Popper = __webpack_require__(/*! popper.js */ "./node_modules/popper.js/dist/esm/popper.js").default;
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
  * for JavaScript based Bootstrap features such as modals and tabs. This
@@ -67562,10 +67556,10 @@ if (token) {
 
 /***/ }),
 
-/***/ "./resources/assets/js/custom.js":
-/*!***************************************!*\
-  !*** ./resources/assets/js/custom.js ***!
-  \***************************************/
+/***/ "./resources/js/custom.js":
+/*!********************************!*\
+  !*** ./resources/js/custom.js ***!
+  \********************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -67680,10 +67674,10 @@ $(document).ready(function () {
 
 /***/ }),
 
-/***/ "./resources/assets/sass/app.scss":
-/*!****************************************!*\
-  !*** ./resources/assets/sass/app.scss ***!
-  \****************************************/
+/***/ "./resources/sass/app.scss":
+/*!*********************************!*\
+  !*** ./resources/sass/app.scss ***!
+  \*********************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -67692,14 +67686,14 @@ $(document).ready(function () {
 /***/ }),
 
 /***/ 0:
-/*!***************************************************************************!*\
-  !*** multi ./resources/assets/js/app.js ./resources/assets/sass/app.scss ***!
-  \***************************************************************************/
+/*!*************************************************************!*\
+  !*** multi ./resources/js/app.js ./resources/sass/app.scss ***!
+  \*************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/georg/git/sponrun/resources/assets/js/app.js */"./resources/assets/js/app.js");
-module.exports = __webpack_require__(/*! /Users/georg/git/sponrun/resources/assets/sass/app.scss */"./resources/assets/sass/app.scss");
+__webpack_require__(/*! /Users/georg/git/sponrun/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/georg/git/sponrun/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
