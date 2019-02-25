@@ -54,17 +54,17 @@
 	<!-- top navigation bar -->
 		<ul class="navbar-nav ml-auto">
 			<!-- Authentication Links -->
-			@if (!empty(env('URL_IMPRESSUM')))
+			@if (!empty(env('ORG_IMPRESSUM')))
 			<li class="nav-item">
-				<a class="nav-link" href="{{ env('URL_IMPRESSUM') }}" target="_blank">
+				<a class="nav-link" href="{{ env('ORG_IMPRESSUM') }}" target="_blank">
 					<i class="fa fa-fw fa-info"></i>
 					<span class="nav-link-text">Impressum</span>
 				</a>
 			</li>
 			@endif
-			@if (!empty(env('URL_PRIVACY_STATEMENT')))
+			@if (!empty(env('ORG_PRIVACY_STATEMENT')))
 			<li class="nav-item">
-				<a class="nav-link" href="{{ env('URL_PRIVACY_STATEMENT') }}" target="_blank">
+				<a class="nav-link" href="{{ env('ORG_PRIVACY_STATEMENT') }}" target="_blank">
 					<i class="fa fa-fw fa-lock"></i>
 					<span class="nav-link-text">Datenschutz</span>
 				</a>
