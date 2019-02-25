@@ -13,16 +13,19 @@ class AddColumnEmailVerifiedAt extends Migration
      */
     public function up()
     {
-    	Schema::table('users', function (Blueprint $table) {
-    		$table->timestamp('email_verified_at')->nullable();
-    	});
+    	if (!Schema::hasColumn('users', 'email_verified_at'))
+    	{
+	    	Schema::table('users', function (Blueprint $table) {
+	    		$table->timestamp('email_verified_at')->nullable();
+	    	});
+    	}
 
     	if (Schema::hasColumn('users', 'confirmed'))
     	{
     		$users = \App\Domain\Model\Auth\User::all();
     		
     		foreach ($users as $user) {
-    			if ($user->confirmed) {
+    			if ($user->confirmed && $user->email_verified_at == null) {
     				$user->email_verified_at = $user->created_at;
     				$user->save();
     			}
@@ -42,8 +45,5 @@ class AddColumnEmailVerifiedAt extends Migration
      */
     public function down()
     {
-    	Schema::table('users', function (Blueprint $table) {
-    		$table->dropColumn('email_verified_at');
-    	});
     }
 }
