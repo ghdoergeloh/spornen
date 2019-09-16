@@ -14,7 +14,7 @@ class AddColumnHashToRunParticipations extends Migration
     public function up()
     {
         Schema::table('run_participations', function (Blueprint $table) {
-			$table->string('hash');
+			$table->string('hash')->nullable(true);
         });
 		
 		$runparts = \App\Domain\Model\Sponsor\RunParticipation::all();
@@ -23,8 +23,8 @@ class AddColumnHashToRunParticipations extends Migration
 			$runpart->save();
 		}
 		
-        Schema::table('run_participations', function (Blueprint $table) {
-			$table->string('hash')->unique()->change();
+		Schema::table('run_participations', function (Blueprint $table) {
+			$table->string('hash')->nullable(false)->unique()->change();
         });
     }
 

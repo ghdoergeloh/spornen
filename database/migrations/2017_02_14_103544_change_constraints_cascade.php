@@ -13,12 +13,15 @@ class ChangeConstraintsCascade extends Migration
      */
     public function up()
     {
+    	if (DB::connection() instanceof \Illuminate\Database\SQLiteConnection) {
+    		return;
+    	}
         Schema::table('run_participations', function (Blueprint $table) {
-            $table->dropForeign('run_participations_sponsored_run_id_foreign');
+            $table->dropForeign(['sponsored_run_id']);
 			$table->foreign('sponsored_run_id')->references('id')->on('sponsored_runs')->onDelete('cascade');
         });
         Schema::table('sponsors', function (Blueprint $table) {
-            $table->dropForeign('sponsors_run_participation_id_foreign');
+            $table->dropForeign('[run_participation_id]');
 			$table->foreign('run_participation_id')->references('id')->on('run_participations')->onDelete('cascade');
         });
     }
