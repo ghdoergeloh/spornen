@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Str;
 use Faker\Generator as Faker;
+use Illuminate\Support\Facades\Hash;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,11 +16,19 @@ use Faker\Generator as Faker;
 */
 
 $factory->define(App\Domain\Model\Auth\User::class, function (Faker $faker) {
-    return [
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'email_verified_at' => now(),
-        'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
-        'remember_token' => Str::random(10),
+	$gender = $faker->randomElement(['m', 'f']);
+	
+	return [
+		'firstname' => $faker->firstName($gender),
+		'lastname' => $faker->lastName,
+		'street' => $faker->streetName,
+		'housenumber' => $faker->buildingNumber,
+		'postcode' => $faker->postcode,
+		'city' => $faker->city,
+		'birthday' => $faker->dateTime,
+		'gender' => $gender,
+		'phone' => $faker->phoneNumber,
+		'email' => $faker->safeEmail,
+		'password' => Hash::make('secret')
     ];
 });
